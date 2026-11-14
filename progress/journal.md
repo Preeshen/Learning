@@ -122,3 +122,13 @@
 
 **Non-obvious**: Fixture-backed days can prove the instrumentation works even though the latency numbers themselves won't be meaningful until run against a live API
 
+## Day 013 — 2026-11-14 — trees-traversals {#day-013}
+
+**Status**: complete · **Commit**: 3229389b1248ad17737690111400a47b003bc2ad · **Domain**: dsa · **Effort**: 6 h
+
+**Built**: Tree traversals (in/pre/post-order), BST validation via ancestor bounds, max depth, and lowest common ancestor
+
+**Broke**: A naive parent-only BST check passes a subtle violation (grandchild value out of grandparent's range); only the ancestor-bound version catches it
+
+**Non-obvious**: Inorder traversal of a valid BST is always sorted -- that's sometimes a cheaper validation trick than bound-passing recursion, at the cost of O(n) extra space
+
