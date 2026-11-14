@@ -53,7 +53,7 @@ seconds across all 70 entries so it can run in a pre-commit hook.
 proprietary datasets, or licensed course material committed (FR-035). Every artifact reproducible
 from a clean checkout. No GPU assumed.
 
-**Scale/Scope**: 70 day entries across 10 weeks and 6 domains, ~25 topics, 10 weekly review
+**Scale/Scope**: 70 day entries across 10 weeks and 6 domains, ~27 topics, 10 weekly review
 checkpoints, 3 promotion milestones, 6 role-coverage mappings. The CLI is roughly 7 commands over
 ~900 lines. The programme budget is 320 hours.
 
@@ -198,20 +198,27 @@ Planned distribution, to be realised as concrete entries by `/speckit-tasks`:
 
 | Domain | Days | % of 70 | Cap (SC-003: ≤40%) |
 |---|---|---|---|
-| Applied AI Engineering | 24 | 34% | OK |
-| DSA | 16 | 23% | OK |
+| Applied AI Engineering | 22 | 31% | OK |
+| DSA | 18 | 26% | OK |
 | ML & DL | 14 | 20% | OK |
 | Python depth | 8 | 11% | OK |
 | System design | 6 | 9% | OK |
 | Git | 2 | 3% | OK |
 | **Total** | **70** | **100%** | |
 
+DSA's 2 extra days (16 → 18) cover Tries and Bit Manipulation as full dedicated days rather than
+folding them into other days or cutting them to stretch material — both are genuinely tested at
+MANGOS-tier companies, just below the top-tier patterns. The 2 days come from Applied AI
+Engineering (24 → 22), which had the most slack under the 40% domain cap and whose milestone
+prerequisites (day 35/49/63) are unaffected by trimming 2 non-prerequisite days elsewhere in its
+allocation.
+
 Role-tier split, satisfying FR-025 and SC-012 (target 60 / 25 / 15, tolerance ±5 points):
 
 | Tier | Role | Days | % | Composition |
 |---|---|---|---|---|
-| Primary | AI / Agentic AI Engineer | 42 | 60% | Applied AI 24, ML 8, Python 6, Systems 4 |
-| Secondary | FDE | 18 | 26% | DSA 16, Systems 2 |
+| Primary | AI / Agentic AI Engineer | 40 | 57% | Applied AI 22, ML 8, Python 6, Systems 4 |
+| Secondary | FDE | 20 | 29% | DSA 18, Systems 2 |
 | Remaining | ML / Inference / Embedded / Test-validation | 10 | 14% | ML 6, Python 2, Git 2 |
 
 Effort budget: 50 weekday entries at 4 h and 20 weekend entries at 6 h = 320 h. At least 12 entries

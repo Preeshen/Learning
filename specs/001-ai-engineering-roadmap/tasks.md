@@ -130,7 +130,7 @@ their topic.
   test-validation) — each with non-empty `purpose`/`demonstrates`/`supports_roles` (FR-020/V-20),
   and an `interview_imminent_plan` naming a minimum drill-topic subset per role (FR-026/V-21) —
   content per plan.md's Day allocation and Role-tier split tables
-  (24 applied-ai / 16 dsa / 14 ml / 8 python / 6 systems / 2 git; 42 primary / 18 secondary / 10
+  (22 applied-ai / 18 dsa / 14 ml / 8 python / 6 systems / 2 git; 40 primary / 20 secondary / 10
   remaining), each day entry carrying every required DayEntry field from data-model.md §3, at least
   one `serving: fastapi` day within applied-ai per FR-030a, and at least one day per applied-ai
   topic that uses Claude Code skills/Agent SDK/MCP carrying a non-empty `generic_concept` per
