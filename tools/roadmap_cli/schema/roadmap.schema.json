@@ -1,0 +1,163 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "roadmap.yaml",
+  "type": "object",
+  "required": [
+    "version", "start_date", "end_date", "total_days", "weekday_hours", "weekend_hours",
+    "primary_role", "secondary_role", "domains", "roles", "topics", "weeks", "milestones",
+    "interview_imminent_plan"
+  ],
+  "properties": {
+    "version": {"type": "integer"},
+    "start_date": {"type": "string", "format": "date"},
+    "end_date": {"type": "string", "format": "date"},
+    "total_days": {"type": "integer"},
+    "weekday_hours": {"type": "number"},
+    "weekend_hours": {"type": "number"},
+    "primary_role": {"type": "string"},
+    "secondary_role": {"type": "string"},
+    "domains": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["name", "directory", "target_days", "min_depth", "supports_roles"],
+        "properties": {
+          "name": {"type": "string"},
+          "directory": {"type": "string"},
+          "target_days": {"type": "integer"},
+          "min_depth": {"type": "string"},
+          "supports_roles": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "roles": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["name", "tier", "supporting_domains"],
+        "properties": {
+          "name": {"type": "string"},
+          "tier": {"enum": ["primary", "secondary", "remaining"]},
+          "supporting_domains": {"type": "array", "items": {"type": "string"}},
+          "evidence_required": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "topics": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["name", "domain", "first_day", "resurface_after"],
+        "properties": {
+          "name": {"type": "string"},
+          "domain": {"type": "string"},
+          "first_day": {"type": "integer"},
+          "resurface_after": {"type": "array", "items": {"type": "integer"}, "minItems": 2},
+          "references": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["title", "url"],
+              "properties": {"title": {"type": "string"}, "url": {"type": "string"}}
+            }
+          }
+        }
+      }
+    },
+    "weeks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["number", "theme", "domains", "outcome", "days", "review"],
+        "properties": {
+          "number": {"type": "integer"},
+          "theme": {"type": "string"},
+          "domains": {"type": "array", "items": {"type": "string"}},
+          "outcome": {"type": "string"},
+          "days": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id", "date", "day_type", "objective", "domain", "topic", "artifact",
+                "verification", "notes_topic", "effort_hours", "tier", "priority", "gate",
+                "minimum_viable"
+              ],
+              "properties": {
+                "id": {"type": "integer"},
+                "date": {"type": "string", "format": "date"},
+                "day_type": {"enum": ["weekday", "weekend"]},
+                "objective": {"type": "string", "minLength": 1},
+                "domain": {"type": "string"},
+                "topic": {"type": "string"},
+                "artifact": {"type": "string", "minLength": 1},
+                "verification": {"type": "string", "minLength": 1},
+                "notes_topic": {"type": "string", "minLength": 1},
+                "effort_hours": {"type": "number"},
+                "tier": {"enum": ["primary", "secondary", "remaining"]},
+                "priority": {"enum": ["core", "optional"]},
+                "gate": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+                "minimum_viable": {"type": "string", "minLength": 1},
+                "prerequisites": {"type": "array", "items": {"type": "integer"}},
+                "from_scratch_of": {"type": "integer"},
+                "measurement": {
+                  "type": "object",
+                  "required": ["metric", "baseline", "results_path", "method"],
+                  "properties": {
+                    "metric": {"enum": ["latency", "throughput", "memory", "accuracy", "cost"]},
+                    "baseline": {"type": "string", "minLength": 1},
+                    "results_path": {"type": "string", "minLength": 1},
+                    "method": {"type": "string", "minLength": 1}
+                  }
+                },
+                "language": {"type": "string"},
+                "language_exception": {"type": "string"},
+                "offline": {"type": "boolean"},
+                "offline_fallback": {"type": "string"},
+                "serving": {"enum": ["fastapi"]},
+                "generic_concept": {"type": "string"}
+              }
+            }
+          },
+          "review": {
+            "type": "object",
+            "required": ["week", "day", "resolves", "procedure", "output_path"],
+            "properties": {
+              "week": {"type": "integer"},
+              "day": {"type": "integer"},
+              "resolves": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+              "procedure": {"type": "array", "items": {"type": "string"}},
+              "output_path": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "milestones": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "id", "name", "after_day", "prerequisite_days", "purpose", "demonstrates",
+          "supports_roles", "external", "record_path"
+        ],
+        "properties": {
+          "id": {"type": "string"},
+          "name": {"type": "string"},
+          "after_day": {"type": "integer"},
+          "prerequisite_days": {"type": "array", "items": {"type": "integer"}},
+          "purpose": {"type": "string", "minLength": 1},
+          "demonstrates": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+          "supports_roles": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+          "external": {"const": true},
+          "record_path": {"type": "string"}
+        }
+      }
+    },
+    "interview_imminent_plan": {
+      "type": "object",
+      "additionalProperties": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+    }
+  }
+}

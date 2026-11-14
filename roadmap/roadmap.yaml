@@ -1,0 +1,331 @@
+version: 1
+start_date: 2026-11-16
+end_date: 2027-01-24
+total_days: 70
+weekday_hours: 4
+weekend_hours: 6
+primary_role: agentic-ai
+secondary_role: fde
+
+domains:
+  python:
+    name: Python
+    directory: python
+    target_days: 8
+    min_depth: "Typed, tested, packaged, profiled Python used as the implementation language for every other domain."
+    supports_roles: [agentic-ai, fde, ml-engineer, inference, embedded-ml, test-validation]
+  dsa:
+    name: Data Structures & Algorithms
+    directory: dsa
+    target_days: 16
+    min_depth: "Solve unseen large-tech-frequency problems cold, stating complexity, within interview time limits."
+    supports_roles: [fde, agentic-ai]
+  git:
+    name: Git
+    directory: git
+    target_days: 2
+    min_depth: "Comfortably rebase, bisect, and resolve conflicts without looking up the commands."
+    supports_roles: [fde]
+  systems:
+    name: System Design
+    directory: systems
+    target_days: 6
+    min_depth: "Design a serving/inference system with batching, caching, and failure isolation under stated load."
+    supports_roles: [fde, agentic-ai, inference]
+  ml:
+    name: ML & DL
+    directory: ml
+    target_days: 14
+    min_depth: "Implement core training/inference mechanisms from scratch; report metric, split, and baseline."
+    supports_roles: [agentic-ai, ml-engineer, inference, embedded-ml, test-validation]
+  applied-ai:
+    name: Applied AI Engineering
+    directory: applied-ai
+    target_days: 24
+    min_depth: "Build, evaluate and debug a tool-using agent and a retrieval pipeline end to end."
+    supports_roles: [agentic-ai, fde, test-validation]
+
+roles:
+  agentic-ai:
+    name: AI / Agentic AI Engineer
+    tier: primary
+    supporting_domains: [applied-ai, ml, python, systems]
+  fde:
+    name: Forward Deployed Engineer
+    tier: secondary
+    supporting_domains: [dsa, systems, applied-ai, git]
+  ml-engineer:
+    name: ML Engineer
+    tier: remaining
+    supporting_domains: [ml, python]
+    evidence_required:
+      - "One artifact exercising classical ML training and evaluation"
+  inference:
+    name: Inference Engineer
+    tier: remaining
+    supporting_domains: [ml, python, systems]
+    evidence_required:
+      - "One artifact measuring inference latency and memory against a baseline"
+  embedded-ml:
+    name: Embedded ML Engineer
+    tier: remaining
+    supporting_domains: [ml, python]
+    evidence_required:
+      - "One artifact exercising model size reduction"
+  test-validation:
+    name: AI Test Validation Engineer
+    tier: remaining
+    supporting_domains: [applied-ai, ml]
+    evidence_required:
+      - "One artifact exercising systematic test and validation of a model or model-backed system"
+
+topics:
+  project-tooling:
+    name: Project tooling
+    domain: python
+    first_day: 1
+    resurface_after: [7, 21]
+    references: []
+  arrays-hashing:
+    name: Arrays & hashing
+    domain: dsa
+    first_day: 2
+    resurface_after: [7, 21]
+    references:
+      - title: "Two Sum"
+        url: "https://leetcode.com/problems/two-sum/"
+  two-pointers:
+    name: Two pointers
+    domain: dsa
+    first_day: 3
+    resurface_after: [7, 21]
+    references:
+      - title: "Container With Most Water"
+        url: "https://leetcode.com/problems/container-with-most-water/"
+  git-fundamentals:
+    name: Git fundamentals
+    domain: git
+    first_day: 4
+    resurface_after: [14, 35]
+    references: []
+  sliding-window:
+    name: Sliding window
+    domain: dsa
+    first_day: 5
+    resurface_after: [7, 21]
+    references:
+      - title: "Longest Substring Without Repeating Characters"
+        url: "https://leetcode.com/problems/longest-substring-without-repeating-characters/"
+  tool-calling:
+    name: Tool-calling loops
+    domain: applied-ai
+    first_day: 6
+    resurface_after: [14, 35]
+    references: []
+
+weeks:
+  - number: 1
+    theme: "Python depth and DSA patterns I"
+    domains: [python, dsa, git, applied-ai]
+    outcome: "Typed, tested, packaged Python; arrays/hashing and two-pointer patterns solved cold; first tool-calling loop built."
+    days:
+      - id: 1
+        date: 2026-11-16
+        day_type: weekday
+        objective: "Stand up the repo toolchain and complete the worked example day."
+        domain: python
+        topic: project-tooling
+        artifact: python/project-tooling/env_report.py
+        verification: "pytest python/project-tooling/ passes; roadmap validate exits 0"
+        notes_topic: "Why a committed lockfile is the difference between reproducible and 'works here'"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        gate:
+          - "uv run roadmap validate exits 0"
+          - "pytest python/project-tooling/ passes"
+          - "python/project-tooling/NOTES.md modified in this commit"
+        minimum_viable: "Toolchain installed and `roadmap today` runs; defer the notes."
+      - id: 2
+        date: 2026-11-17
+        day_type: weekday
+        objective: "Solve the arrays/hashing pattern from scratch across 4 problems with a shared test harness."
+        domain: dsa
+        topic: arrays-hashing
+        artifact: dsa/arrays-hashing/solutions.py
+        verification: "pytest dsa/arrays-hashing/ passes; complexity asserted per solution"
+        notes_topic: "Why a hash map turns an O(n^2) lookup into O(n)"
+        effort_hours: 4
+        tier: secondary
+        priority: core
+        prerequisites: [1]
+        gate:
+          - "pytest dsa/arrays-hashing/ passes"
+          - "dsa/arrays-hashing/NOTES.md modified in this commit"
+          - "dsa/arrays-hashing/benchmarks.json committed"
+        minimum_viable: "2 of 4 problems solved and tested; defer the other 2 to the review slot."
+        measurement:
+          metric: latency
+          baseline: "naive O(n^2) nested-loop lookup"
+          results_path: dsa/arrays-hashing/benchmarks.json
+          method: "time both implementations across input sizes [100, 1000, 10000, 100000]"
+      - id: 3
+        date: 2026-11-18
+        day_type: weekday
+        objective: "Solve the two-pointers pattern from scratch across 4 problems."
+        domain: dsa
+        topic: two-pointers
+        artifact: dsa/two-pointers/solutions.py
+        verification: "pytest dsa/two-pointers/ passes; complexity asserted per solution"
+        notes_topic: "Why two pointers replaces an O(n^2) pair search with a single O(n) pass"
+        effort_hours: 4
+        tier: secondary
+        priority: core
+        prerequisites: [2]
+        gate:
+          - "pytest dsa/two-pointers/ passes"
+          - "dsa/two-pointers/NOTES.md modified in this commit"
+        minimum_viable: "2 of 4 problems solved and tested; defer the other 2 to the review slot."
+      - id: 4
+        date: 2026-11-19
+        day_type: weekday
+        objective: "Practice rebase, bisect, and conflict resolution against a scripted repo history."
+        domain: git
+        topic: git-fundamentals
+        artifact: git/git-fundamentals/drill.sh
+        verification: "drill.sh exits 0 after resolving the seeded conflicts"
+        notes_topic: "Why rebase rewrites history and merge doesn't, and when each is the right tool"
+        effort_hours: 4
+        tier: secondary
+        priority: optional
+        gate:
+          - "git/git-fundamentals/drill.sh exits 0"
+          - "git/git-fundamentals/NOTES.md modified in this commit"
+        minimum_viable: "Rebase drill only; defer bisect and conflict drills."
+      - id: 5
+        date: 2026-11-20
+        day_type: weekday
+        objective: "Solve the sliding-window pattern from scratch across 3 problems."
+        domain: dsa
+        topic: sliding-window
+        artifact: dsa/sliding-window/solutions.py
+        verification: "pytest dsa/sliding-window/ passes; complexity asserted per solution"
+        notes_topic: "Why a shrinking/growing window avoids re-scanning the whole string each time"
+        effort_hours: 4
+        tier: secondary
+        priority: core
+        prerequisites: [3]
+        gate:
+          - "pytest dsa/sliding-window/ passes"
+          - "dsa/sliding-window/NOTES.md modified in this commit"
+        minimum_viable: "2 of 3 problems solved; defer the third."
+      - id: 6
+        date: 2026-11-21
+        day_type: weekend
+        objective: "Build a tool-calling loop from scratch, then wrap it behind a FastAPI endpoint."
+        domain: applied-ai
+        topic: tool-calling
+        artifact: applied-ai/tool-calling/loop.py
+        verification: "pytest applied-ai/tool-calling/ passes, including 3 malformed-call cases"
+        notes_topic: "Why retrying a malformed tool call is not the same as retrying a failed one"
+        effort_hours: 6
+        tier: primary
+        priority: core
+        prerequisites: [1]
+        serving: fastapi
+        offline: true
+        offline_fallback: "replay recorded request/response pairs from applied-ai/_fixtures/"
+        gate:
+          - "pytest applied-ai/tool-calling/ passes"
+          - "applied-ai/tool-calling/NOTES.md modified in this commit"
+          - "applied-ai/tool-calling/benchmarks.json records retry counts against the no-retry baseline"
+        minimum_viable: "Happy-path loop with one tool, no FastAPI wrapper; defer serving and malformed-argument handling."
+        measurement:
+          metric: latency
+          baseline: "no-retry loop (fails immediately on malformed tool call)"
+          results_path: applied-ai/tool-calling/benchmarks.json
+          method: "count successful completions out of 20 malformed-call trials, with and without retry"
+      - id: 7
+        date: 2026-11-22
+        day_type: weekend
+        objective: "Weekly review: re-solve two DSA topics from a blank file, audit the week against the constitution, re-plan."
+        domain: dsa
+        topic: arrays-hashing
+        artifact: progress/reviews/week-01.md
+        verification: "roadmap review writes the Generated section; both re-solves recorded pass/fail"
+        notes_topic: "What the re-solve revealed about which parts of day 2 and day 3 were not actually retained"
+        effort_hours: 6
+        tier: secondary
+        priority: core
+        prerequisites: [2, 3]
+        gate:
+          - "roadmap review writes progress/reviews/week-01.md"
+          - "both re-solves recorded via roadmap complete --resolve"
+        minimum_viable: "Re-solve one topic instead of two; log the skip honestly."
+    review:
+      week: 1
+      day: 7
+      resolves: [arrays-hashing, two-pointers]
+      procedure:
+        - "Revision of fragile material outranks starting new material when time is short (FR-018)."
+        - "Re-solve each topic in `resolves` from a blank file; record pass/fail."
+        - "Run `roadmap review` and read the failed-gate report."
+        - "Audit the week's commits against constitution Principles I-VII."
+        - "Cut optional days from next week if behind; never carry a backlog."
+      output_path: progress/reviews/week-01.md
+
+milestones:
+  - id: code-review-triage-agent
+    name: "Code review triage agent"
+    after_day: 35
+    prerequisite_days: [22, 24, 28, 31, 34]
+    purpose: >-
+      An agent that ingests a PR diff and triages it (blocking / nitpick / false positive) by
+      running tools — linter, test runner, static analyzer — in a loop, evaluated against a
+      labeled set of real PRs rather than demoed on the happy path.
+    demonstrates:
+      - "Multi-step tool orchestration with malformed/failing tool-call recovery"
+      - "An evaluation set of labeled PRs scored for precision/recall against a no-agent baseline"
+      - "Cost and latency instrumented per review"
+    supports_roles: [agentic-ai, fde]
+    external: true
+    record_path: promoted/README.md
+  - id: inference-gateway
+    name: "Multi-backend inference gateway"
+    after_day: 49
+    prerequisite_days: [38, 41, 44, 47]
+    purpose: >-
+      A FastAPI service routing requests across 2+ model backends (e.g. a local quantized model
+      and a hosted API), with batching, response caching, rate-limit backoff, and a
+      health-check/fallback path when a backend degrades.
+    demonstrates:
+      - "Request batching and response caching under a stated load profile"
+      - "Rate-limit backoff and automatic fallback to a healthy backend, measured against a no-fallback baseline"
+      - "Deployment-pattern fluency: containerized, configurable, debuggable from logs alone"
+    supports_roles: [fde, inference]
+    external: true
+    record_path: promoted/README.md
+  - id: compression-validation-suite
+    name: "Model compression and validation benchmark suite"
+    after_day: 63
+    prerequisite_days: [52, 55, 58, 61]
+    purpose: >-
+      Train or fine-tune a small model, then quantize/prune it, reporting accuracy, latency, and
+      memory before vs. after against a stated baseline, plus a systematic adversarial/edge-case
+      test suite rather than a single happy-path accuracy number.
+    demonstrates:
+      - "Classical ML training and evaluation with a reported metric, dataset split, and baseline"
+      - "Inference latency and memory measured before/after compression against the baseline"
+      - "Model size reduction with the accuracy/latency/memory tradeoff reported, not just claimed"
+      - "A systematic test/validation suite covering adversarial and edge-case inputs"
+    supports_roles: [ml-engineer, inference, embedded-ml, test-validation]
+    external: true
+    record_path: promoted/README.md
+
+interview_imminent_plan:
+  agentic-ai: [tool-calling, arrays-hashing]
+  fde: [arrays-hashing, two-pointers, git-fundamentals]
+  ml-engineer: [arrays-hashing]
+  inference: [tool-calling]
+  embedded-ml: [arrays-hashing]
+  test-validation: [tool-calling]

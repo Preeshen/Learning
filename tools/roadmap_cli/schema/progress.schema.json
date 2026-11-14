@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "progress.yaml",
+  "type": "object",
+  "required": ["version", "roadmap_version", "started", "entries"],
+  "properties": {
+    "version": {"type": "integer"},
+    "roadmap_version": {"type": "integer"},
+    "started": {"type": "string", "format": "date"},
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["day", "status", "date"],
+        "properties": {
+          "day": {"type": "integer"},
+          "status": {"enum": ["pending", "complete", "skipped", "carried"]},
+          "date": {"type": "string", "format": "date"},
+          "commit": {"type": "string"},
+          "gate_passed": {"type": "boolean"},
+          "journal_ref": {"type": "string"},
+          "resolve_results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["topic", "passed"],
+              "properties": {
+                "topic": {"type": "string"},
+                "passed": {"type": "boolean"}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
