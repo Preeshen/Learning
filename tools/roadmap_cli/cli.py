@@ -20,6 +20,7 @@ from tools.roadmap_cli.loader import (
     REPO_ROOT,
     load_progress,
     load_roadmap,
+    topics_due,
 )
 from tools.roadmap_cli.models import DayEntry, ProgressStatus, Roadmap
 from tools.roadmap_cli.validate import validate_journal, validate_progress, validate_roadmap
@@ -51,7 +52,7 @@ def _load_roadmap_or_exit() -> Roadmap:
         raise typer.Exit(2)
 
 
-def _day_card(r: Roadmap, day: DayEntry, progress_entries: dict) -> None:
+def _day_card(r: Roadmap, day: DayEntry, progress_entries: dict, due_topics: list[str]) -> None:
     status_line = (
         f"Day {day.id} of {r.total_days} · {day.date} · {day.day_type} · "
         f"{day.effort_hours} h · {day.priority} · tier: {day.tier}"
@@ -80,6 +81,9 @@ def _day_card(r: Roadmap, day: DayEntry, progress_entries: dict) -> None:
             state = entry.status.value if entry else "pending"
             statuses.append(f"day {p} ({state})")
         console.print(f"PREREQUISITES   {', '.join(statuses)}")
+    if due_topics:
+        console.print()
+        console.print(f"DUE FOR RESOLVE {', '.join(due_topics)}")
 
 
 @app.command()
@@ -118,14 +122,24 @@ def today(
 
     target = r.day_by_id(current)
     if target is None:
-        console.print("Programme complete — see roadmap coverage for milestone status.")
+        console.print("Programme complete!")
+        console.print()
+        console.print("Milestones:")
+        for m in coverage_mod.milestone_status(r, progress):
+            if m["ready"]:
+                console.print(f"  READY  {m['name']} ({m['id']}) — build in a separate repo; "
+                              f"record at {m['record_path']}")
+            else:
+                console.print(f"  NOT YET  {m['name']} ({m['id']}) — "
+                              f"unmet prerequisite days: {m['unmet_prerequisite_days']}")
         raise typer.Exit(0)
 
+    due_topics = topics_due(r, progress)
     if json_out:
         print(json.dumps({"day": target.id, "objective": target.objective,
-                                   "artifact": target.artifact}))
+                                   "artifact": target.artifact, "due_for_resolve": due_topics}))
     else:
-        _day_card(r, target, progress_by_day)
+        _day_card(r, target, progress_by_day, due_topics)
     raise typer.Exit(0)
 
 
@@ -333,6 +347,40 @@ def _append_journal(day: DayEntry, status: str, built: str, broke: str, learned:
     JOURNAL_PATH.write_text(existing + "\n".join(lines), encoding="utf-8")
 
 
+def _recovery_note(week_obj, progress) -> str:
+    """FR-017: surface missed-day/consecutive-missed-day/missed-week recovery rules with a
+    named re-entry point, directly in the review's Generated section."""
+    week_day_ids = sorted(d.id for d in week_obj.days)
+    statuses = {
+        day_id: next(
+            (e.status for e in progress.entries if e.day == day_id), ProgressStatus.PENDING
+        )
+        for day_id in week_day_ids
+    }
+    skipped_ids = [d for d in week_day_ids if statuses[d] == ProgressStatus.SKIPPED]
+    re_entry = progress.current_day()
+
+    if len(skipped_ids) == len(week_day_ids) and week_day_ids:
+        return (f"- **Full week missed.** Re-entry point: day {re_entry}. "
+                f"No renumbering — resume there next session.\n")
+
+    consecutive_run = 0
+    max_consecutive = 0
+    for day_id in week_day_ids:
+        if statuses[day_id] == ProgressStatus.SKIPPED:
+            consecutive_run += 1
+            max_consecutive = max(max_consecutive, consecutive_run)
+        else:
+            consecutive_run = 0
+
+    if max_consecutive >= 3:
+        return (f"- **3+ consecutive days skipped this week.** Re-entry point: day {re_entry}.\n")
+    if skipped_ids:
+        return (f"- Missed day(s) this week: {', '.join(str(d) for d in skipped_ids)}. "
+                f"Re-entry point: day {re_entry}.\n")
+    return ""
+
+
 @app.command()
 def review(week: int | None = typer.Argument(None), regenerate: bool = typer.Option(False, "--regenerate")):
     r = _load_roadmap_or_exit()
@@ -365,6 +413,8 @@ def review(week: int | None = typer.Argument(None), regenerate: bool = typer.Opt
     )
     core_budget = sum(d.effort_hours for d in week_obj.days if d.priority == "core")
 
+    recovery_note = _recovery_note(week_obj, progress)
+
     out_path.parent.mkdir(parents=True, exist_ok=True)
     start = week_obj.days[0].date
     end = week_obj.days[-1].date
@@ -375,7 +425,7 @@ def review(week: int | None = typer.Argument(None), regenerate: bool = typer.Opt
 - Completed: {len(completed)} / {len(week_obj.days)} · Skipped: {len(skipped)} · Carried: {len(carried)}
 - Core effort used: {core_effort_used} h of {core_budget} h budgeted
 - Topics due for re-solve: {', '.join(week_obj.review.resolves)}
-
+{recovery_note}
 ## Re-solve results
 
 | Topic | Result | Action |
@@ -445,8 +495,9 @@ def coverage(role: str | None = typer.Option(None, "--role"), json_out: bool = t
 
     rows = coverage_mod.role_coverage(r, progress)
     shares = coverage_mod.domain_share(r)
+    milestones = coverage_mod.milestone_status(r, progress)
     if json_out:
-        print(json.dumps({"roles": rows, "domain_share": shares}))
+        print(json.dumps({"roles": rows, "domain_share": shares, "milestones": milestones}))
     else:
         console.print(f"{'Role':<28}{'Tier':<12}{'Days':>6}{'Done':>6}{'Readiness':>12}")
         for row in rows:
@@ -454,6 +505,15 @@ def coverage(role: str | None = typer.Option(None, "--role"), json_out: bool = t
                           f"{row['readiness']:>11.0%}")
         console.print()
         console.print("Domain share: " + " · ".join(f"{k} {v:.0%}" for k, v in shares.items()))
+        console.print()
+        console.print("Milestones:")
+        for m in milestones:
+            if m["ready"]:
+                console.print(f"  [green]READY[/green] {m['name']} ({m['id']}) — "
+                              f"build in a separate repo; record at {m['record_path']}")
+            else:
+                console.print(f"  [yellow]NOT YET[/yellow] {m['name']} ({m['id']}) — "
+                              f"unmet prerequisite days: {m['unmet_prerequisite_days']}")
     raise typer.Exit(0)
 
 

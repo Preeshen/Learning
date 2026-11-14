@@ -45,6 +45,28 @@ def role_coverage(r: Roadmap, progress: ProgressRecord) -> list[dict]:
     return rows
 
 
+def milestone_status(r: Roadmap, progress: ProgressRecord) -> list[dict]:
+    """FR-020/US4: for each milestone, whether its prerequisite days are all complete, and if
+    not, which specific days are still unmet (spec.md US4 Acceptance Scenario 3)."""
+    completed_days = {
+        e.day for e in progress.entries if e.status == ProgressStatus.COMPLETE
+    }
+    rows = []
+    for m in r.milestones:
+        unmet = [d for d in m.prerequisite_days if d not in completed_days]
+        rows.append({
+            "id": m.id,
+            "name": m.name,
+            "ready": len(unmet) == 0,
+            "unmet_prerequisite_days": unmet,
+            "purpose": m.purpose,
+            "demonstrates": m.demonstrates,
+            "supports_roles": m.supports_roles,
+            "record_path": m.record_path,
+        })
+    return rows
+
+
 def role_detail(r: Roadmap, progress: ProgressRecord, role_id: str) -> dict:
     completed_days = {
         e.day for e in progress.entries if e.status == ProgressStatus.COMPLETE

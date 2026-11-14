@@ -184,3 +184,16 @@ def load_progress(path: Path = PROGRESS_PATH) -> ProgressRecord:
         started=_to_date(raw["started"]) if raw.get("started") else date.today(),
         entries=entries,
     )
+
+
+def topics_due(r: Roadmap, progress: ProgressRecord) -> list[str]:
+    """Topics whose first_day + resurface_after[n] <= completed-day count (data-model.md's
+    Derived values table). Returns topic ids, in roadmap-declaration order."""
+    completed_count = sum(1 for e in progress.entries if e.status == ProgressStatus.COMPLETE)
+    due: list[str] = []
+    for topic_id, topic in r.topics.items():
+        for interval in topic.resurface_after:
+            if topic.first_day + interval <= completed_count:
+                due.append(topic_id)
+                break
+    return due

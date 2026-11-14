@@ -213,6 +213,41 @@ def test_v14_core_effort_budget_fail():
     assert any(f.rule_id == "V-14" for f in v.v14_core_effort_budget(r))  # 280h > 272h
 
 
+def test_v15_tier_split_fail_when_outside_tolerance():
+    # All days tier=primary -> 100% primary, 0% secondary/remaining: all three tiers miss
+    # their target by more than +-5 points.
+    days = [make_day(id=i, tier="primary") for i in range(1, 11)]
+    r = make_roadmap(days)
+    findings = v.v15_tier_split(r)
+    fired_tiers = {f.message.split(":")[0].split()[-1] for f in findings if f.rule_id == "V-15"}
+    assert {"primary", "secondary", "remaining"} <= fired_tiers
+
+
+def test_v15_tier_split_pass_within_tolerance():
+    # 6 primary / 3 secondary / 1 remaining = 60/30/10 -- secondary is 5 points over (30 vs 25,
+    # within tolerance), remaining is 5 points under (10 vs 15, within tolerance).
+    days = (
+        [make_day(id=i, tier="primary") for i in range(1, 7)]
+        + [make_day(id=i, tier="secondary") for i in range(7, 10)]
+        + [make_day(id=10, tier="remaining")]
+    )
+    r = make_roadmap(days)
+    assert v.v15_tier_split(r) == []
+
+
+def test_week1_front_loads_python_and_dsa_ahead_of_lower_priority_domains():
+    """T050/FR-031/FR-033: the live roadmap.yaml's week 1 theme must advance python/dsa
+    (front-loaded per the primary role's needs) rather than lower-priority domains."""
+    from tools.roadmap_cli.loader import load_roadmap
+
+    live_roadmap = load_roadmap()
+    week1 = next(w for w in live_roadmap.weeks if w.number == 1)
+    assert "python" in week1.domains
+    assert "dsa" in week1.domains
+    # Lower-priority-for-primary-role domains (git) are not what week 1 is themed around.
+    assert "git" not in week1.domains or len(week1.domains) > 2
+
+
 def test_v17_milestone_count_pass():
     day = make_day()
     r = make_roadmap([day])

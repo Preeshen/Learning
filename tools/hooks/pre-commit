@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Optional pre-commit hook: warns if the current day's gate isn't passing yet.
+# Deliberately never blocks the commit (plan.md's Post-Design Constitution Re-Check note on
+# R-010) -- a blocking hook pushes toward --no-verify or toward not committing exploratory
+# work, which constitution Principle VII explicitly wants preserved.
+#
+# Install: cp tools/hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+
+uv run roadmap check > /tmp/roadmap-check-output 2>&1
+if [ $? -ne 0 ]; then
+    echo "--------------------------------------------------------------"
+    echo "roadmap check: today's gate is not passing yet (warning only)"
+    cat /tmp/roadmap-check-output
+    echo "--------------------------------------------------------------"
+fi
+rm -f /tmp/roadmap-check-output
+
+exit 0

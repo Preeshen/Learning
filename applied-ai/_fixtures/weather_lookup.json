@@ -1,0 +1,11 @@
+{
+  "description": "A recorded request/response pair for the day-6 tool-calling loop's lookup_weather tool, used so Applied AI days run fully offline per FR-034/R-006.",
+  "request": {
+    "objective": "What's the weather in Paris?",
+    "tool_call": {"tool_name": "lookup_weather", "arguments": {"city": "Paris"}}
+  },
+  "response": {
+    "tool_result": "15C, overcast",
+    "final_answer": "It is 15C and overcast in Paris."
+  }
+}
