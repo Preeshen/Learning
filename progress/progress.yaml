@@ -94,3 +94,14 @@ entries:
   gate_passed: true
   journal_ref: day-013
   resolve_results: []
+- day: 14
+  status: complete
+  date: '2026-11-14'
+  commit: 9863d3e66d41267598fc7bfeef709d91c34ccf91
+  gate_passed: true
+  journal_ref: day-014
+  resolve_results:
+  - topic: sliding-window
+    passed: true
+  - topic: two-pointers
+    passed: true

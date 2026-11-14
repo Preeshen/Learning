@@ -132,3 +132,17 @@
 
 **Non-obvious**: Inorder traversal of a valid BST is always sorted -- that's sometimes a cheaper validation trick than bound-passing recursion, at the cost of O(n) extra space
 
+## Day 014 — 2026-11-14 — sliding-window {#day-014}
+
+**Status**: complete · **Commit**: 9863d3e66d41267598fc7bfeef709d91c34ccf91 · **Domain**: dsa · **Effort**: 6 h
+
+**Built**: Week 2 review written; sliding-window and two-pointers re-solved from a blank file
+
+**Broke**: Nothing broke
+
+**Non-obvious**: two-pointers has now resurfaced twice (days 7 and 14), the first topic to fully satisfy FR-015's spaced-repetition requirement
+
+**Re-solve**: sliding-window — PASSED
+
+**Re-solve**: two-pointers — PASSED
+
