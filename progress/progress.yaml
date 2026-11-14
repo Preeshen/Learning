@@ -9,3 +9,10 @@ entries:
   gate_passed: true
   journal_ref: day-001
   resolve_results: []
+- day: 2
+  status: complete
+  date: '2026-11-14'
+  commit: ed68ddcdf1c9338bef8d442cece24eb9eec7158b
+  gate_passed: true
+  journal_ref: day-002
+  resolve_results: []
