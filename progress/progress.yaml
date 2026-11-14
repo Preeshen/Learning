@@ -34,3 +34,14 @@ entries:
   gate_passed: true
   journal_ref: day-005
   resolve_results: []
+- day: 6
+  status: complete
+  date: '2026-11-14'
+  commit: 04c4dd633e3f1c7e2d8969447c28f749a8c47548
+  gate_passed: true
+  journal_ref: day-006
+  resolve_results:
+  - topic: arrays-hashing
+    passed: true
+  - topic: two-pointers
+    passed: true

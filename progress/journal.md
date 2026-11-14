@@ -48,3 +48,17 @@
 
 **Non-obvious**: Sliding window's O(n) claim depends on the window's validity being tracked incrementally, not recomputed from scratch each step
 
+## Day 006 — 2026-11-14 — tool-calling {#day-006}
+
+**Status**: complete · **Commit**: 04c4dd633e3f1c7e2d8969447c28f749a8c47548 · **Domain**: applied-ai · **Effort**: 6 h
+
+**Built**: Tool-calling loop with malformed-argument retry, wrapped behind FastAPI
+
+**Broke**: First no-retry benchmark trial hit IndexError: the clean-path script needs a final-answer entry too, not just the tool call
+
+**Non-obvious**: A malformed tool call is a prompt bug, not a transient failure -- bare retry reproduces the same error without telling the model what broke
+
+**Re-solve**: arrays-hashing — PASSED
+
+**Re-solve**: two-pointers — PASSED
+
