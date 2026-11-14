@@ -102,3 +102,13 @@
 
 **Non-obvious**: Gradient descent can match the closed-form answer, but only with real iteration and tuning cost that OLS skips entirely -- that gap is why neural nets need it at all
 
+## Day 011 — 2026-11-14 — linked-lists {#day-011}
+
+**Status**: complete · **Commit**: fb3227caf60304b3574b69e0eed6de7d27a29027 · **Domain**: dsa · **Effort**: 4 h
+
+**Built**: Linked-list reversal, Floyd's cycle detection and cycle-start, merge-k-sorted-lists via a heap
+
+**Broke**: Nothing broke
+
+**Non-obvious**: Floyd's algorithm's correctness depends on a distance argument (the gap closes by 1 each step once both pointers are in the cycle) -- not something to pattern-match without deriving once
+
