@@ -62,3 +62,13 @@
 
 **Re-solve**: two-pointers — PASSED
 
+## Day 007 — 2026-11-14 — arrays-hashing {#day-007}
+
+**Status**: complete · **Commit**: 9a67c33597b471fdaa01b34c4815f207678d3127 · **Domain**: dsa · **Effort**: 6 h
+
+**Built**: Week 1 review written; both scheduled re-solves ran from a blank file
+
+**Broke**: Found and fixed a gate-check bug: review days were unconditionally failing because the generic check assumed a code artifact
+
+**Non-obvious**: Re-solving from a blank file is a materially different test than recognizing the solution when reading it back
+
