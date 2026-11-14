@@ -59,3 +59,10 @@ entries:
   gate_passed: true
   journal_ref: day-008
   resolve_results: []
+- day: 9
+  status: complete
+  date: '2026-11-14'
+  commit: ac1077a9806e262ca3ee89629931820d369876e9
+  gate_passed: true
+  journal_ref: day-009
+  resolve_results: []

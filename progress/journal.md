@@ -82,3 +82,13 @@
 
 **Non-obvious**: Search-on-answer reframes an optimization as a monotonic predicate you binary search over, not over an array
 
+## Day 009 — 2026-11-14 — stacks-monotonic {#day-009}
+
+**Status**: complete · **Commit**: ac1077a9806e262ca3ee89629931820d369876e9 · **Domain**: dsa · **Effort**: 4 h
+
+**Built**: Valid-parentheses, daily-temperatures, and largest-rectangle-in-histogram via a monotonic stack
+
+**Broke**: Nothing broke
+
+**Non-obvious**: A monotonic stack's amortized O(n) claim depends on each element being pushed and popped exactly once -- a wrong push/pop condition silently degrades to O(n^2)
+
