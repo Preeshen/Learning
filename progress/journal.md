@@ -72,3 +72,13 @@
 
 **Non-obvious**: Re-solving from a blank file is a materially different test than recognizing the solution when reading it back
 
+## Day 008 — 2026-11-14 — binary-search {#day-008}
+
+**Status**: complete · **Commit**: 39080ed647cc804da38a0fa245c3958af2dd2191 · **Domain**: dsa · **Effort**: 4 h
+
+**Built**: Binary search, rotated-array search, and search-on-answer (Koko eating bananas) from scratch
+
+**Broke**: Nothing broke
+
+**Non-obvious**: Search-on-answer reframes an optimization as a monotonic predicate you binary search over, not over an array
+
