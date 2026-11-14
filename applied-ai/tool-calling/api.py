@@ -47,22 +47,11 @@ def run(request: RunRequest) -> RunResponse:
 
     A real deployment would route `generate` to a live LLM client; this endpoint exists to
     prove the loop is served over HTTP, not to be a general-purpose agent API.
+
+    Build: script a FixtureModel with a tool call then a final answer, run it through
+    run_tool_loop with the TOOLS dict above, and map the ToolCallResult onto RunResponse.
     """
-    responses = [
-        loop_module.ToolCallResponse(
-            tool_name="lookup_weather", arguments_raw='{"city": "Paris"}'
-        ),
-        loop_module.ToolCallResponse(
-            tool_name=None, arguments_raw="", is_final_answer=True,
-            final_answer="It is 15C and overcast in Paris.",
-        ),
-    ]
-    model = loop_module.FixtureModel(script=responses)
-    result = loop_module.run_tool_loop(request.objective, model.generate, TOOLS)
-    return RunResponse(
-        success=result.success, retries=result.retries,
-        final_answer=result.final_answer, error=result.error,
-    )
+    raise NotImplementedError
 
 
 @app.get("/health")

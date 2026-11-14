@@ -14,23 +14,17 @@ class TreeNode:
 
 def inorder(root: TreeNode | None) -> list[int]:
     """Left, node, right. O(n) time, O(h) space (recursion stack, h = height)."""
-    if root is None:
-        return []
-    return inorder(root.left) + [root.val] + inorder(root.right)
+    raise NotImplementedError
 
 
 def preorder(root: TreeNode | None) -> list[int]:
     """Node, left, right. O(n) time, O(h) space."""
-    if root is None:
-        return []
-    return [root.val] + preorder(root.left) + preorder(root.right)
+    raise NotImplementedError
 
 
 def postorder(root: TreeNode | None) -> list[int]:
     """Left, right, node. O(n) time, O(h) space."""
-    if root is None:
-        return []
-    return postorder(root.left) + postorder(root.right) + [root.val]
+    raise NotImplementedError
 
 
 def is_valid_bst(root: TreeNode | None) -> bool:
@@ -40,21 +34,12 @@ def is_valid_bst(root: TreeNode | None) -> bool:
     against a (low, high) bound passed down from its ancestors is the O(n) way to verify this
     without materializing the full traversal.
     """
-    def check(node: TreeNode | None, low: float, high: float) -> bool:
-        if node is None:
-            return True
-        if not (low < node.val < high):
-            return False
-        return check(node.left, low, node.val) and check(node.right, node.val, high)
-
-    return check(root, float("-inf"), float("inf"))
+    raise NotImplementedError
 
 
 def max_depth(root: TreeNode | None) -> int:
     """O(n) time, O(h) space."""
-    if root is None:
-        return 0
-    return 1 + max(max_depth(root.left), max_depth(root.right))
+    raise NotImplementedError
 
 
 def lowest_common_ancestor(root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode | None:
@@ -63,10 +48,4 @@ def lowest_common_ancestor(root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode
     If p and q are in different subtrees of the current node, the current node is the LCA —
     neither recursive call alone can "see" both, so the split point is where they converge.
     """
-    if root is None or root is p or root is q:
-        return root
-    left = lowest_common_ancestor(root.left, p, q)
-    right = lowest_common_ancestor(root.right, p, q)
-    if left and right:
-        return root
-    return left or right
+    raise NotImplementedError

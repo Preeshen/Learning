@@ -9,7 +9,7 @@ import numpy as np
 
 
 def mse(y_true: np.ndarray, y_pred: np.ndarray) -> float:
-    return float(np.mean((y_true - y_pred) ** 2))
+    raise NotImplementedError
 
 
 def fit_gradient_descent(
@@ -17,26 +17,10 @@ def fit_gradient_descent(
 ) -> tuple[np.ndarray, float, list[float]]:
     """Fit y = X @ w + b by gradient descent on mean squared error.
 
-    Returns (weights, bias, loss_history). O(iterations * n * d) time, O(n) extra space.
+    Return (weights, bias, loss_history). O(iterations * n * d) time, O(n) extra space.
     """
-    n, d = X.shape
-    w = np.zeros(d)
-    b = 0.0
-    loss_history: list[float] = []
-
-    for _ in range(iterations):
-        y_pred = X @ w + b
-        error = y_pred - y
-        loss_history.append(mse(y, y_pred))
-
-        grad_w = (2.0 / n) * (X.T @ error)
-        grad_b = (2.0 / n) * np.sum(error)
-
-        w -= lr * grad_w
-        b -= lr * grad_b
-
-    return w, b, loss_history
+    raise NotImplementedError
 
 
 def predict(X: np.ndarray, w: np.ndarray, b: float) -> np.ndarray:
-    return X @ w + b
+    raise NotImplementedError

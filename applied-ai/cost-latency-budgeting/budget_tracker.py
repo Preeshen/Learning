@@ -1,6 +1,6 @@
 """Token-cost and latency tracking for the day-6 tool-calling loop.
 
-Wraps run_tool_loop with instrumentation rather than modifying it — the loop stays reusable
+Wrap run_tool_loop with instrumentation rather than modifying it — the loop stays reusable
 without a tracking dependency baked in.
 """
 
@@ -46,7 +46,7 @@ def estimate_tokens(text: str) -> int:
     Good enough for budgeting, not accurate enough for billing — a real deployment would use
     the provider's tokenizer.
     """
-    return max(1, len(text) // 4)
+    raise NotImplementedError
 
 
 @dataclass
@@ -56,32 +56,13 @@ class BudgetTracker:
     def run_tracked(
         self, objective: str, generate, tools: dict, max_retries: int = 2
     ):
-        messages_seen = {"input_chars": 0, "output_chars": 0}
-
-        def tracked_generate(messages: list[dict]):
-            for m in messages:
-                messages_seen["input_chars"] += len(m["content"])
-            start = time.perf_counter()
-            response = generate(messages)
-            elapsed = time.perf_counter() - start
-            output_text = response.final_answer or response.arguments_raw or ""
-            messages_seen["output_chars"] += len(output_text)
-            self.records.append(RequestRecord(
-                input_tokens=estimate_tokens(" ".join(m["content"] for m in messages)),
-                output_tokens=estimate_tokens(output_text),
-                latency_seconds=elapsed,
-            ))
-            return response
-
-        return loop_module.run_tool_loop(objective, tracked_generate, tools, max_retries)
+        """Wrap `generate` to record input/output token estimates and wall-clock latency per
+        call into self.records, then delegate to loop_module.run_tool_loop."""
+        raise NotImplementedError
 
     @property
     def total_cost(self) -> float:
-        return sum(r.cost for r in self.records)
+        raise NotImplementedError
 
     def percentile_latency(self, p: float) -> float:
-        if not self.records:
-            return 0.0
-        latencies = sorted(r.latency_seconds for r in self.records)
-        idx = min(len(latencies) - 1, int(len(latencies) * p))
-        return latencies[idx]
+        raise NotImplementedError
