@@ -112,3 +112,13 @@
 
 **Non-obvious**: Floyd's algorithm's correctness depends on a distance argument (the gap closes by 1 each step once both pointers are in the cycle) -- not something to pattern-match without deriving once
 
+## Day 012 — 2026-11-14 — cost-latency-budgeting {#day-012}
+
+**Status**: complete · **Commit**: ab792d883673093cd2a4277f32b6d8a02ac93819 · **Domain**: applied-ai · **Effort**: 4 h
+
+**Built**: Token-cost and latency instrumentation wrapping day 6's tool-calling loop; benchmarked 20 requests
+
+**Broke**: p50/p95 latency came out as ~0ms -- honest, not broken, since FixtureModel has no real network hop
+
+**Non-obvious**: Fixture-backed days can prove the instrumentation works even though the latency numbers themselves won't be meaningful until run against a live API
+
