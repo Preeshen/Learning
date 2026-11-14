@@ -75,6 +75,22 @@ Consequent changes:
   (FR-030, FR-031) and four at conversational depth with one demonstrable artifact each
   (FR-032).
 
+### Iteration 3 — 2026-11-14 (clarification: FastAPI and Claude tooling scope)
+
+Three further clarifications resolved, all within Applied AI Engineering scope:
+
+| Question | Answer | Encoded in |
+|----------|--------|------------|
+| Serving framework for LLM API/agent artifacts | FastAPI required explicitly | FR-030a |
+| Claude Code skills / Agent SDK / MCP coverage | Named sub-topic inside existing Applied AI Engineering domain, not a 7th domain | FR-030b |
+| Depth of Claude-specific tooling vs. generic agentic patterns | Secondary — generic concepts primary, Claude tooling is the practice vehicle | FR-030b |
+
+"No implementation details (languages, frameworks, APIs)" remains checked by the same precedent
+already applied to Python (FR-028/FR-033): FastAPI is named because the learner explicitly
+requested it as a required skill and target-role requirement, not as an unconstrained authoring
+choice — consistent with inherited-constraint treatment elsewhere in this spec, not a new
+exception.
+
 ## Notes
 
 - Checklist is complete. The spec is ready for `/speckit-plan`; `/speckit-clarify` is not needed,

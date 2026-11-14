@@ -51,6 +51,7 @@ $ roadmap today
 | `<day>` | Show a specific day instead |
 | `--json` | Structured output |
 | `--next N` | Show the next N days, for planning a weekend |
+| `--days-until-interview N` | FR-026: print the `interview_imminent_plan` drill subset for the remaining N days instead of the normal day card |
 
 Exit `0` always, unless the roadmap fails to load. When all 70 days are done it prints the
 programme summary and the promotion milestone status.
@@ -137,7 +138,7 @@ Exit `0` on write, `1` if the week has no recorded days.
 
 ## `roadmap validate`
 
-Runs rules V-01 to V-17 against `roadmap.yaml`, and P-01 to P-07 plus J-01 to J-03 against the
+Runs rules V-01 to V-21 against `roadmap.yaml`, and P-01 to P-07 plus J-01 to J-03 against the
 progress files.
 
 ```text

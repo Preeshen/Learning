@@ -89,18 +89,51 @@ weeks:
       output_path: progress/reviews/week-01.md
 
 milestones:
-  - id: rag-service
-    name: "Evaluated RAG service"
+  - id: code-review-triage-agent
+    name: "Code review triage agent"
     after_day: 35
     prerequisite_days: [22, 24, 28, 31, 34]
     purpose: >-
-      A deployable retrieval service with a real evaluation harness, demonstrating that
-      retrieval quality is measured rather than asserted.
+      An agent that ingests a PR diff and triages it (blocking / nitpick / false positive) by
+      running tools — linter, test runner, static analyzer — in a loop, evaluated against a
+      labeled set of real PRs rather than demoed on the happy path.
     demonstrates:
-      - "Ingestion, chunking and retrieval over a non-trivial corpus"
-      - "An evaluation set with recall and faithfulness reported against a baseline"
-      - "Deployed behind an API with latency and cost instrumented"
+      - "Multi-step tool orchestration with malformed/failing tool-call recovery"
+      - "An evaluation set of labeled PRs scored for precision/recall against a no-agent baseline"
+      - "Cost and latency instrumented per review"
     supports_roles: [agentic-ai, fde]
+    external: true
+    record_path: promoted/README.md
+  - id: inference-gateway
+    name: "Multi-backend inference gateway"
+    after_day: 49
+    prerequisite_days: [38, 41, 44, 47]
+    purpose: >-
+      A FastAPI service routing requests across 2+ model backends (e.g. a local quantized model
+      and a hosted API), with batching, response caching, rate-limit backoff, and a
+      health-check/fallback path when a backend degrades.
+    demonstrates:
+      - "Request batching and response caching under a stated load profile"
+      - "Rate-limit backoff and automatic fallback to a healthy backend, measured against a
+        no-fallback baseline"
+      - "Deployment-pattern fluency: containerized, configurable, debuggable from logs alone"
+    supports_roles: [fde, inference]
+    external: true
+    record_path: promoted/README.md
+  - id: compression-validation-suite
+    name: "Model compression and validation benchmark suite"
+    after_day: 63
+    prerequisite_days: [52, 55, 58, 61]
+    purpose: >-
+      Train or fine-tune a small model, then quantize/prune it, reporting accuracy, latency, and
+      memory before vs. after against a stated baseline, plus a systematic adversarial/edge-case
+      test suite rather than a single happy-path accuracy number.
+    demonstrates:
+      - "Classical ML training and evaluation with a reported metric, dataset split, and baseline"
+      - "Inference latency and memory measured before/after compression against the baseline"
+      - "Model size reduction with the accuracy/latency/memory tradeoff reported, not just claimed"
+      - "A systematic test/validation suite covering adversarial and edge-case inputs"
+    supports_roles: [ml-engineer, inference, embedded-ml, test-validation]
     external: true
     record_path: promoted/README.md
 ```
@@ -129,6 +162,10 @@ offending day or topic. Exit code 0 only when no `error`-severity rule fires.
 | V-15 | warn | Each tier's day share within ±5 points of 60 / 25 / 15 | SC-012 |
 | V-16 | warn | Every `remaining`-tier role's `evidence_required` items are each satisfied by ≥1 day | FR-032, SC-013 |
 | V-17 | warn | ≥3 milestones declared | FR-019 |
+| V-18 | error | Any day with `serving` set uses value `fastapi` (no other serving framework permitted) | FR-030a |
+| V-19 | error | Any day whose topic or tooling references Claude Code skills, the Claude Agent SDK, or MCP declares a non-empty `generic_concept` | FR-030b |
+| V-20 | error | Every milestone has non-empty `purpose`, ≥1 `demonstrates` entry, and ≥1 `supports_roles` entry | FR-020 |
+| V-21 | error | `interview_imminent_plan` is present and names, for each role, a non-empty subset of existing topic ids to drill | FR-026 |
 
 Severity rationale: structural and constitutional breaches are `error` because they make the
 roadmap wrong. The budget and distribution rules are `warn` because they are targets the learner may

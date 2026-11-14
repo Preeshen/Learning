@@ -12,7 +12,7 @@ today?" in seconds and mechanically checks whether a day was actually completed.
 
 The approach is a machine-readable `roadmap/roadmap.yaml` as single source of truth, from which a
 human-readable `ROADMAP.md` is generated, paired with a `roadmap` CLI (`today`, `check`, `complete`,
-`review`, `validate`, `coverage`). Five of the spec's thirteen success criteria are counting
+`review`, `validate`, `coverage`, `render`). Five of the spec's thirteen success criteria are counting
 criteria across 70 entries; making the roadmap data rather than prose turns them into one validator
 run instead of a manual audit that drifts on first edit.
 
@@ -27,8 +27,10 @@ not on PATH, which `uv`'s managed `.venv` sidesteps)
 
 **Primary Dependencies**: `uv` 0.13.8 (environment and lock), `pytest` (tests), `PyYAML` (roadmap and
 progress parsing), `jsonschema` (contract validation), `typer` (CLI), `rich` (terminal rendering of
-the day entry). Domain dependencies — NumPy, PyTorch, scikit-learn, an LLM SDK — are declared as
-optional groups and installed only when the relevant domain's days begin.
+the day entry). Domain dependencies — NumPy, PyTorch, scikit-learn, an LLM SDK, `fastapi` +
+`uvicorn` (FR-030a serving days), the Claude Agent SDK and an MCP server/client package
+(FR-030b) — are declared as optional groups and installed only when the relevant domain's days
+begin.
 
 **Storage**: Plain files in the repository. `roadmap/roadmap.yaml` (source of truth),
 `progress/progress.yaml` (status), `progress/journal.md` (prose log), per-topic `benchmarks.json`
@@ -52,8 +54,8 @@ proprietary datasets, or licensed course material committed (FR-035). Every arti
 from a clean checkout. No GPU assumed.
 
 **Scale/Scope**: 70 day entries across 10 weeks and 6 domains, ~25 topics, 10 weekly review
-checkpoints, 3 promotion milestones, 6 role-coverage mappings. The CLI is roughly 6 commands over
-~800 lines. The programme budget is 320 hours.
+checkpoints, 3 promotion milestones, 6 role-coverage mappings. The CLI is roughly 7 commands over
+~900 lines. The programme budget is 320 hours.
 
 ## Constitution Check
 
@@ -79,6 +81,8 @@ Gates derived from constitution v1.0.0, principles I–VII.
 | Dependencies pinned, reproducible | Committed `uv.lock` | PASS (R-005) |
 | No secrets or licensed material | DSA problems referenced by title and URL only; keys from env only | PASS (R-006, R-007) |
 | No paid infrastructure | Every gate reachable on the offline fixture backend | PASS (R-006) — with the limitation recorded under Decision Required |
+| FastAPI required for served artifacts (FR-030a) | Any day wrapping an LLM call, agent, or model as a service uses FastAPI; `roadmap-schema.md` tags these days `serving: fastapi` | PASS — enforced by schema field, not a new day count |
+| Claude tooling secondary to generic agentic patterns (FR-030b) | Claude Code skills / Agent SDK / MCP days carry a `generic_concept` field naming the transferable pattern being practiced; validator rejects a day where this field is empty | PASS — no increase to the 24 Applied AI days in the allocation table below |
 
 **Result**: All gates pass. One item is flagged for the learner's decision rather than as a
 violation — see Decision Required below.
@@ -157,7 +161,8 @@ D:\Learning\
 ├── systems/                  # Domain: System design (6 days)
 ├── ml/                       # Domain: ML & DL (14 days)
 ├── applied-ai/               # Domain: Applied AI Engineering (24 days)
-│   └── _fixtures/            # Recorded LLM request/response pairs (offline default)
+│   ├── _fixtures/            # Recorded LLM request/response pairs (offline default)
+│   └── _mcp/                 # Shared MCP server/client stub used by the agentic-pattern days
 │
 ├── promoted/
 │   └── README.md             # Pointer records for CV projects built in OTHER repos

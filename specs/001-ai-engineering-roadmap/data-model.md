@@ -46,8 +46,10 @@ The whole programme. One per repository. Lives at `roadmap/roadmap.yaml`.
 | `topics` | map of Topic | yes | ~25 |
 | `weeks` | list of Week | yes | Exactly 10 |
 | `milestones` | list of PromotionMilestone | yes | At least 3 |
+| `interview_imminent_plan` | map of role id -> list of topic id | yes | FR-026: the minimum drill subset per role when an interview lands before the programme ends |
 
-**Validation**: V-01 (date arithmetic consistent), V-10 (domain and role maps complete).
+**Validation**: V-01 (date arithmetic consistent), V-10 (domain and role maps complete), V-21
+(`interview_imminent_plan` present, non-empty per role, references existing topic ids).
 
 ---
 
@@ -95,10 +97,14 @@ The atomic unit of work. 70 of them. This is the entity the learner reads every 
 | `language_exception` | string | no | **Required** when `language != python` |
 | `offline` | bool | no | Defaults to `true`; `false` means the day prefers live API access |
 | `offline_fallback` | string | no | **Required** when `offline` is `false` (FR-034) |
+| `serving` | string | no | **Required**, value `fastapi`, on any day wrapping an LLM call, agent, or model as a reachable service (FR-030a) |
+| `generic_concept` | string | no | **Required** on any day whose vehicle is Claude Code skills, the Claude Agent SDK, or MCP; names the transferable agentic-pattern concept being practiced (tool use, multi-step control flow, multi-agent orchestration) so the day is not graded on Claude-specific trivia (FR-030b) |
 
 **Validation**: V-02 (artifact non-empty), V-04 (effort within day_type budget), V-05 (scratch
 precedes library), V-06 (measurement completeness), V-11 (prerequisites earlier), V-12
-(language and offline exceptions justified).
+(language and offline exceptions justified), V-18 (`serving` is `fastapi` when set), V-19
+(`generic_concept` set whenever the day's topic or tooling references Claude Code skills, Agent
+SDK, or MCP).
 
 ---
 
@@ -176,7 +182,7 @@ A point at which learnings support an external portfolio project. Principle VII'
 
 | Field | Type | Required | Notes |
 |---|---|---|---|
-| `id` | slug | yes | e.g. `rag-service` |
+| `id` | slug | yes | One of the 3 locked milestones: `code-review-triage-agent`, `inference-gateway`, `compression-validation-suite` |
 | `name` | string | yes | The project's working name |
 | `after_day` | day id | yes | Earliest day the milestone can be started |
 | `prerequisite_days` | list of day id | yes | All must be `complete` before the milestone opens |
@@ -187,6 +193,7 @@ A point at which learnings support an external portfolio project. Principle VII'
 | `record_path` | path | yes | `promoted/README.md` — where the pointer record goes |
 
 **Validation**: V-08 — a milestone must not declare any `artifact` path inside this repository.
+V-20 — `purpose`, `demonstrates`, and `supports_roles` must each be non-empty (FR-020).
 
 ---
 

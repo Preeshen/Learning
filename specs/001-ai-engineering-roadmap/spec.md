@@ -6,6 +6,14 @@
 
 **Status**: Ready for planning — all clarifications resolved 2026-11-14
 
+## Clarifications
+
+### Session 2026-11-14
+
+- Q: Should FastAPI (or an equivalent serving framework) be named explicitly as a required skill in the roadmap, since 'Applied AI Engineering' currently says 'LLM APIs' without naming the serving layer used to expose them? → A: Yes, require FastAPI explicitly as the named framework for wrapping models/agents as services.
+- Q: Should the roadmap explicitly add a domain/day-set for Claude-specific tooling (Claude Code skills, Claude Agent SDK, MCP, multi-agent orchestration), given the constitution currently names six domains that don't mention these by name? → A: Yes, cover it as a named sub-topic inside the existing Applied AI Engineering domain (agentic patterns), not as a 7th domain.
+- Q: Since MCP, Claude Agent SDK, and Claude Code skills are Anthropic-specific, how should their depth compare to the general agentic-patterns material (tool use, multi-step control flow) already required by FR-030? → A: Secondary — generic, interview-transferable agentic-pattern concepts stay primary; Claude-specific tooling is practiced as the implementation vehicle for those days rather than a separate deeper track.
+
 **Input**: User description: "A 2-3 month structured AI engineering learning roadmap for this playground repository, with per-day deliverables. The roadmap must sequence the six in-scope domains from the constitution (Python, DSA with large-tech interview weighting, Git, System Design including ML/inference architectures, ML & DL fundamentals and internals, and Applied AI Engineering covering LLM APIs, retrieval, agentic patterns, inference optimization and AI test/validation). Each day must specify a concrete committed artifact, a measurement or test where applicable, and a NOTES.md topic, per constitution Principles I-VI. The roadmap must include weekly review checkpoints with spaced-repetition re-solve slots, and must identify milestones where learnings are ready to be promoted outward into separate production-deployable CV projects (Principle VII) without those projects being built inside this repo. Target outcome: readiness for AI engineering interviews (FDE, AI/Agentic AI engineer, ML engineer, Embedded ML, Inference engineer, AI test validation)."
 
 ## User Scenarios & Testing *(mandatory)*
@@ -254,6 +262,16 @@ target roles are adequately covered and which are not.
   depth to Applied AI Engineering — LLM API usage and cost/latency control, retrieval and its
   evaluation, agentic patterns including tool use and multi-step control flow, and systematic
   evaluation of non-deterministic systems.
+- **FR-030a**: The roadmap MUST require FastAPI as the named serving framework for exposing any
+  model, LLM-API wrapper, or agent as a runnable service, so that day artifacts under FR-030 are
+  reachable over HTTP rather than left as scripts.
+- **FR-030b**: The roadmap MUST cover Claude Code skills, the Claude Agent SDK, and MCP
+  (Model Context Protocol) as named implementation vehicles for the agentic-patterns days required
+  by FR-030, rather than as a separate domain. Generic, interview-transferable agentic concepts
+  (tool use, multi-step control flow, multi-agent orchestration) remain the primary learning
+  objective of those days; Claude-specific tooling is the means of practicing them, not an
+  additional depth track, and MUST NOT increase the Applied AI Engineering day count beyond what
+  FR-003/SC-003 already allow.
 - **FR-031**: Because the secondary role is FDE, the roadmap MUST give second-greatest depth to
   breadth-of-delivery material: system design, integration and deployment patterns, debugging
   unfamiliar systems, and interview-grade DSA fluency.
