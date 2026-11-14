@@ -129,14 +129,30 @@ def v07_resurfacing(r: Roadmap) -> list[Finding]:
         elif list(intervals) != sorted(set(intervals)) or len(set(intervals)) != len(intervals):
             findings.append(Finding("V-07", "error",
                 f"topic {tid}: resurface_after intervals not strictly increasing"))
+
     resolve_counts: dict[str, int] = {}
     for week in r.weeks:
         for tid in week.review.resolves:
             resolve_counts[tid] = resolve_counts.get(tid, 0) + 1
-    for tid in r.topics:
-        if resolve_counts.get(tid, 0) < 2:
-            findings.append(Finding("V-07", "error",
-                f"topic {tid}: appears in fewer than 2 checkpoints' resolves"))
+
+    # FR-015 scopes the "resurface twice" requirement to DSA problem sets and core ML concepts,
+    # not every topic in every domain.
+    review_days = sorted(w.review.day for w in r.weeks)
+    for tid, topic in r.topics.items():
+        if topic.domain not in ("dsa", "ml"):
+            continue
+        reviews_after = [d for d in review_days if d > topic.first_day]
+        required = min(2, len(reviews_after))
+        count = resolve_counts.get(tid, 0)
+        if count < required:
+            if required < 2:
+                findings.append(Finding("V-07", "error",
+                    f"topic {tid}: introduced on day {topic.first_day} with only "
+                    f"{len(reviews_after)} review checkpoint(s) remaining — appears in "
+                    f"{count} of the {required} slot(s) actually available"))
+            else:
+                findings.append(Finding("V-07", "error",
+                    f"topic {tid}: appears in fewer than 2 checkpoints' resolves"))
     return findings
 
 

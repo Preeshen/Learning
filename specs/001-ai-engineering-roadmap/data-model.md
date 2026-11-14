@@ -171,8 +171,10 @@ One per week. The mechanism behind Principle VI and FR-013/014.
 | `procedure` | list of string | yes | The ordered review steps |
 | `output_path` | path | yes | `progress/reviews/week-NN.md` |
 
-**Validation**: V-07 (≥2 resolves), and every topic must appear in some checkpoint's `resolves`
-at least twice across the programme.
+**Validation**: V-07 (≥2 resolves), and every `dsa`/`ml` topic must appear in some checkpoint's
+`resolves` at least twice across the programme — or in every checkpoint remaining after it, if
+fewer than 2 review checkpoints occur after the topic's `first_day` (FR-015's scope is DSA
+problem sets and core ML concepts, not every topic in every domain).
 
 ---
 

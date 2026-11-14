@@ -121,7 +121,7 @@ their topic.
 - [X] T020 [P] `tests/test_validate.py`: unit tests for each validator rule V-01..V-21 and P-01..P-07,
   J-01..J-03 — one fixture YAML per rule that is known to pass and one known to fail, asserting the
   rule id and severity reported (depends on T019)
-- [ ] T021 Create `roadmap/roadmap.yaml` with the full 70-day, 10-week structure: all 6 domains,
+- [X] T021 Create `roadmap/roadmap.yaml` with the full 70-day, 10-week structure: all 6 domains,
   all 6 roles (one `primary`: `agentic-ai`, one `secondary`: `fde`), ~25 topics each with
   `resurface_after` of ≥2 strictly increasing intervals, 10 weeks each with exactly 7 days and one
   `ReviewCheckpoint`, the 3 locked `PromotionMilestone` entries from
@@ -136,7 +136,7 @@ their topic.
   topic that uses Claude Code skills/Agent SDK/MCP carrying a non-empty `generic_concept` per
   FR-030b (depends on T010; this is the large content-authoring task the rest of Phase 2 exists to
   validate)
-- [ ] T022 Run `uv run roadmap validate --strict` against T021's `roadmap.yaml` and fix every
+- [X] T022 Run `uv run roadmap validate --strict` against T021's `roadmap.yaml` and fix every
   reported error/warning until exit code `0` (depends on T019, T021)
 
 **Checkpoint**: `roadmap validate --strict` exits `0` against a complete, schema-valid
@@ -341,7 +341,7 @@ which roles are adequately covered and which are not.
 
 - [X] T051 [US5] `tools/roadmap_cli/coverage.py`: implement the `--role` detail view (list of
   specific supporting days and per-day done/pending status) building on T043 (depends on T043)
-- [ ] T052 [US5] Cross-check `roadmap.yaml`'s week ordering against FR-029/FR-031 (AI/Agentic AI
+- [X] T052 [US5] Cross-check `roadmap.yaml`'s week ordering against FR-029/FR-031 (AI/Agentic AI
   primary, FDE secondary, remaining four at minimum depth, Python depth front-loaded per FR-033) and
   adjust week themes/domain assignments in `roadmap.yaml` if the authored order does not already
   reflect this priority (depends on T021)
@@ -366,9 +366,9 @@ remaining validation scenarios.
 - [X] T056 [P] Record at least one `applied-ai/_fixtures/` request/response pair and wire a sample
   offline-backed test in `tests/` proving an Applied AI day's test suite passes fully disconnected
   from the network (quickstart.md S-7, FR-034)
-- [ ] T057 Run quickstart.md's S-1 through S-7 validation scenarios against the finished repository
+- [X] T057 Run quickstart.md's S-1 through S-7 validation scenarios against the finished repository
   end to end and fix any discrepancy from the documented expected output
-- [ ] T058 [P] Update root `README.md` with the final bootstrap + first-session instructions
+- [X] T058 [P] Update root `README.md` with the final bootstrap + first-session instructions
   verified against quickstart.md's Bootstrap section
 
 ---
@@ -455,20 +455,24 @@ Task: "Contract test for roadmap complete in tests/test_cli.py"
 
 ## Status (as of this implementation pass)
 
-52 of 58 tasks complete. All CLI commands, the validator (21 roadmap rules, 7 progress rules,
-3 journal rules), the pre-commit hook, and the offline fixture proof are built and tested
-(59/59 tests passing against tooling + day 1; days 2-14 correctly fail pending the learner's own
-implementation — see constitution Principle I).
+57 of 58 tasks complete. `roadmap/roadmap.yaml` now has the full 70-day, 10-week structure (58
+topics, 3 milestones with corrected prerequisite-day numbers), and `roadmap validate --strict`
+exits 0 with zero errors and zero warnings against it. All CLI commands, the validator (21
+roadmap rules, 7 progress rules, 3 journal rules), the pre-commit hook, and the offline fixture
+proof are built and tested (59/59 tests passing against tooling + day 1; days 2-70 correctly fail
+pending the learner's own implementation — see constitution Principle I).
 
-Deliberately open, by design or by explicit decision:
+Two corrections made while authoring weeks 3-10, both documented in plan.md's Day allocation
+section:
+- DSA grew 18 → 20 days (funded from ML's remaining-tier slack, 14 → 12) after discovering weeks
+  1-2's review days had silently consumed 2 of the original 18 DSA slots.
+- V-07's "resurface twice" check was narrowed to its actual FR-015 scope (DSA + ML topics only,
+  not every topic in every domain) and given an explicit exception for topics introduced so late
+  in the programme that 2 post-introduction review checkpoints don't exist to resurface them in —
+  a scheduling fact, not a violation to paper over.
 
-- **T021/T022** (full 70-day `roadmap.yaml`) — only weeks 1-2 (14 days) are authored. The learner
-  asked to review week-by-week before more content is planned; continuing to week 10 was paused
-  at their request, not abandoned.
-- **T052** — depends on T021; week 1-2's ordering already front-loads python/dsa correctly
-  (verified by a new test), but the full-programme cross-check needs all 10 weeks authored first.
-- **T057/T058** — quickstart.md's S-1 (full `validate --strict` pass) and the final README pass
-  both require T021/T022's full roadmap; S-2 through S-7 were manually verified during this pass.
+Deliberately open:
+
 - **T027** — the literal "isolated temp git repo" integration test would require refactoring
   `REPO_ROOT` to be parameterizable everywhere `check`/`complete` shell out to git/pytest, which is
   disproportionate to what it proves beyond the existing T023-T026 unit tests plus the manual

@@ -151,7 +151,7 @@ offending day or topic. Exit code 0 only when no `error`-severity rule fires.
 | V-04 | error | `effort_hours` ≤ 4 for `weekday`, ≤ 6 for `weekend` | FR-027 |
 | V-05 | error | For any day with `from_scratch_of: N`, N < that day's id and N's topic matches | FR-010, Principle III |
 | V-06 | error | If `measurement` present, all of `metric`/`baseline`/`results_path`/`method` are non-empty | FR-012, Principle V |
-| V-07 | error | Every topic has ≥2 strictly increasing `resurface_after` intervals, and appears in ≥2 checkpoints' `resolves` | FR-014, FR-015, Principle VI |
+| V-07 | error | Every topic has ≥2 strictly increasing `resurface_after` intervals. For `dsa`/`ml` topics specifically (FR-015's actual scope — "every DSA problem set and core ML concept"), the topic must also appear in ≥2 checkpoints' `resolves` — unless fewer than 2 review checkpoints occur after its `first_day`, in which case it must appear in every checkpoint that remains (a topic introduced in the programme's last content day cannot be resurfaced twice before the programme ends; that is a scheduling fact, not a violation) | FR-014, FR-015, Principle VI |
 | V-08 | error | No milestone references a path inside this repository other than its `record_path`; `external` is `true` | FR-021, Principle VII |
 | V-09 | error | No day references a `topic`, `domain` or `tier` that is not declared | referential integrity |
 | V-10 | error | All 6 domains and all 6 roles declared; exactly one `primary` and one `secondary` role | FR-008, FR-029 |

@@ -3,7 +3,7 @@
 ## Code review triage agent (`code-review-triage-agent`)
 
 - **Opens after day**: 35
-- **Prerequisite days**: 22, 24, 28, 31, 34
+- **Prerequisite days**: 20, 24, 30, 31, 34
 - **Purpose**: An agent that ingests a PR diff and triages it (blocking / nitpick / false positive) by running tools — linter, test runner, static analyzer — in a loop, evaluated against a labeled set of real PRs rather than demoed on the happy path.
 - **Demonstrates**:
   - Multi-step tool orchestration with malformed/failing tool-call recovery
@@ -15,7 +15,7 @@
 ## Multi-backend inference gateway (`inference-gateway`)
 
 - **Opens after day**: 49
-- **Prerequisite days**: 38, 41, 44, 47
+- **Prerequisite days**: 39, 40, 46, 47, 48
 - **Purpose**: A FastAPI service routing requests across 2+ model backends (e.g. a local quantized model and a hosted API), with batching, response caching, rate-limit backoff, and a health-check/fallback path when a backend degrades.
 - **Demonstrates**:
   - Request batching and response caching under a stated load profile
@@ -27,7 +27,7 @@
 ## Model compression and validation benchmark suite (`compression-validation-suite`)
 
 - **Opens after day**: 63
-- **Prerequisite days**: 52, 55, 58, 61
+- **Prerequisite days**: 32, 33, 53, 58, 59
 - **Purpose**: Train or fine-tune a small model, then quantize/prune it, reporting accuracy, latency, and memory before vs. after against a stated baseline, plus a systematic adversarial/edge-case test suite rather than a single happy-path accuracy number.
 - **Demonstrates**:
   - Classical ML training and evaluation with a reported metric, dataset split, and baseline

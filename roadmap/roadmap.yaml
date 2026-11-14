@@ -17,7 +17,7 @@ domains:
   dsa:
     name: Data Structures & Algorithms
     directory: dsa
-    target_days: 16
+    target_days: 20
     min_depth: "Solve unseen large-tech-frequency problems cold, stating complexity, within interview time limits."
     supports_roles: [fde, agentic-ai]
   git:
@@ -35,13 +35,13 @@ domains:
   ml:
     name: ML & DL
     directory: ml
-    target_days: 14
+    target_days: 12
     min_depth: "Implement core training/inference mechanisms from scratch; report metric, split, and baseline."
     supports_roles: [agentic-ai, ml-engineer, inference, embedded-ml, test-validation]
   applied-ai:
     name: Applied AI Engineering
     directory: applied-ai
-    target_days: 24
+    target_days: 22
     min_depth: "Build, evaluate and debug a tool-using agent and a retrieval pipeline end to end."
     supports_roles: [agentic-ai, fde, test-validation]
 
@@ -166,6 +166,304 @@ topics:
     references:
       - title: "Validate Binary Search Tree"
         url: "https://leetcode.com/problems/validate-binary-search-tree/"
+  python-typing-static-analysis:
+    name: Python typing & static analysis
+    domain: python
+    first_day: 15
+    resurface_after: [14, 35]
+    references: []
+  python-packaging-testing-depth:
+    name: Python packaging & testing depth
+    domain: python
+    first_day: 16
+    resurface_after: [14, 35]
+    references: []
+  trees-construct-serialize:
+    name: Trees II — construct/serialize/LCA
+    domain: dsa
+    first_day: 17
+    resurface_after: [7, 21]
+    references:
+      - title: "Lowest Common Ancestor of a Binary Tree"
+        url: "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/"
+  python-async-concurrency:
+    name: Python async concurrency
+    domain: python
+    first_day: 18
+    resurface_after: [14, 35]
+    references: []
+  heaps-priority-queues:
+    name: Heaps / priority queues
+    domain: dsa
+    first_day: 19
+    resurface_after: [7, 21]
+    references:
+      - title: "Top K Frequent Elements"
+        url: "https://leetcode.com/problems/top-k-frequent-elements/"
+  llm-api-basics:
+    name: LLM API basics & structured output
+    domain: applied-ai
+    first_day: 20
+    resurface_after: [14, 35]
+    references: []
+  python-profiling:
+    name: Python profiling
+    domain: python
+    first_day: 22
+    resurface_after: [14, 35]
+    references: []
+  backtracking:
+    name: Backtracking
+    domain: dsa
+    first_day: 23
+    resurface_after: [7, 21]
+    references:
+      - title: "Combination Sum"
+        url: "https://leetcode.com/problems/combination-sum/"
+  prompt-engineering-eval-harness:
+    name: Prompt engineering & eval-harness basics
+    domain: applied-ai
+    first_day: 24
+    resurface_after: [14, 35]
+    references: []
+  graphs-bfs-dfs-topo:
+    name: Graphs I — BFS/DFS, topological sort
+    domain: dsa
+    first_day: 25
+    resurface_after: [7, 21]
+    references:
+      - title: "Course Schedule"
+        url: "https://leetcode.com/problems/course-schedule/"
+  retrieval-chunking-embeddings:
+    name: Retrieval I — chunking & embeddings from scratch
+    domain: applied-ai
+    first_day: 26
+    resurface_after: [14, 35]
+    references: []
+  retrieval-vector-search:
+    name: Retrieval II — vector search + hybrid retrieval
+    domain: applied-ai
+    first_day: 27
+    resurface_after: [14, 35]
+    references: []
+  graphs-union-find-dijkstra:
+    name: Graphs II — Union-Find + Dijkstra basics
+    domain: dsa
+    first_day: 29
+    resurface_after: [7, 21]
+    references:
+      - title: "Number of Provinces"
+        url: "https://leetcode.com/problems/number-of-provinces/"
+  retrieval-evaluation:
+    name: Retrieval evaluation (recall/faithfulness harness)
+    domain: applied-ai
+    first_day: 30
+    resurface_after: [14, 35]
+    references: []
+  agent-control-flow:
+    name: Multi-step agent control flow / planning loop
+    domain: applied-ai
+    first_day: 31
+    resurface_after: [14, 35]
+    references: []
+  neural-net-scratch:
+    name: Neural network forward/backward pass from scratch
+    domain: ml
+    first_day: 32
+    resurface_after: [14, 35]
+    references: []
+  multi-agent-orchestration:
+    name: Multi-agent orchestration
+    domain: applied-ai
+    first_day: 34
+    resurface_after: [14, 35]
+    references: []
+  dp-1d:
+    name: Dynamic programming I — 1D
+    domain: dsa
+    first_day: 36
+    resurface_after: [7, 21]
+    references:
+      - title: "House Robber"
+        url: "https://leetcode.com/problems/house-robber/"
+  claude-code-skills-vehicle:
+    name: Claude Code skills as an agentic-pattern practice vehicle
+    domain: applied-ai
+    first_day: 37
+    resurface_after: [14, 35]
+    references: []
+  claude-agent-sdk:
+    name: Claude Agent SDK
+    domain: applied-ai
+    first_day: 38
+    resurface_after: [14, 35]
+    references: []
+  systems-serving-batching-caching:
+    name: Serving fundamentals — batching & caching
+    domain: systems
+    first_day: 39
+    resurface_after: [14, 35]
+    references: []
+  systems-queues-backpressure:
+    name: Queues & backpressure
+    domain: systems
+    first_day: 40
+    resurface_after: [14, 35]
+    references: []
+  mcp-server-client:
+    name: MCP (Model Context Protocol) server/client
+    domain: applied-ai
+    first_day: 41
+    resurface_after: [14, 35]
+    references: []
+  dp-2d:
+    name: Dynamic programming II — 2D
+    domain: dsa
+    first_day: 43
+    resurface_after: [7, 21]
+    references:
+      - title: "Longest Common Subsequence"
+        url: "https://leetcode.com/problems/longest-common-subsequence/"
+  agent-error-handling:
+    name: Agent error handling — malformed/failing tool-call recovery, extended
+    domain: applied-ai
+    first_day: 44
+    resurface_after: [14, 35]
+    references: []
+  eval-nondeterministic-systems:
+    name: Systematic evaluation of non-deterministic systems
+    domain: applied-ai
+    first_day: 45
+    resurface_after: [14, 35]
+    references: []
+  systems-feature-stores:
+    name: Feature stores & ML-specific architecture
+    domain: systems
+    first_day: 46
+    resurface_after: [14, 35]
+    references: []
+  systems-inference-serving-design:
+    name: Inference-serving system design
+    domain: systems
+    first_day: 47
+    resurface_after: [14, 35]
+    references: []
+  rate-limiting-caching:
+    name: Rate limiting / backoff / caching
+    domain: applied-ai
+    first_day: 48
+    resurface_after: [14, 35]
+    references: []
+  intervals-greedy:
+    name: Intervals + greedy
+    domain: dsa
+    first_day: 50
+    resurface_after: [7, 21]
+    references:
+      - title: "Merge Intervals"
+        url: "https://leetcode.com/problems/merge-intervals/"
+  transformers-attention-scratch:
+    name: Attention & transformers from scratch
+    domain: ml
+    first_day: 51
+    resurface_after: [14, 35]
+    references: []
+  inference-optimization-quantization:
+    name: Inference optimization & quantization practice
+    domain: applied-ai
+    first_day: 53
+    resurface_after: [14, 35]
+    references: []
+  red-teaming-adversarial-prompts:
+    name: Red-teaming / adversarial prompt testing
+    domain: applied-ai
+    first_day: 54
+    resurface_after: [14, 35]
+    references: []
+  training-dynamics:
+    name: Training dynamics — overfitting, regularization, LR schedules
+    domain: ml
+    first_day: 55
+    resurface_after: [14, 35]
+    references: []
+  tries:
+    name: Tries
+    domain: dsa
+    first_day: 57
+    resurface_after: [7, 21]
+    references:
+      - title: "Implement Trie (Prefix Tree)"
+        url: "https://leetcode.com/problems/implement-trie-prefix-tree/"
+  classical-ml-comparison:
+    name: Classical ML comparison — trees/ensembles
+    domain: ml
+    first_day: 58
+    resurface_after: [14, 35]
+    references: []
+  ml-evaluation-methodology:
+    name: ML evaluation methodology
+    domain: ml
+    first_day: 59
+    resurface_after: [14, 35]
+    references: []
+  milestone1-triage-agent-scaffold:
+    name: "Milestone build: code-review-triage-agent scaffolding"
+    domain: applied-ai
+    first_day: 60
+    resurface_after: [14, 35]
+    references: []
+  milestone1-triage-agent-eval:
+    name: "Milestone build: triage-agent eval set + precision/recall scoring"
+    domain: applied-ai
+    first_day: 61
+    resurface_after: [14, 35]
+    references: []
+  systems-distributed-fundamentals:
+    name: Distributed systems fundamentals
+    domain: systems
+    first_day: 62
+    resurface_after: [14, 35]
+    references: []
+  bit-manipulation:
+    name: Bit manipulation
+    domain: dsa
+    first_day: 64
+    resurface_after: [7, 21]
+    references:
+      - title: "Single Number"
+        url: "https://leetcode.com/problems/single-number/"
+  design-lru-lfu-cache:
+    name: "Design: LRU/LFU cache"
+    domain: dsa
+    first_day: 65
+    resurface_after: [7, 21]
+    references:
+      - title: "LRU Cache"
+        url: "https://leetcode.com/problems/lru-cache/"
+  milestone2-inference-gateway-scaffold:
+    name: "Milestone build: inference-gateway scaffolding"
+    domain: applied-ai
+    first_day: 66
+    resurface_after: [14, 35]
+    references: []
+  milestone2-inference-gateway-resilience:
+    name: "Milestone build: inference-gateway fallback/health-check + load test"
+    domain: applied-ai
+    first_day: 67
+    resurface_after: [14, 35]
+    references: []
+  git-advanced-workflows:
+    name: Advanced git workflows
+    domain: git
+    first_day: 68
+    resurface_after: [14, 35]
+    references: []
+  applied-ai-stretch:
+    name: "Stretch: extend the retrieval or agent pipeline with one more eval case"
+    domain: applied-ai
+    first_day: 69
+    resurface_after: [14, 35]
+    references: []
 
 weeks:
   - number: 1
@@ -464,11 +762,1207 @@ weeks:
         - "Cut optional days from next week if behind; never carry a backlog."
       output_path: progress/reviews/week-02.md
 
+  - number: 3
+    theme: "Python engineering depth and DSA patterns III"
+    domains: [python, dsa, applied-ai]
+    outcome: "Typed, statically-checked, packaged, async-aware Python; trees-II and heaps solved cold; first LLM API call made from scratch."
+    days:
+      - id: 15
+        date: 2026-11-30
+        day_type: weekday
+        objective: "Add static typing throughout the repo's tooling and run a type checker against it."
+        domain: python
+        topic: python-typing-static-analysis
+        artifact: python/typing-static-analysis/typed_examples.py
+        verification: "pytest python/typing-static-analysis/ passes; mypy python/typing-static-analysis/ reports zero errors"
+        notes_topic: "What a type checker catches that a test suite doesn't, and what it can't catch"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        gate:
+          - "pytest python/typing-static-analysis/ passes"
+          - "mypy python/typing-static-analysis/ exits 0"
+          - "python/typing-static-analysis/NOTES.md modified in this commit"
+        minimum_viable: "Type the existing tool's public functions only; defer the generics exercise."
+      - id: 16
+        date: 2026-12-01
+        day_type: weekday
+        objective: "Package a small module properly (pyproject entry point, editable install) and write its test suite with fixtures and parametrization."
+        domain: python
+        topic: python-packaging-testing-depth
+        artifact: python/packaging-testing-depth/pkg_demo.py
+        verification: "pytest python/packaging-testing-depth/ passes using pytest fixtures and parametrize"
+        notes_topic: "Why a parametrized test is not the same as four copy-pasted tests"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        prerequisites: [1]
+        gate:
+          - "pytest python/packaging-testing-depth/ passes"
+          - "python/packaging-testing-depth/NOTES.md modified in this commit"
+        minimum_viable: "Write the fixtures and one parametrized test; defer the packaging exercise."
+      - id: 17
+        date: 2026-12-02
+        day_type: weekday
+        objective: "Solve tree-construction, serialization, and lowest-common-ancestor problems from scratch."
+        domain: dsa
+        topic: trees-construct-serialize
+        artifact: dsa/trees-construct-serialize/solutions.py
+        verification: "pytest dsa/trees-construct-serialize/ passes; complexity asserted per solution"
+        notes_topic: "Why LCA's split-point argument works for a general binary tree, not just a BST"
+        effort_hours: 4
+        tier: secondary
+        priority: core
+        prerequisites: [13]
+        gate:
+          - "pytest dsa/trees-construct-serialize/ passes"
+          - "dsa/trees-construct-serialize/NOTES.md modified in this commit"
+        minimum_viable: "LCA and one construction problem; defer serialization."
+      - id: 18
+        date: 2026-12-03
+        day_type: weekday
+        objective: "Write an async job runner using asyncio: concurrent I/O-bound tasks with a bounded concurrency limit."
+        domain: python
+        topic: python-async-concurrency
+        artifact: python/async-concurrency/job_runner.py
+        verification: "pytest python/async-concurrency/ passes; benchmarks.json shows concurrent runtime vs sequential baseline"
+        notes_topic: "Why async concurrency helps I/O-bound work and does nothing for CPU-bound work"
+        effort_hours: 4
+        tier: remaining
+        priority: core
+        gate:
+          - "pytest python/async-concurrency/ passes"
+          - "python/async-concurrency/NOTES.md modified in this commit"
+          - "python/async-concurrency/benchmarks.json committed"
+        minimum_viable: "Sequential baseline plus one concurrent variant; defer the bounded-concurrency semaphore."
+        measurement:
+          metric: latency
+          baseline: "sequential execution of the same I/O-bound tasks"
+          results_path: python/async-concurrency/benchmarks.json
+          method: "time 20 simulated I/O-bound tasks run sequentially vs concurrently with asyncio.gather"
+      - id: 19
+        date: 2026-12-04
+        day_type: weekday
+        objective: "Solve heap/priority-queue problems from scratch: k-th largest, merge-k-lists revisited via a custom comparator, task scheduling."
+        domain: dsa
+        topic: heaps-priority-queues
+        artifact: dsa/heaps-priority-queues/solutions.py
+        verification: "pytest dsa/heaps-priority-queues/ passes; complexity asserted per solution"
+        notes_topic: "Why a heap gives O(log n) insert/extract-min instead of O(n) for repeatedly finding the smallest/largest element"
+        effort_hours: 4
+        tier: secondary
+        priority: core
+        gate:
+          - "pytest dsa/heaps-priority-queues/ passes"
+          - "dsa/heaps-priority-queues/NOTES.md modified in this commit"
+        minimum_viable: "K-th-largest only; defer task scheduling."
+      - id: 20
+        date: 2026-12-05
+        day_type: weekend
+        objective: "Make a real LLM API call from scratch (no SDK wrapper beyond HTTP), parse a structured-output response, and handle a malformed-response retry."
+        domain: applied-ai
+        topic: llm-api-basics
+        artifact: applied-ai/llm-api-basics/client.py
+        verification: "pytest applied-ai/llm-api-basics/ passes against recorded fixtures"
+        notes_topic: "What a 'structured output' guarantee actually guarantees, and what still has to be validated client-side"
+        effort_hours: 6
+        tier: primary
+        priority: core
+        offline: true
+        offline_fallback: "replay recorded request/response pairs from applied-ai/_fixtures/"
+        gate:
+          - "pytest applied-ai/llm-api-basics/ passes"
+          - "applied-ai/llm-api-basics/NOTES.md modified in this commit"
+        minimum_viable: "Happy-path structured-output parsing only; defer the malformed-response retry."
+      - id: 21
+        date: 2026-12-06
+        day_type: weekend
+        objective: "Weekly review: re-solve the scheduled DSA/ML topics from a blank file, audit the week against the constitution, re-plan."
+        domain: python
+        topic: python-typing-static-analysis
+        artifact: progress/reviews/week-03.md
+        verification: "roadmap review writes the Generated section; both re-solves recorded pass/fail"
+        notes_topic: "What the re-solve revealed about which parts of trees-II and heaps were not actually retained"
+        effort_hours: 6
+        tier: primary
+        priority: core
+        prerequisites: [17, 19]
+        gate:
+          - "roadmap review writes progress/reviews/week-03.md"
+          - "both re-solves recorded via roadmap complete --resolve"
+        minimum_viable: "Re-solve one topic instead of two; log the skip honestly."
+    review:
+      week: 3
+      day: 21
+      resolves: [arrays-hashing, binary-search, stacks-monotonic, trees-construct-serialize]
+      procedure:
+        - "Revision of fragile material outranks starting new material when time is short (FR-018)."
+        - "Re-solve each topic in `resolves` from a blank file; record pass/fail."
+        - "Run `roadmap review` and read the failed-gate report."
+        - "Audit the week's commits against constitution Principles I-VII."
+        - "Cut optional days from next week if behind; never carry a backlog."
+      output_path: progress/reviews/week-03.md
+
+  - number: 4
+    theme: "Backtracking, graphs, and retrieval foundations"
+    domains: [python, dsa, applied-ai]
+    outcome: "Backtracking and graph-traversal patterns solved cold; a retrieval pipeline built end to end over a real corpus."
+    days:
+      - id: 22
+        date: 2026-12-07
+        day_type: weekday
+        objective: "Profile a CPU-bound function, find the actual bottleneck, and fix it — then prove the fix with a measurement, not a guess."
+        domain: python
+        topic: python-profiling
+        artifact: python/profiling/slow_function.py
+        verification: "pytest python/profiling/ passes; benchmarks.json shows before/after timing"
+        notes_topic: "Why the bottleneck you assume is almost never the one the profiler shows"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        gate:
+          - "pytest python/profiling/ passes"
+          - "python/profiling/NOTES.md modified in this commit"
+          - "python/profiling/benchmarks.json committed"
+        minimum_viable: "Profile and identify the bottleneck; defer the optimization itself."
+        measurement:
+          metric: latency
+          baseline: "the unoptimized function, as first profiled"
+          results_path: python/profiling/benchmarks.json
+          method: "cProfile the function before and after the fix; report wall-clock time for both"
+      - id: 23
+        date: 2026-12-08
+        day_type: weekday
+        objective: "Solve backtracking problems from scratch: subsets, permutations, combination sum."
+        domain: dsa
+        topic: backtracking
+        artifact: dsa/backtracking/solutions.py
+        verification: "pytest dsa/backtracking/ passes; complexity asserted per solution"
+        notes_topic: "Why backtracking is DFS with an undo step, and what happens if you forget the undo"
+        effort_hours: 4
+        tier: secondary
+        priority: core
+        gate:
+          - "pytest dsa/backtracking/ passes"
+          - "dsa/backtracking/NOTES.md modified in this commit"
+        minimum_viable: "Subsets and permutations only; defer combination sum."
+      - id: 24
+        date: 2026-12-09
+        day_type: weekday
+        objective: "Build a prompt-evaluation harness: a labeled set of prompt/expected-behavior pairs, scored automatically against a baseline prompt."
+        domain: applied-ai
+        topic: prompt-engineering-eval-harness
+        artifact: applied-ai/prompt-engineering-eval-harness/harness.py
+        verification: "pytest applied-ai/prompt-engineering-eval-harness/ passes; benchmarks.json reports pass rate vs the baseline prompt"
+        notes_topic: "Why 'the prompt seems to work' is not evidence, and what a labeled eval set actually buys you"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        prerequisites: [20]
+        offline: true
+        offline_fallback: "replay recorded request/response pairs from applied-ai/_fixtures/"
+        gate:
+          - "pytest applied-ai/prompt-engineering-eval-harness/ passes"
+          - "applied-ai/prompt-engineering-eval-harness/NOTES.md modified in this commit"
+          - "applied-ai/prompt-engineering-eval-harness/benchmarks.json committed"
+        minimum_viable: "5-case eval set instead of 20; defer the baseline-prompt comparison."
+        measurement:
+          metric: accuracy
+          baseline: "a deliberately under-specified baseline prompt"
+          results_path: applied-ai/prompt-engineering-eval-harness/benchmarks.json
+          method: "score the improved prompt and the baseline prompt against the same labeled set; report pass rate for both"
+      - id: 25
+        date: 2026-12-10
+        day_type: weekday
+        objective: "Solve graph BFS/DFS and topological-sort problems from scratch."
+        domain: dsa
+        topic: graphs-bfs-dfs-topo
+        artifact: dsa/graphs-bfs-dfs-topo/solutions.py
+        verification: "pytest dsa/graphs-bfs-dfs-topo/ passes; complexity asserted per solution"
+        notes_topic: "Why topological sort is only defined for a DAG, and how to detect the cycle that breaks it"
+        effort_hours: 4
+        tier: secondary
+        priority: core
+        gate:
+          - "pytest dsa/graphs-bfs-dfs-topo/ passes"
+          - "dsa/graphs-bfs-dfs-topo/NOTES.md modified in this commit"
+        minimum_viable: "BFS and DFS only; defer topological sort."
+      - id: 26
+        date: 2026-12-11
+        day_type: weekday
+        objective: "Build a chunking and embedding pipeline from scratch over a real (small, non-proprietary) text corpus."
+        domain: applied-ai
+        topic: retrieval-chunking-embeddings
+        artifact: applied-ai/retrieval-chunking-embeddings/ingest.py
+        verification: "pytest applied-ai/retrieval-chunking-embeddings/ passes against a committed sample corpus"
+        notes_topic: "Why chunk size and overlap change what gets retrieved later, not just how it's stored"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        gate:
+          - "pytest applied-ai/retrieval-chunking-embeddings/ passes"
+          - "applied-ai/retrieval-chunking-embeddings/NOTES.md modified in this commit"
+        minimum_viable: "Fixed-size chunking only; defer overlap and semantic-boundary chunking."
+      - id: 27
+        date: 2026-12-12
+        day_type: weekend
+        objective: "Build vector search over yesterday's embeddings, then add a hybrid (keyword + vector) retrieval mode."
+        domain: applied-ai
+        topic: retrieval-vector-search
+        artifact: applied-ai/retrieval-vector-search/search.py
+        verification: "pytest applied-ai/retrieval-vector-search/ passes; benchmarks.json compares vector-only vs hybrid recall on a labeled query set"
+        notes_topic: "Why pure vector search misses exact-keyword queries that hybrid retrieval catches"
+        effort_hours: 6
+        tier: primary
+        priority: core
+        prerequisites: [26]
+        gate:
+          - "pytest applied-ai/retrieval-vector-search/ passes"
+          - "applied-ai/retrieval-vector-search/NOTES.md modified in this commit"
+          - "applied-ai/retrieval-vector-search/benchmarks.json committed"
+        minimum_viable: "Vector-only search; defer the hybrid mode to day 30's evaluation day."
+        measurement:
+          metric: accuracy
+          baseline: "vector-only retrieval"
+          results_path: applied-ai/retrieval-vector-search/benchmarks.json
+          method: "recall@5 on a labeled query set, vector-only vs hybrid"
+      - id: 28
+        date: 2026-12-13
+        day_type: weekend
+        objective: "Weekly review: re-solve the scheduled DSA/ML topics from a blank file, audit the week against the constitution, re-plan."
+        domain: python
+        topic: python-profiling
+        artifact: progress/reviews/week-04.md
+        verification: "roadmap review writes the Generated section; both re-solves recorded pass/fail"
+        notes_topic: "What the re-solve revealed about which parts of backtracking and graphs-I were not actually retained"
+        effort_hours: 6
+        tier: primary
+        priority: core
+        prerequisites: [23, 25]
+        gate:
+          - "roadmap review writes progress/reviews/week-04.md"
+          - "both re-solves recorded via roadmap complete --resolve"
+        minimum_viable: "Re-solve one topic instead of two; log the skip honestly."
+    review:
+      week: 4
+      day: 28
+      resolves: [sliding-window, linked-lists, trees-traversals, heaps-priority-queues, backtracking]
+      procedure:
+        - "Revision of fragile material outranks starting new material when time is short (FR-018)."
+        - "Re-solve each topic in `resolves` from a blank file; record pass/fail."
+        - "Run `roadmap review` and read the failed-gate report."
+        - "Audit the week's commits against constitution Principles I-VII."
+        - "Cut optional days from next week if behind; never carry a backlog."
+      output_path: progress/reviews/week-04.md
+
+  - number: 5
+    theme: "Graphs II, retrieval evaluation, and the first neural net"
+    domains: [dsa, applied-ai, ml]
+    outcome: "Union-Find and Dijkstra solved cold; retrieval quality measured, not assumed; a neural net's forward/backward pass built from scratch."
+    days:
+      - id: 29
+        date: 2026-12-14
+        day_type: weekday
+        objective: "Solve Union-Find and Dijkstra's-algorithm problems from scratch."
+        domain: dsa
+        topic: graphs-union-find-dijkstra
+        artifact: dsa/graphs-union-find-dijkstra/solutions.py
+        verification: "pytest dsa/graphs-union-find-dijkstra/ passes; complexity asserted per solution"
+        notes_topic: "Why union-by-rank plus path compression gets Union-Find to near-O(1) amortized, and what breaks without either"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        gate:
+          - "pytest dsa/graphs-union-find-dijkstra/ passes"
+          - "dsa/graphs-union-find-dijkstra/NOTES.md modified in this commit"
+        minimum_viable: "Union-Find only; defer Dijkstra."
+      - id: 30
+        date: 2026-12-15
+        day_type: weekday
+        objective: "Build a retrieval evaluation harness: recall@k and a faithfulness check against a labeled query/answer set, comparing vector-only vs hybrid from day 27."
+        domain: applied-ai
+        topic: retrieval-evaluation
+        artifact: applied-ai/retrieval-evaluation/eval_harness.py
+        verification: "pytest applied-ai/retrieval-evaluation/ passes; benchmarks.json reports recall@k and faithfulness for both retrieval modes"
+        notes_topic: "Why 'faithfulness' (did the answer actually use the retrieved text) is a different failure mode than 'recall' (was the right text even retrieved)"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        prerequisites: [27]
+        gate:
+          - "pytest applied-ai/retrieval-evaluation/ passes"
+          - "applied-ai/retrieval-evaluation/NOTES.md modified in this commit"
+          - "applied-ai/retrieval-evaluation/benchmarks.json committed"
+        minimum_viable: "Recall@k only; defer the faithfulness check."
+        measurement:
+          metric: accuracy
+          baseline: "vector-only retrieval from day 27"
+          results_path: applied-ai/retrieval-evaluation/benchmarks.json
+          method: "recall@5 and a faithfulness pass rate on a labeled query/answer set, vector-only vs hybrid"
+      - id: 31
+        date: 2026-12-16
+        day_type: weekday
+        objective: "Build a multi-step planning loop: the agent decides how many steps it needs and in what order, rather than following a fixed script."
+        domain: applied-ai
+        topic: agent-control-flow
+        artifact: applied-ai/agent-control-flow/planner.py
+        verification: "pytest applied-ai/agent-control-flow/ passes against at least 3 distinct planning scenarios"
+        notes_topic: "Why a fixed-step loop (like day 6's) breaks on a task whose step count isn't known in advance"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        prerequisites: [6]
+        offline: true
+        offline_fallback: "replay recorded request/response pairs from applied-ai/_fixtures/"
+        gate:
+          - "pytest applied-ai/agent-control-flow/ passes"
+          - "applied-ai/agent-control-flow/NOTES.md modified in this commit"
+        minimum_viable: "One planning scenario instead of three; defer the rest."
+      - id: 32
+        date: 2026-12-17
+        day_type: weekday
+        objective: "Implement a 2-layer neural network's forward and backward pass from scratch in NumPy — no autograd."
+        domain: ml
+        topic: neural-net-scratch
+        artifact: ml/neural-net-scratch/network.py
+        verification: "pytest ml/neural-net-scratch/ passes: gradient-checked against a numerical approximation"
+        notes_topic: "Why backprop is the chain rule applied layer by layer, and what a gradient check actually verifies"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        prerequisites: [10]
+        gate:
+          - "pytest ml/neural-net-scratch/ passes"
+          - "ml/neural-net-scratch/NOTES.md modified in this commit"
+        minimum_viable: "Forward pass and a numerical gradient check only; defer the full backward-pass implementation."
+      - id: 33
+        date: 2026-12-18
+        day_type: weekday
+        objective: "Reimplement day 32's network using torch.autograd and compare training curves."
+        domain: ml
+        topic: neural-net-scratch
+        artifact: ml/neural-net-scratch/network_torch.py
+        verification: "pytest ml/neural-net-scratch/test_network_torch.py passes; benchmarks.json compares loss curves, scratch vs torch"
+        notes_topic: "What torch.autograd buys you beyond 'less code to write' — and what it hides about what's actually happening"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        from_scratch_of: 32
+        gate:
+          - "pytest ml/neural-net-scratch/test_network_torch.py passes"
+          - "ml/neural-net-scratch/benchmarks.json committed"
+        minimum_viable: "Get the torch version training; defer the loss-curve comparison plot/analysis."
+        measurement:
+          metric: accuracy
+          baseline: "day 32's from-scratch implementation"
+          results_path: ml/neural-net-scratch/benchmarks.json
+          method: "train both on the same synthetic dataset for the same number of epochs; report final loss for each"
+      - id: 34
+        date: 2026-12-19
+        day_type: weekend
+        objective: "Extend day 31's planner to coordinate two specialized agents (e.g. a researcher and a writer) rather than one generalist."
+        domain: applied-ai
+        topic: multi-agent-orchestration
+        artifact: applied-ai/multi-agent-orchestration/orchestrator.py
+        verification: "pytest applied-ai/multi-agent-orchestration/ passes against a 2-agent handoff scenario"
+        notes_topic: "Why splitting one agent's responsibilities into two narrower agents can reduce failure modes, and where it adds coordination overhead instead"
+        effort_hours: 6
+        tier: primary
+        priority: core
+        prerequisites: [31]
+        offline: true
+        offline_fallback: "replay recorded request/response pairs from applied-ai/_fixtures/"
+        gate:
+          - "pytest applied-ai/multi-agent-orchestration/ passes"
+          - "applied-ai/multi-agent-orchestration/NOTES.md modified in this commit"
+        minimum_viable: "A single hand-off between two agents; defer any retry/escalation logic between them."
+      - id: 35
+        date: 2026-12-20
+        day_type: weekend
+        objective: "Weekly review: re-solve the scheduled DSA/ML topics from a blank file, audit the week against the constitution, re-plan. Milestone check: is code-review-triage-agent ready to start?"
+        domain: ml
+        topic: neural-net-scratch
+        artifact: progress/reviews/week-05.md
+        verification: "roadmap review writes the Generated section; both re-solves recorded pass/fail; roadmap coverage shows milestone readiness"
+        notes_topic: "What the re-solve revealed about which parts of graphs-II were not actually retained"
+        effort_hours: 6
+        tier: remaining
+        priority: core
+        prerequisites: [29, 32]
+        gate:
+          - "roadmap review writes progress/reviews/week-05.md"
+          - "both re-solves recorded via roadmap complete --resolve"
+        minimum_viable: "Re-solve one topic instead of two; log the skip honestly."
+    review:
+      week: 5
+      day: 35
+      resolves: [binary-search, stacks-monotonic, graphs-bfs-dfs-topo, gradient-descent-scratch]
+      procedure:
+        - "Revision of fragile material outranks starting new material when time is short (FR-018)."
+        - "Re-solve each topic in `resolves` from a blank file; record pass/fail."
+        - "Run `roadmap review` and read the failed-gate report."
+        - "Check `roadmap coverage` for the code-review-triage-agent milestone's readiness."
+        - "Audit the week's commits against constitution Principles I-VII."
+        - "Cut optional days from next week if behind; never carry a backlog."
+      output_path: progress/reviews/week-05.md
+
+  - number: 6
+    theme: "DP I and Claude-specific agentic tooling (slip-risk week: holiday period)"
+    domains: [dsa, applied-ai, systems]
+    outcome: "1D dynamic programming solved cold; Claude Code skills, the Claude Agent SDK, and MCP practiced as vehicles for the generic agentic patterns already learned."
+    days:
+      - id: 36
+        date: 2026-12-21
+        day_type: weekday
+        objective: "Solve 1D dynamic programming problems from scratch: climbing stairs, house robber, coin change."
+        domain: dsa
+        topic: dp-1d
+        artifact: dsa/dp-1d/solutions.py
+        verification: "pytest dsa/dp-1d/ passes; complexity asserted per solution"
+        notes_topic: "Why memoizing a recursive solution and building a bottom-up table are the same idea with different call orders"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        gate:
+          - "pytest dsa/dp-1d/ passes"
+          - "dsa/dp-1d/NOTES.md modified in this commit"
+        minimum_viable: "Climbing stairs and house robber only; defer coin change."
+      - id: 37
+        date: 2026-12-22
+        day_type: weekday
+        objective: "Build a Claude Code skill that implements day 31's multi-step planning pattern — the generic concept is the practice objective, Claude Code's skill mechanism is just the vehicle."
+        domain: applied-ai
+        topic: claude-code-skills-vehicle
+        artifact: applied-ai/claude-code-skills-vehicle/skill_demo.py
+        verification: "pytest applied-ai/claude-code-skills-vehicle/ passes; the skill reproduces day 31's planning behavior"
+        notes_topic: "What a Claude Code skill actually packages (instructions plus optional tools), and why that's the same shape as the planner from day 31"
+        effort_hours: 4
+        tier: primary
+        priority: optional
+        prerequisites: [31]
+        generic_concept: "multi-step control flow / planning loop (same pattern as day 31, practiced via a Claude Code skill)"
+        gate:
+          - "pytest applied-ai/claude-code-skills-vehicle/ passes"
+          - "applied-ai/claude-code-skills-vehicle/NOTES.md modified in this commit"
+        minimum_viable: "Describe the skill's structure in NOTES.md without a full working implementation."
+      - id: 38
+        date: 2026-12-23
+        day_type: weekday
+        objective: "Use the Claude Agent SDK to reimplement day 34's two-agent orchestration — the generic concept (multi-agent handoff) is what's being practiced, the SDK is the vehicle."
+        domain: applied-ai
+        topic: claude-agent-sdk
+        artifact: applied-ai/claude-agent-sdk/orchestrator_sdk.py
+        verification: "pytest applied-ai/claude-agent-sdk/ passes against the same 2-agent handoff scenario as day 34"
+        notes_topic: "What the Claude Agent SDK handles for you that day 34's hand-rolled orchestrator had to do manually"
+        effort_hours: 4
+        tier: primary
+        priority: optional
+        prerequisites: [34]
+        generic_concept: "multi-agent orchestration (same pattern as day 34, practiced via the Claude Agent SDK)"
+        gate:
+          - "pytest applied-ai/claude-agent-sdk/ passes"
+          - "applied-ai/claude-agent-sdk/NOTES.md modified in this commit"
+        minimum_viable: "Describe the SDK's orchestration primitives in NOTES.md without a full working port."
+      - id: 39
+        date: 2026-12-24
+        day_type: weekday
+        objective: "Design and simulate a request-batching and response-caching layer for a model-serving endpoint."
+        domain: systems
+        topic: systems-serving-batching-caching
+        artifact: systems/serving-batching-caching/design.md
+        verification: "systems/serving-batching-caching/simulate.py demonstrates throughput improvement from batching under a stated load profile"
+        notes_topic: "Why batching trades latency for throughput, and why that's the right trade for some workloads and the wrong one for others"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        gate:
+          - "pytest systems/serving-batching-caching/ passes"
+          - "systems/serving-batching-caching/NOTES.md modified in this commit"
+          - "systems/serving-batching-caching/benchmarks.json committed"
+        minimum_viable: "Design document only; defer the simulation script."
+        measurement:
+          metric: throughput
+          baseline: "one-request-at-a-time processing"
+          results_path: systems/serving-batching-caching/benchmarks.json
+          method: "simulate 100 requests processed one at a time vs batched in groups of 8; report requests/second for both"
+      - id: 40
+        date: 2026-12-25
+        day_type: weekday
+        objective: "Add a bounded queue with backpressure to day 39's design: what happens when requests arrive faster than they can be served."
+        domain: systems
+        topic: systems-queues-backpressure
+        artifact: systems/queues-backpressure/queue_sim.py
+        verification: "pytest systems/queues-backpressure/ passes, including a test that the queue rejects rather than grows unbounded under sustained overload"
+        notes_topic: "Why an unbounded queue under sustained overload just delays the failure instead of preventing it"
+        effort_hours: 4
+        tier: remaining
+        priority: optional
+        prerequisites: [39]
+        gate:
+          - "pytest systems/queues-backpressure/ passes"
+          - "systems/queues-backpressure/NOTES.md modified in this commit"
+        minimum_viable: "Bounded queue only; defer the backpressure-signaling mechanism."
+      - id: 41
+        date: 2026-12-26
+        day_type: weekend
+        objective: "Build an MCP server exposing day 6's weather-lookup tool, and an MCP client that calls it — the generic concept (tool-use over a standard protocol) is what's being practiced."
+        domain: applied-ai
+        topic: mcp-server-client
+        artifact: applied-ai/mcp-server-client/server.py
+        verification: "pytest applied-ai/mcp-server-client/ passes: the MCP client successfully calls the MCP server's tool"
+        notes_topic: "What MCP standardizes that day 6's ad-hoc tool-calling loop didn't: a protocol other clients and servers can also speak"
+        effort_hours: 6
+        tier: primary
+        priority: optional
+        prerequisites: [6]
+        generic_concept: "standardized tool use over a protocol (same tool-use concept as day 6, practiced via MCP)"
+        gate:
+          - "pytest applied-ai/mcp-server-client/ passes"
+          - "applied-ai/mcp-server-client/NOTES.md modified in this commit"
+        minimum_viable: "Describe the MCP server/client shape in NOTES.md without a full working implementation."
+      - id: 42
+        date: 2026-12-27
+        day_type: weekend
+        objective: "Weekly review: re-solve the scheduled DSA/ML topics from a blank file, audit the week against the constitution, re-plan."
+        domain: ml
+        topic: neural-net-scratch
+        artifact: progress/reviews/week-06.md
+        verification: "roadmap review writes the Generated section; both re-solves recorded pass/fail"
+        notes_topic: "What the re-solve revealed about which parts of DP-1D were not actually retained"
+        effort_hours: 6
+        tier: remaining
+        priority: core
+        prerequisites: [36]
+        gate:
+          - "roadmap review writes progress/reviews/week-06.md"
+          - "both re-solves recorded via roadmap complete --resolve"
+        minimum_viable: "Re-solve one topic instead of two; log the skip honestly."
+    review:
+      week: 6
+      day: 42
+      resolves: [trees-construct-serialize, linked-lists, graphs-union-find-dijkstra, neural-net-scratch]
+      procedure:
+        - "Revision of fragile material outranks starting new material when time is short (FR-018)."
+        - "Re-solve each topic in `resolves` from a blank file; record pass/fail."
+        - "Run `roadmap review` and read the failed-gate report."
+        - "This is a flagged slip-risk week (holiday period) — days 37/38/41/40 are optional; cut them first if behind, never the core days."
+        - "Audit the week's commits against constitution Principles I-VII."
+        - "Cut optional days from next week if behind; never carry a backlog."
+      output_path: progress/reviews/week-06.md
+
+  - number: 7
+    theme: "DP II, agent error handling, and inference-serving system design (slip-risk week: holiday period)"
+    domains: [dsa, applied-ai, systems]
+    outcome: "2D dynamic programming solved cold; agent error handling and non-deterministic-system evaluation deepened; an inference-serving system designed under stated constraints."
+    days:
+      - id: 43
+        date: 2026-12-28
+        day_type: weekday
+        objective: "Solve 2D dynamic programming problems from scratch: grid paths, longest common subsequence, edit distance."
+        domain: dsa
+        topic: dp-2d
+        artifact: dsa/dp-2d/solutions.py
+        verification: "pytest dsa/dp-2d/ passes; complexity asserted per solution"
+        notes_topic: "Why edit distance's DP table is a grid of 'cost to transform this prefix into that prefix,' not a formula to memorize"
+        effort_hours: 4
+        tier: secondary
+        priority: core
+        prerequisites: [36]
+        gate:
+          - "pytest dsa/dp-2d/ passes"
+          - "dsa/dp-2d/NOTES.md modified in this commit"
+        minimum_viable: "Grid paths and LCS only; defer edit distance."
+      - id: 44
+        date: 2026-12-29
+        day_type: weekday
+        objective: "Extend day 6's malformed-tool-call retry to handle a wider failure taxonomy: timeouts, partial responses, and a tool that raises instead of returning malformed output."
+        domain: applied-ai
+        topic: agent-error-handling
+        artifact: applied-ai/agent-error-handling/error_taxonomy.py
+        verification: "pytest applied-ai/agent-error-handling/ passes against all 3 new failure cases plus day 6's original 3"
+        notes_topic: "Why a tool that raises needs different handling than a tool that returns a malformed result — one is 'retry with correction,' the other might not be retryable at all"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        prerequisites: [6]
+        offline: true
+        offline_fallback: "replay recorded request/response pairs from applied-ai/_fixtures/"
+        gate:
+          - "pytest applied-ai/agent-error-handling/ passes"
+          - "applied-ai/agent-error-handling/NOTES.md modified in this commit"
+        minimum_viable: "Handle the timeout case only; defer the other two."
+      - id: 45
+        date: 2026-12-30
+        day_type: weekday
+        objective: "Build an LLM-as-judge evaluator for a non-deterministic task, and measure the judge's own agreement rate against a human-labeled sample."
+        domain: applied-ai
+        topic: eval-nondeterministic-systems
+        artifact: applied-ai/eval-nondeterministic-systems/judge.py
+        verification: "pytest applied-ai/eval-nondeterministic-systems/ passes; benchmarks.json reports judge-vs-human agreement rate"
+        notes_topic: "Why an LLM-as-judge needs its own accuracy measured against ground truth — a judge you haven't validated is just a second unverified opinion"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        offline: true
+        offline_fallback: "replay recorded request/response pairs from applied-ai/_fixtures/"
+        gate:
+          - "pytest applied-ai/eval-nondeterministic-systems/ passes"
+          - "applied-ai/eval-nondeterministic-systems/NOTES.md modified in this commit"
+          - "applied-ai/eval-nondeterministic-systems/benchmarks.json committed"
+        minimum_viable: "Run the judge on 5 cases instead of 20; still report the agreement rate on that smaller sample."
+        measurement:
+          metric: accuracy
+          baseline: "a human-labeled sample of the same cases"
+          results_path: applied-ai/eval-nondeterministic-systems/benchmarks.json
+          method: "judge-vs-human agreement rate across 20 labeled cases"
+      - id: 46
+        date: 2026-12-31
+        day_type: weekday
+        objective: "Design a feature store's read/write path for a model that needs both batch-computed and real-time features."
+        domain: systems
+        topic: systems-feature-stores
+        artifact: systems/feature-stores/design.md
+        verification: "systems/feature-stores/design.md states the read/write path, consistency guarantees, and staleness tolerance explicitly"
+        notes_topic: "Why serving the same feature computed two different ways (batch vs real-time) risks training/serving skew"
+        effort_hours: 4
+        tier: primary
+        priority: optional
+        gate:
+          - "systems/feature-stores/design.md states read path, write path, and staleness tolerance"
+          - "systems/feature-stores/NOTES.md modified in this commit"
+        minimum_viable: "Read path only; defer the write-path and staleness design."
+      - id: 47
+        date: 2027-01-01
+        day_type: weekday
+        objective: "Design an inference-serving system handling 2+ model backends, stating its batching, caching, and failure-isolation strategy — this is milestone 2's design document."
+        domain: systems
+        topic: systems-inference-serving-design
+        artifact: systems/inference-serving-design/design.md
+        verification: "systems/inference-serving-design/design.md names the backends, the batching/caching strategy, and what happens when one backend is unhealthy"
+        notes_topic: "Why failure isolation between backends matters even when only one backend is unhealthy: how a naive design still breaks for the other"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        prerequisites: [39, 40]
+        gate:
+          - "systems/inference-serving-design/design.md names backends, batching/caching strategy, and failure-isolation behavior"
+          - "systems/inference-serving-design/NOTES.md modified in this commit"
+        minimum_viable: "Name the backends and the failure-isolation strategy; defer the batching/caching detail."
+      - id: 48
+        date: 2027-01-02
+        day_type: weekend
+        objective: "Implement rate-limit backoff and response caching for day 20's LLM API client, and measure the request-count reduction from caching."
+        domain: applied-ai
+        topic: rate-limiting-caching
+        artifact: applied-ai/rate-limiting-caching/client_with_backoff.py
+        verification: "pytest applied-ai/rate-limiting-caching/ passes, including a simulated 429 response triggering backoff"
+        notes_topic: "Why exponential backoff with jitter avoids a thundering-herd retry storm that plain fixed-delay retry doesn't"
+        effort_hours: 6
+        tier: primary
+        priority: core
+        prerequisites: [20]
+        offline: true
+        offline_fallback: "replay recorded request/response pairs from applied-ai/_fixtures/"
+        gate:
+          - "pytest applied-ai/rate-limiting-caching/ passes"
+          - "applied-ai/rate-limiting-caching/NOTES.md modified in this commit"
+          - "applied-ai/rate-limiting-caching/benchmarks.json committed"
+        minimum_viable: "Backoff only; defer the caching layer."
+        measurement:
+          metric: cost
+          baseline: "no caching — every request hits the API"
+          results_path: applied-ai/rate-limiting-caching/benchmarks.json
+          method: "replay 50 requests with 30% duplicate queries; report request count with and without caching"
+      - id: 49
+        date: 2027-01-03
+        day_type: weekend
+        objective: "Weekly review: re-solve the scheduled DSA/ML topics from a blank file, audit the week against the constitution, re-plan. Milestone check: is inference-gateway ready to start?"
+        domain: ml
+        topic: neural-net-scratch
+        artifact: progress/reviews/week-07.md
+        verification: "roadmap review writes the Generated section; both re-solves recorded pass/fail; roadmap coverage shows milestone readiness"
+        notes_topic: "What the re-solve revealed about which parts of DP-2D were not actually retained"
+        effort_hours: 6
+        tier: remaining
+        priority: core
+        prerequisites: [43]
+        gate:
+          - "roadmap review writes progress/reviews/week-07.md"
+          - "both re-solves recorded via roadmap complete --resolve"
+        minimum_viable: "Re-solve one topic instead of two; log the skip honestly."
+    review:
+      week: 7
+      day: 49
+      resolves: [trees-traversals, heaps-priority-queues, dp-1d, gradient-descent-scratch]
+      procedure:
+        - "Revision of fragile material outranks starting new material when time is short (FR-018)."
+        - "Re-solve each topic in `resolves` from a blank file; record pass/fail."
+        - "Run `roadmap review` and read the failed-gate report."
+        - "Check `roadmap coverage` for the inference-gateway milestone's readiness."
+        - "This is a flagged slip-risk week (holiday period) — day 46 is optional; cut it first if behind, never the core days."
+        - "Audit the week's commits against constitution Principles I-VII."
+        - "Cut optional days from next week if behind; never carry a backlog."
+      output_path: progress/reviews/week-07.md
+
+  - number: 8
+    theme: "Intervals/greedy, transformers, and inference optimization"
+    domains: [dsa, ml, applied-ai]
+    outcome: "Intervals and greedy scheduling solved cold; attention built from scratch; a model quantized with the accuracy/latency/memory trade-off measured, not claimed."
+    days:
+      - id: 50
+        date: 2027-01-04
+        day_type: weekday
+        objective: "Solve intervals and greedy-scheduling problems from scratch: merge intervals, meeting rooms, activity selection."
+        domain: dsa
+        topic: intervals-greedy
+        artifact: dsa/intervals-greedy/solutions.py
+        verification: "pytest dsa/intervals-greedy/ passes; complexity asserted per solution"
+        notes_topic: "Why sorting by end time (not start time) is what makes activity selection's greedy choice provably optimal"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        gate:
+          - "pytest dsa/intervals-greedy/ passes"
+          - "dsa/intervals-greedy/NOTES.md modified in this commit"
+        minimum_viable: "Merge intervals only; defer meeting rooms and activity selection."
+      - id: 51
+        date: 2027-01-05
+        day_type: weekday
+        objective: "Implement scaled dot-product attention from scratch in NumPy: query/key/value projections, the attention-score matrix, and the weighted sum."
+        domain: ml
+        topic: transformers-attention-scratch
+        artifact: ml/transformers-attention-scratch/attention.py
+        verification: "pytest ml/transformers-attention-scratch/ passes against a known attention-output test case"
+        notes_topic: "Why attention scores are divided by sqrt(d_k) before the softmax, and what happens to the gradient if you skip that scaling"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        prerequisites: [32]
+        gate:
+          - "pytest ml/transformers-attention-scratch/ passes"
+          - "ml/transformers-attention-scratch/NOTES.md modified in this commit"
+        minimum_viable: "Single-head attention only; defer multi-head."
+      - id: 52
+        date: 2027-01-06
+        day_type: weekday
+        objective: "Reimplement day 51's attention using a library's multi-head attention layer and compare outputs on the same input."
+        domain: ml
+        topic: transformers-attention-scratch
+        artifact: ml/transformers-attention-scratch/attention_torch.py
+        verification: "pytest ml/transformers-attention-scratch/test_attention_torch.py passes: outputs match day 51's single-head case within tolerance"
+        notes_topic: "What multi-head attention buys over single-head, and why the library version's API hides the Q/K/V projections day 51 made explicit"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        from_scratch_of: 51
+        gate:
+          - "pytest ml/transformers-attention-scratch/test_attention_torch.py passes"
+          - "ml/transformers-attention-scratch/NOTES.md modified in this commit"
+        minimum_viable: "Get the library layer running; defer the numerical-match comparison against day 51."
+      - id: 53
+        date: 2027-01-07
+        day_type: weekday
+        objective: "Quantize a small trained model (int8) and measure the accuracy/latency/memory trade-off against the unquantized baseline — this feeds the compression-validation-suite milestone directly."
+        domain: applied-ai
+        topic: inference-optimization-quantization
+        artifact: applied-ai/inference-optimization-quantization/quantize.py
+        verification: "pytest applied-ai/inference-optimization-quantization/ passes; benchmarks.json reports accuracy, latency, and memory before/after quantization"
+        notes_topic: "Why quantization's latency win isn't free: what accuracy you give up, and how to decide if that trade is worth it"
+        effort_hours: 4
+        tier: remaining
+        priority: core
+        offline_fallback: "quantize a small locally-trained model rather than a downloaded large one — no paid infrastructure required"
+        gate:
+          - "pytest applied-ai/inference-optimization-quantization/ passes"
+          - "applied-ai/inference-optimization-quantization/NOTES.md modified in this commit"
+          - "applied-ai/inference-optimization-quantization/benchmarks.json committed"
+        minimum_viable: "Measure latency and memory only; defer the accuracy comparison to day 59."
+        measurement:
+          metric: memory
+          baseline: "the unquantized fp32 model"
+          results_path: applied-ai/inference-optimization-quantization/benchmarks.json
+          method: "measure accuracy, p50 inference latency, and model memory footprint before and after int8 quantization"
+      - id: 54
+        date: 2027-01-08
+        day_type: weekday
+        objective: "Build a small adversarial-prompt test suite against day 20's LLM client: prompt injection, jailbreak attempts, and off-topic redirection."
+        domain: applied-ai
+        topic: red-teaming-adversarial-prompts
+        artifact: applied-ai/red-teaming-adversarial-prompts/attack_suite.py
+        verification: "pytest applied-ai/red-teaming-adversarial-prompts/ passes; benchmarks.json reports pass rate against each attack category"
+        notes_topic: "Why a model that resists one phrasing of a prompt injection often still falls to a paraphrase of the same attack"
+        effort_hours: 4
+        tier: remaining
+        priority: core
+        prerequisites: [20]
+        offline: true
+        offline_fallback: "replay recorded request/response pairs from applied-ai/_fixtures/"
+        gate:
+          - "pytest applied-ai/red-teaming-adversarial-prompts/ passes"
+          - "applied-ai/red-teaming-adversarial-prompts/NOTES.md modified in this commit"
+          - "applied-ai/red-teaming-adversarial-prompts/benchmarks.json committed"
+        minimum_viable: "Prompt injection category only; defer jailbreak and off-topic redirection."
+        measurement:
+          metric: accuracy
+          baseline: "no defensive prompt-wrapping"
+          results_path: applied-ai/red-teaming-adversarial-prompts/benchmarks.json
+          method: "pass rate across 15 adversarial prompts (5 per category), with and without a defensive system-prompt wrapper"
+      - id: 55
+        date: 2027-01-09
+        day_type: weekend
+        objective: "Train day 32's network with and without regularization (dropout, weight decay) and compare generalization on a held-out set."
+        domain: ml
+        topic: training-dynamics
+        artifact: ml/training-dynamics/regularization.py
+        verification: "pytest ml/training-dynamics/ passes; benchmarks.json shows train/validation loss gap with and without regularization"
+        notes_topic: "Why a shrinking training loss alongside a growing validation loss is overfitting, not 'still improving'"
+        effort_hours: 6
+        tier: remaining
+        priority: optional
+        prerequisites: [32]
+        gate:
+          - "pytest ml/training-dynamics/ passes"
+          - "ml/training-dynamics/NOTES.md modified in this commit"
+          - "ml/training-dynamics/benchmarks.json committed"
+        minimum_viable: "Dropout only; defer the weight-decay comparison."
+        measurement:
+          metric: accuracy
+          baseline: "the same network trained with no regularization"
+          results_path: ml/training-dynamics/benchmarks.json
+          method: "train/validation loss gap over 50 epochs, with and without dropout + weight decay"
+      - id: 56
+        date: 2027-01-10
+        day_type: weekend
+        objective: "Weekly review: re-solve the scheduled DSA/ML topics from a blank file, audit the week against the constitution, re-plan."
+        domain: ml
+        topic: neural-net-scratch
+        artifact: progress/reviews/week-08.md
+        verification: "roadmap review writes the Generated section; both re-solves recorded pass/fail"
+        notes_topic: "What the re-solve revealed about which parts of intervals-greedy were not actually retained"
+        effort_hours: 6
+        tier: remaining
+        priority: core
+        prerequisites: [50]
+        gate:
+          - "roadmap review writes progress/reviews/week-08.md"
+          - "both re-solves recorded via roadmap complete --resolve"
+        minimum_viable: "Re-solve one topic instead of two; log the skip honestly."
+    review:
+      week: 8
+      day: 56
+      resolves: [backtracking, graphs-bfs-dfs-topo, graphs-union-find-dijkstra, dp-2d]
+      procedure:
+        - "Revision of fragile material outranks starting new material when time is short (FR-018)."
+        - "Re-solve each topic in `resolves` from a blank file; record pass/fail."
+        - "Run `roadmap review` and read the failed-gate report."
+        - "Audit the week's commits against constitution Principles I-VII."
+        - "Cut optional days from next week if behind; never carry a backlog."
+      output_path: progress/reviews/week-08.md
+
+  - number: 9
+    theme: "Tries, classical ML evaluation, and milestone 1 build"
+    domains: [dsa, ml, applied-ai, systems]
+    outcome: "Tries solved cold; a classical ML baseline trained and evaluated against the neural net; the code-review-triage-agent milestone's scaffolding and eval set built."
+    days:
+      - id: 57
+        date: 2027-01-11
+        day_type: weekday
+        objective: "Solve trie problems from scratch: insert/search/prefix-search, word search II."
+        domain: dsa
+        topic: tries
+        artifact: dsa/tries/solutions.py
+        verification: "pytest dsa/tries/ passes; complexity asserted per solution"
+        notes_topic: "Why a trie's prefix search is O(k) in the query length regardless of how many words are stored, unlike scanning a list"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        gate:
+          - "pytest dsa/tries/ passes"
+          - "dsa/tries/NOTES.md modified in this commit"
+        minimum_viable: "Insert/search only; defer prefix-search and word-search-II."
+      - id: 58
+        date: 2027-01-12
+        day_type: weekday
+        objective: "Train a classical ML baseline (gradient-boosted trees or logistic regression) on a labeled dataset and compare against day 32's neural net on the same split."
+        domain: ml
+        topic: classical-ml-comparison
+        artifact: ml/classical-ml-comparison/baseline.py
+        verification: "pytest ml/classical-ml-comparison/ passes; benchmarks.json reports accuracy for both models on the same held-out split"
+        notes_topic: "Why a classical model matching or beating a neural net on a small tabular dataset isn't a surprise — it's the expected result"
+        effort_hours: 4
+        tier: remaining
+        priority: core
+        prerequisites: [32]
+        gate:
+          - "pytest ml/classical-ml-comparison/ passes"
+          - "ml/classical-ml-comparison/NOTES.md modified in this commit"
+          - "ml/classical-ml-comparison/benchmarks.json committed"
+        minimum_viable: "Train the classical baseline only; defer the neural-net comparison to day 59."
+        measurement:
+          metric: accuracy
+          baseline: "day 32's neural network, same dataset and split"
+          results_path: ml/classical-ml-comparison/benchmarks.json
+          method: "accuracy and F1 on the same held-out split, classical baseline vs neural net"
+      - id: 59
+        date: 2027-01-13
+        day_type: weekday
+        objective: "Build a small evaluation methodology document and harness: dataset split strategy, the metric chosen and why, and the baseline every claim in this programme has been compared against."
+        domain: ml
+        topic: ml-evaluation-methodology
+        artifact: ml/ml-evaluation-methodology/eval_report.py
+        verification: "pytest ml/ml-evaluation-methodology/ passes; the report cross-references every ML day's benchmarks.json from this programme"
+        notes_topic: "Why 'the metric' isn't a fixed choice — accuracy, F1, and recall tell different stories, and the eval methodology has to name which one matters and why"
+        effort_hours: 4
+        tier: remaining
+        priority: core
+        prerequisites: [58]
+        gate:
+          - "pytest ml/ml-evaluation-methodology/ passes"
+          - "ml/ml-evaluation-methodology/NOTES.md modified in this commit"
+        minimum_viable: "Document the methodology; defer cross-referencing every prior day's benchmark."
+      - id: 60
+        date: 2027-01-14
+        day_type: weekday
+        objective: "Scaffold the code-review-triage-agent: ingest a PR diff, run it through day 44's error-handling-aware tool loop with a linter and test-runner tool."
+        domain: applied-ai
+        topic: milestone1-triage-agent-scaffold
+        artifact: applied-ai/milestone1-triage-agent-scaffold/triage.py
+        verification: "pytest applied-ai/milestone1-triage-agent-scaffold/ passes against a sample PR diff fixture"
+        notes_topic: "Why triaging a PR diff needs the same malformed-tool-call recovery as day 6/44 — a linter's output is just another tool result that can come back malformed"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        prerequisites: [24, 31, 44]
+        serving: fastapi
+        offline: true
+        offline_fallback: "replay a recorded PR-diff fixture and recorded tool outputs from applied-ai/_fixtures/"
+        gate:
+          - "pytest applied-ai/milestone1-triage-agent-scaffold/ passes"
+          - "applied-ai/milestone1-triage-agent-scaffold/NOTES.md modified in this commit"
+        minimum_viable: "Triage against one PR diff fixture only; defer the FastAPI wrapper."
+      - id: 61
+        date: 2027-01-15
+        day_type: weekday
+        objective: "Build a labeled set of real PRs with known issues and score day 60's agent's precision/recall against a no-agent baseline — this is the milestone's actual evaluation evidence."
+        domain: applied-ai
+        topic: milestone1-triage-agent-eval
+        artifact: applied-ai/milestone1-triage-agent-eval/eval_set.py
+        verification: "pytest applied-ai/milestone1-triage-agent-eval/ passes; benchmarks.json reports precision/recall vs the no-agent baseline"
+        notes_topic: "Why 'the agent caught the bug in the demo' isn't evidence — precision/recall against a labeled set, the same discipline as day 24's prompt eval, is"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        prerequisites: [60]
+        gate:
+          - "pytest applied-ai/milestone1-triage-agent-eval/ passes"
+          - "applied-ai/milestone1-triage-agent-eval/NOTES.md modified in this commit"
+          - "applied-ai/milestone1-triage-agent-eval/benchmarks.json committed"
+        minimum_viable: "5 labeled PRs instead of 20; still report precision/recall on that smaller set."
+        measurement:
+          metric: accuracy
+          baseline: "no-agent manual review (every issue flagged as a false positive/negative by hand)"
+          results_path: applied-ai/milestone1-triage-agent-eval/benchmarks.json
+          method: "precision and recall of the agent's triage decisions against a labeled set of 20 real PRs"
+      - id: 62
+        date: 2027-01-16
+        day_type: weekend
+        objective: "Design a distributed system's consistency and partition-tolerance trade-off for a specific scenario (e.g. a shared feature cache across model replicas)."
+        domain: systems
+        topic: systems-distributed-fundamentals
+        artifact: systems/distributed-fundamentals/design.md
+        verification: "systems/distributed-fundamentals/design.md names the consistency model chosen and what it costs under a network partition"
+        notes_topic: "Why 'strongly consistent and always available during a partition' isn't a real option — CAP forces an explicit choice, not an oversight to fix"
+        effort_hours: 6
+        tier: remaining
+        priority: optional
+        gate:
+          - "systems/distributed-fundamentals/design.md names the consistency model and its partition behavior"
+          - "systems/distributed-fundamentals/NOTES.md modified in this commit"
+        minimum_viable: "Name the consistency model choice; defer the full partition-behavior analysis."
+      - id: 63
+        date: 2027-01-17
+        day_type: weekend
+        objective: "Weekly review: re-solve the scheduled DSA/ML topics from a blank file, audit the week against the constitution, re-plan. Milestone check: is compression-validation-suite ready to start?"
+        domain: dsa
+        topic: tries
+        artifact: progress/reviews/week-09.md
+        verification: "roadmap review writes the Generated section; both re-solves recorded pass/fail; roadmap coverage shows milestone readiness"
+        notes_topic: "What the re-solve revealed about which parts of tries were not actually retained"
+        effort_hours: 6
+        tier: primary
+        priority: core
+        prerequisites: [57]
+        gate:
+          - "roadmap review writes progress/reviews/week-09.md"
+          - "both re-solves recorded via roadmap complete --resolve"
+        minimum_viable: "Re-solve one topic instead of two; log the skip honestly."
+    review:
+      week: 9
+      day: 63
+      resolves: [neural-net-scratch, dp-1d, intervals-greedy, transformers-attention-scratch, training-dynamics, tries, classical-ml-comparison, ml-evaluation-methodology]
+      procedure:
+        - "Revision of fragile material outranks starting new material when time is short (FR-018)."
+        - "Re-solve each topic in `resolves` from a blank file; record pass/fail."
+        - "Run `roadmap review` and read the failed-gate report."
+        - "Check `roadmap coverage` for the compression-validation-suite milestone's readiness."
+        - "Audit the week's commits against constitution Principles I-VII."
+        - "Cut optional days from next week if behind; never carry a backlog."
+      output_path: progress/reviews/week-09.md
+
+  - number: 10
+    theme: "Bit manipulation, design problems, and milestone 2 build — programme wrap-up"
+    domains: [dsa, applied-ai, git]
+    outcome: "Bit manipulation and LRU/LFU design solved cold; the inference-gateway milestone built; the full 70-day programme closed out and audited against the constitution."
+    days:
+      - id: 64
+        date: 2027-01-18
+        day_type: weekday
+        objective: "Solve bit-manipulation problems from scratch: single number (XOR trick), counting bits, subset generation via bitmask."
+        domain: dsa
+        topic: bit-manipulation
+        artifact: dsa/bit-manipulation/solutions.py
+        verification: "pytest dsa/bit-manipulation/ passes; complexity asserted per solution"
+        notes_topic: "Why XOR-ing every element cancels all pairs and leaves only the unmatched one — and why that only works when every other element appears exactly twice"
+        effort_hours: 4
+        tier: secondary
+        priority: core
+        gate:
+          - "pytest dsa/bit-manipulation/ passes"
+          - "dsa/bit-manipulation/NOTES.md modified in this commit"
+        minimum_viable: "Single number and counting bits only; defer bitmask subset generation."
+      - id: 65
+        date: 2027-01-19
+        day_type: weekday
+        objective: "Implement an LRU cache from scratch (hashmap + doubly-linked list, O(1) get/put), then an LFU cache variant."
+        domain: dsa
+        topic: design-lru-lfu-cache
+        artifact: dsa/design-lru-lfu-cache/lru_cache.py
+        verification: "pytest dsa/design-lru-lfu-cache/ passes; benchmarks.json confirms O(1) get/put against a growing cache size"
+        notes_topic: "Why a hashmap alone can't give O(1) eviction-of-least-recently-used, and what the doubly-linked list adds"
+        effort_hours: 4
+        tier: secondary
+        priority: core
+        gate:
+          - "pytest dsa/design-lru-lfu-cache/ passes"
+          - "dsa/design-lru-lfu-cache/NOTES.md modified in this commit"
+          - "dsa/design-lru-lfu-cache/benchmarks.json committed"
+        minimum_viable: "LRU cache only; defer the LFU variant."
+        measurement:
+          metric: latency
+          baseline: "a naive list-scan-based cache"
+          results_path: dsa/design-lru-lfu-cache/benchmarks.json
+          method: "time get/put across cache sizes [100, 1000, 10000]; confirm the hashmap+list version stays flat while the naive version grows"
+      - id: 66
+        date: 2027-01-20
+        day_type: weekday
+        objective: "Build the inference-gateway's core: route requests across 2 model backends behind a single FastAPI endpoint, with request batching from day 39's design."
+        domain: applied-ai
+        topic: milestone2-inference-gateway-scaffold
+        artifact: applied-ai/milestone2-inference-gateway-scaffold/gateway.py
+        verification: "pytest applied-ai/milestone2-inference-gateway-scaffold/ passes: requests route to both backends and batch per day 39's strategy"
+        notes_topic: "Why routing and batching have to be designed together — batching across backends with different latency profiles can starve the faster one"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        prerequisites: [39, 47]
+        serving: fastapi
+        gate:
+          - "pytest applied-ai/milestone2-inference-gateway-scaffold/ passes"
+          - "applied-ai/milestone2-inference-gateway-scaffold/NOTES.md modified in this commit"
+        minimum_viable: "Route to 2 backends without batching; defer the batching layer."
+      - id: 67
+        date: 2027-01-21
+        day_type: weekday
+        objective: "Add health checks and automatic fallback to day 66's gateway, then load-test it and measure success rate with a backend forced unhealthy, against a no-fallback baseline."
+        domain: applied-ai
+        topic: milestone2-inference-gateway-resilience
+        artifact: applied-ai/milestone2-inference-gateway-resilience/health_check.py
+        verification: "pytest applied-ai/milestone2-inference-gateway-resilience/ passes; benchmarks.json reports success rate with and without fallback, one backend forced unhealthy"
+        notes_topic: "Why a health check needs its own failure handling — a health check that hangs is worse than no health check at all"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        prerequisites: [66]
+        serving: fastapi
+        gate:
+          - "pytest applied-ai/milestone2-inference-gateway-resilience/ passes"
+          - "applied-ai/milestone2-inference-gateway-resilience/NOTES.md modified in this commit"
+          - "applied-ai/milestone2-inference-gateway-resilience/benchmarks.json committed"
+        minimum_viable: "Health check only; defer the automatic-fallback routing."
+        measurement:
+          metric: accuracy
+          baseline: "no fallback — requests to the unhealthy backend simply fail"
+          results_path: applied-ai/milestone2-inference-gateway-resilience/benchmarks.json
+          method: "success rate across 50 requests with one backend forced unhealthy, with and without automatic fallback"
+      - id: 68
+        date: 2027-01-22
+        day_type: weekday
+        objective: "Practice an interactive rebase to clean up a messy commit history, a git bisect to find a regression, and resolve a seeded merge conflict."
+        domain: git
+        topic: git-advanced-workflows
+        artifact: git/git-advanced-workflows/drill.sh
+        verification: "drill.sh exits 0 after the rebase, bisect, and conflict-resolution steps all complete"
+        notes_topic: "Why git bisect's binary search over commit history is the same algorithmic idea as day 8's binary search, applied to history instead of an array"
+        effort_hours: 4
+        tier: secondary
+        priority: optional
+        prerequisites: [4]
+        gate:
+          - "git/git-advanced-workflows/drill.sh exits 0"
+          - "git/git-advanced-workflows/NOTES.md modified in this commit"
+        minimum_viable: "Bisect drill only; defer rebase and conflict-resolution drills."
+      - id: 69
+        date: 2027-01-23
+        day_type: weekend
+        objective: "Stretch/buffer day: extend either the retrieval pipeline (day 27/30) or the triage agent (day 60/61) with one additional real eval case, or catch up on any carried day."
+        domain: applied-ai
+        topic: applied-ai-stretch
+        artifact: applied-ai/applied-ai-stretch/extension.py
+        verification: "pytest applied-ai/applied-ai-stretch/ passes against the one new eval case added"
+        notes_topic: "What the extra eval case revealed that the original set didn't cover"
+        effort_hours: 6
+        tier: primary
+        priority: optional
+        gate:
+          - "pytest applied-ai/applied-ai-stretch/ passes"
+          - "applied-ai/applied-ai-stretch/NOTES.md modified in this commit"
+        minimum_viable: "Use this day entirely to catch up on any carried day instead; that satisfies the day's purpose."
+      - id: 70
+        date: 2027-01-24
+        day_type: weekend
+        objective: "Final weekly review: re-solve the scheduled DSA/ML topics from a blank file, audit the full 10-week programme against the constitution, and record final role-coverage readiness."
+        domain: python
+        topic: python-typing-static-analysis
+        artifact: progress/reviews/week-10.md
+        verification: "roadmap review writes the Generated section; roadmap coverage reports final readiness per role; roadmap validate --strict exits 0"
+        notes_topic: "What changed between the week-1 plan and what was actually built by day 70 — and why that gap is the real record of what was learned, not a failure to follow the plan exactly"
+        effort_hours: 6
+        tier: remaining
+        priority: core
+        prerequisites: [64, 65]
+        gate:
+          - "roadmap review writes progress/reviews/week-10.md"
+          - "both re-solves recorded via roadmap complete --resolve"
+          - "roadmap validate --strict exits 0"
+        minimum_viable: "Re-solve one topic instead of two; log the skip honestly. The validate --strict gate still applies."
+    review:
+      week: 10
+      day: 70
+      resolves: [dp-2d, intervals-greedy, transformers-attention-scratch, training-dynamics, tries, classical-ml-comparison, ml-evaluation-methodology, bit-manipulation, design-lru-lfu-cache]
+      procedure:
+        - "Revision of fragile material outranks starting new material when time is short (FR-018)."
+        - "Re-solve each topic in `resolves` from a blank file; record pass/fail."
+        - "Run `roadmap review` and read the failed-gate report."
+        - "Run `roadmap coverage` and `roadmap validate --strict` for the final programme-wide readiness check."
+        - "Audit the full programme's commits against constitution Principles I-VII, not just this week's."
+        - "Record which role-coverage gaps remain and what the realistic next step is, rather than declaring the programme simply 'done.'"
+      output_path: progress/reviews/week-10.md
+
 milestones:
   - id: code-review-triage-agent
     name: "Code review triage agent"
     after_day: 35
-    prerequisite_days: [22, 24, 28, 31, 34]
+    prerequisite_days: [20, 24, 30, 31, 34]
     purpose: >-
       An agent that ingests a PR diff and triages it (blocking / nitpick / false positive) by
       running tools — linter, test runner, static analyzer — in a loop, evaluated against a
@@ -483,7 +1977,7 @@ milestones:
   - id: inference-gateway
     name: "Multi-backend inference gateway"
     after_day: 49
-    prerequisite_days: [38, 41, 44, 47]
+    prerequisite_days: [39, 40, 46, 47, 48]
     purpose: >-
       A FastAPI service routing requests across 2+ model backends (e.g. a local quantized model
       and a hosted API), with batching, response caching, rate-limit backoff, and a
@@ -498,7 +1992,7 @@ milestones:
   - id: compression-validation-suite
     name: "Model compression and validation benchmark suite"
     after_day: 63
-    prerequisite_days: [52, 55, 58, 61]
+    prerequisite_days: [32, 33, 53, 58, 59]
     purpose: >-
       Train or fine-tune a small model, then quantize/prune it, reporting accuracy, latency, and
       memory before vs. after against a stated baseline, plus a systematic adversarial/edge-case

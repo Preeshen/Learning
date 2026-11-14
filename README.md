@@ -11,6 +11,12 @@ uv sync                      # first time only: creates .venv, installs the road
 uv run roadmap today         # what to build today
 ```
 
+ML and Applied AI days need their optional dependency groups the first time you reach one:
+
+```powershell
+uv sync --extra ml --extra applied-ai   # numpy/torch/scikit-learn, fastapi, mcp, etc.
+```
+
 Build it, verify it, write `NOTES.md`, commit, then:
 
 ```powershell

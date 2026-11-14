@@ -93,11 +93,11 @@ def test_check_day1_all_pass():
     assert "day complete" in result.stdout
 
 
-def test_validate_exits_nonzero_on_missing_days():
-    # Week-1-only fixture is intentionally incomplete (1 of 10 weeks) — V-03 must fire.
-    result = runner.invoke(app, ["validate"])
-    assert result.exit_code == 1
-    assert "V-03" in result.stdout
+def test_validate_strict_exits_zero_against_the_complete_roadmap():
+    # All 10 weeks are now authored; roadmap validate --strict must pass clean (quickstart S-1).
+    result = runner.invoke(app, ["validate", "--strict"])
+    assert result.exit_code == 0
+    assert "0 error(s), 0 warning(s)" in result.stdout
 
 
 def test_coverage_table():

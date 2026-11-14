@@ -199,19 +199,30 @@ Planned distribution, to be realised as concrete entries by `/speckit-tasks`:
 | Domain | Days | % of 70 | Cap (SC-003: ≤40%) |
 |---|---|---|---|
 | Applied AI Engineering | 22 | 31% | OK |
-| DSA | 18 | 26% | OK |
-| ML & DL | 14 | 20% | OK |
+| DSA | 20 | 29% | OK |
+| ML & DL | 12 | 17% | OK |
 | Python depth | 8 | 11% | OK |
 | System design | 6 | 9% | OK |
 | Git | 2 | 3% | OK |
 | **Total** | **70** | **100%** | |
 
-DSA's 2 extra days (16 → 18) cover Tries and Bit Manipulation as full dedicated days rather than
-folding them into other days or cutting them to stretch material — both are genuinely tested at
-MANGOS-tier companies, just below the top-tier patterns. The 2 days come from Applied AI
-Engineering (24 → 22), which had the most slack under the 40% domain cap and whose milestone
-prerequisites (day 35/49/63) are unaffected by trimming 2 non-prerequisite days elsewhere in its
-allocation.
+DSA's first 2 extra days (16 → 18) cover Tries and Bit Manipulation as full dedicated days rather
+than folding them into other days or cutting them to stretch material — both are genuinely tested
+at MANGOS-tier companies, just below the top-tier patterns. Funded by trimming Applied AI
+Engineering (24 → 22), which had the most slack under the 40% domain cap.
+
+**Second correction (discovered authoring weeks 1-2)**: weeks 1 and 2's review days (days 7, 14)
+were tagged `domain: dsa` — a day's domain is a required schema field, and the review day's
+`topic` field pointed at a DSA topic being re-solved, so `dsa` seemed the natural tag. But this
+silently consumed 2 of the 18 DSA slots on review days rather than pattern-teaching days, leaving
+only 9 slots for the 11 remaining patterns (Trees II, Heaps, Backtracking, Graphs I/II, DP I/II,
+Intervals+Greedy, Tries, Bit Manipulation, Design). DSA grows 18 → 20 to absorb this, funded by
+trimming ML & DL's remaining-tier slack (14 → 12, keeping its 8 primary-tier days intact). Going
+forward (weeks 3-10), review days are tagged under whichever domain has slack that week instead of
+always `dsa`, so this doesn't recur. Tier split recomputes to primary 40 (57%) / secondary 20
+(29%) / remaining 10 (14%) — all still within SC-012's ±5-point tolerance of 60/25/15 (systems'
+tier split shifts from 4 primary/2 secondary to 4 primary/2 remaining to keep secondary from
+exceeding its tolerance band once DSA absorbs the correction).
 
 #### DSA's 18 days, by pattern (FR-009: ordered by MANGOS interview frequency)
 
@@ -279,8 +290,8 @@ Role-tier split, satisfying FR-025 and SC-012 (target 60 / 25 / 15, tolerance ±
 | Tier | Role | Days | % | Composition |
 |---|---|---|---|---|
 | Primary | AI / Agentic AI Engineer | 40 | 57% | Applied AI 22, ML 8, Python 6, Systems 4 |
-| Secondary | FDE | 20 | 29% | DSA 18, Systems 2 |
-| Remaining | ML / Inference / Embedded / Test-validation | 10 | 14% | ML 6, Python 2, Git 2 |
+| Secondary | FDE | 20 | 29% | DSA 20 |
+| Remaining | ML / Inference / Embedded / Test-validation | 10 | 14% | ML 4, Python 2, Git 2, Systems 2 |
 
 Effort budget: 50 weekday entries at 4 h and 20 weekend entries at 6 h = 320 h. At least 12 entries
 must be marked `optional` so that core-day effort lands at or below 272 h (SC-009).
