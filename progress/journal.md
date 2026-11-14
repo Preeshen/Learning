@@ -18,3 +18,13 @@
 
 **Non-obvious**: The speedup ratio has to grow with n to prove O(n) vs O(n^2); a single measurement at one size doesn't
 
+## Day 003 — 2026-11-14 — two-pointers {#day-003}
+
+**Status**: complete · **Commit**: 442ea708a0f6b94e1e98e2c025a86701f2c99b26 · **Domain**: dsa · **Effort**: 4 h
+
+**Built**: Two-pointer solutions for two-sum-sorted, palindrome check, container-with-most-water, and three-sum
+
+**Broke**: three_sum produced duplicate triplets until the inner-loop duplicate skip was added after the outer-loop skip
+
+**Non-obvious**: Skipping duplicates at the outer loop alone isn't enough; the inner pointer needs its own skip after a match
+
