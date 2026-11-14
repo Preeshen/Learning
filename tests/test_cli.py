@@ -21,7 +21,7 @@ def test_today_runs_under_one_second():
 
 
 def test_today_json():
-    result = runner.invoke(app, ["today", "--json"])
+    result = runner.invoke(app, ["today", "1", "--json"])
     assert result.exit_code == 0
     payload = json.loads(result.stdout)
     assert "day" in payload
