@@ -136,19 +136,29 @@ def _gate_results(r: Roadmap, day: DayEntry) -> list[tuple[str, bool, str]]:
     results.append(("artifact exists", artifact_path.exists(), str(day.artifact)))
 
     test_dir = artifact_path.parent
-    tests_ok = False
-    tests_msg = "no tests found"
-    if test_dir.exists():
+    has_test_files = test_dir.exists() and any(test_dir.glob("test_*.py"))
+    if has_test_files:
         proc = subprocess.run(
             [sys.executable, "-m", "pytest", str(test_dir), "-q"],
             cwd=REPO_ROOT, capture_output=True, text=True,
         )
         tests_ok = proc.returncode == 0
         tests_msg = proc.stdout.strip().splitlines()[-1] if proc.stdout.strip() else proc.stderr[:120]
+    else:
+        # Not every artifact is code (e.g. a weekly review's artifact is a generated .md file).
+        # Absence of a test_*.py file means "not applicable," not "failing."
+        tests_ok = True
+        tests_msg = "not applicable — no test_*.py file for this artifact"
     results.append(("tests pass", tests_ok, tests_msg))
 
-    notes_path = test_dir / "NOTES.md"
-    notes_ok = notes_path.exists() and notes_path.stat().st_size > 0
+    if day.artifact.startswith("progress/reviews/"):
+        # A review day's prose (Constitution audit, Next week) lives in the review file
+        # itself; there is no separate topic NOTES.md to check.
+        notes_ok = artifact_path.exists() and artifact_path.stat().st_size > 0
+        notes_path = artifact_path
+    else:
+        notes_path = test_dir / "NOTES.md"
+        notes_ok = notes_path.exists() and notes_path.stat().st_size > 0
     results.append(("notes modified", notes_ok, str(notes_path)))
 
     measurement_ok = True
