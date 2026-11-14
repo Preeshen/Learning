@@ -67,6 +67,12 @@ def _day_card(r: Roadmap, day: DayEntry, progress_entries: dict, due_topics: lis
     console.print(f"VERIFICATION    {day.verification}")
     console.print(f"NOTES           {day.notes_topic}")
     console.print()
+    topic = r.topics.get(day.topic)
+    if topic and topic.references:
+        console.print("REFERENCES (read the problem here before you start)")
+        for ref in topic.references:
+            console.print(f"  - {ref['title']}: {ref['url']}")
+        console.print()
     console.print("GATE")
     for g in day.gate:
         console.print(f"  [ ] {g}")

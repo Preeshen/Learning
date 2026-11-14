@@ -92,16 +92,28 @@ topics:
     first_day: 2
     resurface_after: [7, 21]
     references:
-      - title: "Two Sum"
+      - title: "Two Sum (two_sum, two_sum_naive)"
         url: "https://leetcode.com/problems/two-sum/"
+      - title: "Group Anagrams (group_anagrams)"
+        url: "https://leetcode.com/problems/group-anagrams/"
+      - title: "Longest Consecutive Sequence (longest_consecutive_sequence)"
+        url: "https://leetcode.com/problems/longest-consecutive-sequence/"
+      - title: "Subarray Sum Equals K (prefix_sum_subarray_count)"
+        url: "https://leetcode.com/problems/subarray-sum-equals-k/"
   two-pointers:
     name: Two pointers
     domain: dsa
     first_day: 3
     resurface_after: [7, 21]
     references:
-      - title: "Container With Most Water"
+      - title: "Two Sum II - Input Array Is Sorted (two_sum_sorted)"
+        url: "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/"
+      - title: "Valid Palindrome (is_palindrome)"
+        url: "https://leetcode.com/problems/valid-palindrome/"
+      - title: "Container With Most Water (max_area_container)"
         url: "https://leetcode.com/problems/container-with-most-water/"
+      - title: "3Sum (three_sum)"
+        url: "https://leetcode.com/problems/3sum/"
   git-fundamentals:
     name: Git fundamentals
     domain: git
@@ -114,8 +126,12 @@ topics:
     first_day: 5
     resurface_after: [7, 21]
     references:
-      - title: "Longest Substring Without Repeating Characters"
+      - title: "Longest Substring Without Repeating Characters (longest_substring_without_repeating)"
         url: "https://leetcode.com/problems/longest-substring-without-repeating-characters/"
+      - title: "Minimum Window Substring (min_window_substring)"
+        url: "https://leetcode.com/problems/minimum-window-substring/"
+      - title: "Maximum Sum Subarray of Size K (max_sum_subarray_of_size_k)"
+        url: "https://www.geeksforgeeks.org/dsa/window-sliding-technique/"
   tool-calling:
     name: Tool-calling loops
     domain: applied-ai
@@ -128,16 +144,24 @@ topics:
     first_day: 8
     resurface_after: [7, 21]
     references:
-      - title: "Search in Rotated Sorted Array"
+      - title: "Binary Search (binary_search)"
+        url: "https://leetcode.com/problems/binary-search/"
+      - title: "Search in Rotated Sorted Array (search_rotated)"
         url: "https://leetcode.com/problems/search-in-rotated-sorted-array/"
+      - title: "Koko Eating Bananas (search_on_answer, min_eating_speed)"
+        url: "https://leetcode.com/problems/koko-eating-bananas/"
   stacks-monotonic:
     name: Stacks & monotonic stack
     domain: dsa
     first_day: 9
     resurface_after: [7, 21]
     references:
-      - title: "Daily Temperatures"
+      - title: "Valid Parentheses (is_valid_parentheses)"
+        url: "https://leetcode.com/problems/valid-parentheses/"
+      - title: "Daily Temperatures (daily_temperatures)"
         url: "https://leetcode.com/problems/daily-temperatures/"
+      - title: "Largest Rectangle in Histogram (largest_rectangle_in_histogram)"
+        url: "https://leetcode.com/problems/largest-rectangle-in-histogram/"
   gradient-descent-scratch:
     name: Gradient descent & linear regression from scratch
     domain: ml
@@ -150,8 +174,14 @@ topics:
     first_day: 11
     resurface_after: [7, 21]
     references:
-      - title: "Linked List Cycle II"
+      - title: "Reverse Linked List (reverse_list)"
+        url: "https://leetcode.com/problems/reverse-linked-list/"
+      - title: "Linked List Cycle (has_cycle)"
+        url: "https://leetcode.com/problems/linked-list-cycle/"
+      - title: "Linked List Cycle II (detect_cycle_start)"
         url: "https://leetcode.com/problems/linked-list-cycle-ii/"
+      - title: "Merge k Sorted Lists (merge_k_sorted_lists)"
+        url: "https://leetcode.com/problems/merge-k-sorted-lists/"
   cost-latency-budgeting:
     name: LLM cost & latency budgeting
     domain: applied-ai
@@ -164,8 +194,18 @@ topics:
     first_day: 13
     resurface_after: [7, 21]
     references:
-      - title: "Validate Binary Search Tree"
+      - title: "Binary Tree Inorder Traversal (inorder)"
+        url: "https://leetcode.com/problems/binary-tree-inorder-traversal/"
+      - title: "Binary Tree Preorder Traversal (preorder)"
+        url: "https://leetcode.com/problems/binary-tree-preorder-traversal/"
+      - title: "Binary Tree Postorder Traversal (postorder)"
+        url: "https://leetcode.com/problems/binary-tree-postorder-traversal/"
+      - title: "Validate Binary Search Tree (is_valid_bst)"
         url: "https://leetcode.com/problems/validate-binary-search-tree/"
+      - title: "Maximum Depth of Binary Tree (max_depth)"
+        url: "https://leetcode.com/problems/maximum-depth-of-binary-tree/"
+      - title: "Lowest Common Ancestor of a Binary Tree (lowest_common_ancestor)"
+        url: "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/"
   python-typing-static-analysis:
     name: Python typing & static analysis
     domain: python
@@ -184,8 +224,12 @@ topics:
     first_day: 17
     resurface_after: [7, 21]
     references:
-      - title: "Lowest Common Ancestor of a Binary Tree"
-        url: "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/"
+      - title: "Construct Binary Tree from Preorder and Inorder Traversal"
+        url: "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/"
+      - title: "Serialize and Deserialize Binary Tree"
+        url: "https://leetcode.com/problems/serialize-and-deserialize-binary-tree/"
+      - title: "Lowest Common Ancestor of a Binary Search Tree"
+        url: "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/"
   python-async-concurrency:
     name: Python async concurrency
     domain: python
@@ -198,8 +242,12 @@ topics:
     first_day: 19
     resurface_after: [7, 21]
     references:
+      - title: "Kth Largest Element in an Array"
+        url: "https://leetcode.com/problems/kth-largest-element-in-an-array/"
       - title: "Top K Frequent Elements"
         url: "https://leetcode.com/problems/top-k-frequent-elements/"
+      - title: "Task Scheduler"
+        url: "https://leetcode.com/problems/task-scheduler/"
   llm-api-basics:
     name: LLM API basics & structured output
     domain: applied-ai
@@ -218,6 +266,10 @@ topics:
     first_day: 23
     resurface_after: [7, 21]
     references:
+      - title: "Subsets"
+        url: "https://leetcode.com/problems/subsets/"
+      - title: "Permutations"
+        url: "https://leetcode.com/problems/permutations/"
       - title: "Combination Sum"
         url: "https://leetcode.com/problems/combination-sum/"
   prompt-engineering-eval-harness:
@@ -232,7 +284,9 @@ topics:
     first_day: 25
     resurface_after: [7, 21]
     references:
-      - title: "Course Schedule"
+      - title: "Number of Islands (BFS/DFS)"
+        url: "https://leetcode.com/problems/number-of-islands/"
+      - title: "Course Schedule (topological sort)"
         url: "https://leetcode.com/problems/course-schedule/"
   retrieval-chunking-embeddings:
     name: Retrieval I — chunking & embeddings from scratch
@@ -252,8 +306,10 @@ topics:
     first_day: 29
     resurface_after: [7, 21]
     references:
-      - title: "Number of Provinces"
+      - title: "Number of Provinces (Union-Find)"
         url: "https://leetcode.com/problems/number-of-provinces/"
+      - title: "Network Delay Time (Dijkstra)"
+        url: "https://leetcode.com/problems/network-delay-time/"
   retrieval-evaluation:
     name: Retrieval evaluation (recall/faithfulness harness)
     domain: applied-ai
@@ -284,8 +340,12 @@ topics:
     first_day: 36
     resurface_after: [7, 21]
     references:
+      - title: "Climbing Stairs"
+        url: "https://leetcode.com/problems/climbing-stairs/"
       - title: "House Robber"
         url: "https://leetcode.com/problems/house-robber/"
+      - title: "Coin Change"
+        url: "https://leetcode.com/problems/coin-change/"
   claude-code-skills-vehicle:
     name: Claude Code skills as an agentic-pattern practice vehicle
     domain: applied-ai
@@ -322,8 +382,12 @@ topics:
     first_day: 43
     resurface_after: [7, 21]
     references:
+      - title: "Unique Paths (grid DP)"
+        url: "https://leetcode.com/problems/unique-paths/"
       - title: "Longest Common Subsequence"
         url: "https://leetcode.com/problems/longest-common-subsequence/"
+      - title: "Edit Distance"
+        url: "https://leetcode.com/problems/edit-distance/"
   agent-error-handling:
     name: Agent error handling — malformed/failing tool-call recovery, extended
     domain: applied-ai
@@ -362,6 +426,10 @@ topics:
     references:
       - title: "Merge Intervals"
         url: "https://leetcode.com/problems/merge-intervals/"
+      - title: "Meeting Rooms II"
+        url: "https://leetcode.com/problems/meeting-rooms-ii/"
+      - title: "Non-overlapping Intervals (activity selection)"
+        url: "https://leetcode.com/problems/non-overlapping-intervals/"
   transformers-attention-scratch:
     name: Attention & transformers from scratch
     domain: ml
@@ -394,6 +462,8 @@ topics:
     references:
       - title: "Implement Trie (Prefix Tree)"
         url: "https://leetcode.com/problems/implement-trie-prefix-tree/"
+      - title: "Word Search II"
+        url: "https://leetcode.com/problems/word-search-ii/"
   classical-ml-comparison:
     name: Classical ML comparison — trees/ensembles
     domain: ml
@@ -430,8 +500,12 @@ topics:
     first_day: 64
     resurface_after: [7, 21]
     references:
-      - title: "Single Number"
+      - title: "Single Number (XOR trick)"
         url: "https://leetcode.com/problems/single-number/"
+      - title: "Counting Bits"
+        url: "https://leetcode.com/problems/counting-bits/"
+      - title: "Subsets (bitmask variant)"
+        url: "https://leetcode.com/problems/subsets/"
   design-lru-lfu-cache:
     name: "Design: LRU/LFU cache"
     domain: dsa
@@ -440,6 +514,8 @@ topics:
     references:
       - title: "LRU Cache"
         url: "https://leetcode.com/problems/lru-cache/"
+      - title: "LFU Cache"
+        url: "https://leetcode.com/problems/lfu-cache/"
   milestone2-inference-gateway-scaffold:
     name: "Milestone build: inference-gateway scaffolding"
     domain: applied-ai
