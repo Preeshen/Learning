@@ -213,6 +213,67 @@ Engineering (24 → 22), which had the most slack under the 40% domain cap and w
 prerequisites (day 35/49/63) are unaffected by trimming 2 non-prerequisite days elsewhere in its
 allocation.
 
+#### DSA's 18 days, by pattern (FR-009: ordered by MANGOS interview frequency)
+
+| # | Pattern | Tier | Problems |
+|---|---|---|---|
+| 1 | Arrays & hashing + prefix sums | S | 4 |
+| 2 | Two pointers | S | 4 |
+| 3 | Sliding window | S | 3 |
+| 4 | Binary search (+ search-on-answer, rotated array) | A | 4 |
+| 5 | Stacks / monotonic stack | A | 3 |
+| 6 | Linked lists (reversal, fast-slow, cycle, merge-k) | A | 4 |
+| 7 | Trees I — traversals & BST properties | S | 4 |
+| 8 | Trees II — construct/serialize/LCA | S | 3 |
+| 9 | Heaps / priority queues | A | 3 |
+| 10 | Backtracking | A | 3 |
+| 11 | Graphs I — BFS/DFS, topological sort | S | 3 |
+| 12 | Graphs II — Union-Find + Dijkstra basics | S | 3 |
+| 13 | Dynamic programming I — 1D | S | 3 |
+| 14 | Dynamic programming II — 2D | S | 3 |
+| 15 | Intervals + greedy | A | 3 |
+| 16 | Tries | A | 3 |
+| 17 | Bit manipulation | A | 4 |
+| 18 | Design problems (LRU/LFU cache) | A | 1 deep problem |
+
+Tiers S (near-certain) get double coverage via the two-part split (e.g., Trees I/II, Graphs I/II,
+DP I/II); Tier A (very common) get one dedicated day each. Deliberately deferred to optional/stretch
+material in weeks 6–7 rather than given a core slot: segment/Fenwick trees, string-matching
+algorithms (KMP, Rabin-Karp), and pure number theory — genuinely asked at the Google/NVIDIA tier,
+but lower-frequency than everything above, and the 18-day core budget is spent on higher-certainty
+coverage first (FR-007's core/optional split exists for exactly this trade-off).
+
+#### Applied AI Engineering's 22 days, by subtopic
+
+| # | Day's focus | Requirement served |
+|---|---|---|
+| 1 | LLM API basics & structured output | FR-030 |
+| 2 | Cost/latency instrumentation & token budgeting | FR-030 |
+| 3 | Prompt engineering & eval-harness basics | FR-030 |
+| 4 | Tool-calling loop from scratch | FR-030 |
+| 5 | Tool-calling behind FastAPI | FR-030a |
+| 6 | Retrieval I — chunking & embeddings from scratch | FR-030 |
+| 7 | Retrieval II — vector search + hybrid retrieval | FR-030 |
+| 8 | Retrieval evaluation (recall/faithfulness harness) | FR-030 |
+| 9 | Multi-step agent control flow / planning loop | FR-030 |
+| 10 | Multi-agent orchestration | FR-030 |
+| 11 | Claude Code skills as practice vehicle | FR-030b |
+| 12 | Claude Agent SDK | FR-030b |
+| 13 | MCP server/client | FR-030b |
+| 14 | Malformed/failing tool-call recovery & refusal handling | FR-030 |
+| 15 | Systematic eval of non-deterministic systems (LLM-as-judge pitfalls) | FR-030, test-validation evidence |
+| 16 | Inference optimization/quantization practice | FR-032 (inference evidence); feeds milestone `compression-validation-suite` |
+| 17 | Red-teaming / adversarial prompt testing | test-validation evidence |
+| 18 | Rate limiting / backoff / caching | feeds milestone `inference-gateway` |
+| 19 | Milestone build: `code-review-triage-agent` scaffolding | milestone prerequisite |
+| 20 | Milestone build: `code-review-triage-agent` eval set + precision/recall scoring | milestone prerequisite |
+| 21 | Milestone build: `inference-gateway` scaffolding | milestone prerequisite |
+| 22 | Milestone build: `inference-gateway` fallback/health-check + load test | milestone prerequisite |
+
+Every day maps to a named requirement; unlike DSA, no subtopic here is double-covered, so this
+22-day set has no further slack to trim without dropping a requirement. The 2 days moved to DSA
+came from the original 24-day figure's unallocated buffer, not from any of the above.
+
 Role-tier split, satisfying FR-025 and SC-012 (target 60 / 25 / 15, tolerance ±5 points):
 
 | Tier | Role | Days | % | Composition |
