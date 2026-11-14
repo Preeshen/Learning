@@ -92,3 +92,13 @@
 
 **Non-obvious**: A monotonic stack's amortized O(n) claim depends on each element being pushed and popped exactly once -- a wrong push/pop condition silently degrades to O(n^2)
 
+## Day 010 — 2026-11-14 — gradient-descent-scratch {#day-010}
+
+**Status**: complete · **Commit**: 95c2e520cb87ddd7e7f47253b6c0a252378c7955 · **Domain**: ml · **Effort**: 4 h
+
+**Built**: Gradient descent and linear regression from scratch in NumPy, benchmarked against scikit-learn's closed-form OLS fit
+
+**Broke**: An untuned learning rate (tried 0.5 first) diverged instead of converging
+
+**Non-obvious**: Gradient descent can match the closed-form answer, but only with real iteration and tuning cost that OLS skips entirely -- that gap is why neural nets need it at all
+
