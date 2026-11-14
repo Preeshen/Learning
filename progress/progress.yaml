@@ -23,3 +23,7 @@ entries:
   gate_passed: true
   journal_ref: day-003
   resolve_results: []
+- day: 4
+  status: skipped
+  date: '2026-11-14'
+  journal_ref: day-004

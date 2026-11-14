@@ -28,3 +28,13 @@
 
 **Non-obvious**: Skipping duplicates at the outer loop alone isn't enough; the inner pointer needs its own skip after a match
 
+## Day 004 — 2026-11-14 — git-fundamentals {#day-004}
+
+**Status**: skipped · **Commit**: - · **Domain**: git · **Effort**: 4 h
+
+**Built**: -
+
+**Broke**: -
+
+**Non-obvious**: Deferred: optional day, prioritizing core DSA/ML/applied-ai content first per FR-018
+
