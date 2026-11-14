@@ -1,0 +1,11 @@
+version: 1
+roadmap_version: 1
+started: '2026-11-14'
+entries:
+- day: 1
+  status: complete
+  date: '2026-11-14'
+  commit: e50b89af73fd720e2fea86de1900ad4304d16350
+  gate_passed: true
+  journal_ref: day-001
+  resolve_results: []

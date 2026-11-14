@@ -97,7 +97,7 @@ def today(
         role = r.primary_role
         topics = r.interview_imminent_plan.get(role, [])
         if json_out:
-            console.print(json.dumps({"role": role, "drill_topics": topics,
+            print(json.dumps({"role": role, "drill_topics": topics,
                                        "days_until_interview": days_until_interview}))
         else:
             console.print(f"Interview in {days_until_interview} days — drill subset for {role}:")
@@ -110,7 +110,7 @@ def today(
     if next_n is not None:
         days = [d for d in r.all_days() if current <= d.id < current + next_n]
         if json_out:
-            console.print(json.dumps([d.id for d in days]))
+            print(json.dumps([d.id for d in days]))
         else:
             for d in days:
                 console.print(f"Day {d.id}: {d.objective}")
@@ -122,7 +122,7 @@ def today(
         raise typer.Exit(0)
 
     if json_out:
-        console.print(json.dumps({"day": target.id, "objective": target.objective,
+        print(json.dumps({"day": target.id, "objective": target.objective,
                                    "artifact": target.artifact}))
     else:
         _day_card(r, target, progress_by_day)
@@ -179,7 +179,7 @@ def check(day: int | None = typer.Argument(None), json_out: bool = typer.Option(
 
     results = _gate_results(r, target)
     if json_out:
-        console.print(json.dumps({"day": current,
+        print(json.dumps({"day": current,
                                    "results": [{"name": n, "passed": p, "detail": d}
                                                for n, p, d in results]}))
     else:
@@ -398,7 +398,7 @@ def validate(strict: bool = typer.Option(False, "--strict"), json_out: bool = ty
     warnings = [f for f in findings if f.severity == "warn"]
 
     if json_out:
-        console.print(json.dumps({
+        print(json.dumps({
             "summary": f"{r.total_days} days · {len(r.weeks)} weeks · {len(r.topics)} topics · "
                        f"{len(r.milestones)} milestones",
             "errors": [f.message for f in errors],
@@ -426,7 +426,7 @@ def coverage(role: str | None = typer.Option(None, "--role"), json_out: bool = t
     if role is not None:
         detail = coverage_mod.role_detail(r, progress, role)
         if json_out:
-            console.print(json.dumps(detail))
+            print(json.dumps(detail))
         else:
             for d in detail["days"]:
                 mark = "done" if d["done"] else "pending"
@@ -436,7 +436,7 @@ def coverage(role: str | None = typer.Option(None, "--role"), json_out: bool = t
     rows = coverage_mod.role_coverage(r, progress)
     shares = coverage_mod.domain_share(r)
     if json_out:
-        console.print(json.dumps({"roles": rows, "domain_share": shares}))
+        print(json.dumps({"roles": rows, "domain_share": shares}))
     else:
         console.print(f"{'Role':<28}{'Tier':<12}{'Days':>6}{'Done':>6}{'Readiness':>12}")
         for row in rows:
