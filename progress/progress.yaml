@@ -27,3 +27,10 @@ entries:
   status: skipped
   date: '2026-11-14'
   journal_ref: day-004
+- day: 5
+  status: complete
+  date: '2026-11-14'
+  commit: 01cea047c2cba1b45d2943622677e0d69632f91f
+  gate_passed: true
+  journal_ref: day-005
+  resolve_results: []

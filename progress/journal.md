@@ -38,3 +38,13 @@
 
 **Non-obvious**: Deferred: optional day, prioritizing core DSA/ML/applied-ai content first per FR-018
 
+## Day 005 — 2026-11-14 — sliding-window {#day-005}
+
+**Status**: complete · **Commit**: 01cea047c2cba1b45d2943622677e0d69632f91f · **Domain**: dsa · **Effort**: 4 h
+
+**Built**: Sliding-window solutions: longest-substring-without-repeating, min-window-substring, max-sum-subarray-of-size-k
+
+**Broke**: min_window_substring's missing counter needs to increment only when a character's count crosses 0->positive while shrinking, not on every removal
+
+**Non-obvious**: Sliding window's O(n) claim depends on the window's validity being tracked incrementally, not recomputed from scratch each step
+
