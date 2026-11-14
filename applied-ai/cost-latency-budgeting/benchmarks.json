@@ -1,0 +1,10 @@
+{
+  "metric": "cost",
+  "baseline": "day-6 tool-calling loop, unmeasured",
+  "method": "run 20 requests through the loop; report total tokens, cost at list price, and p50/p95 wall-clock latency",
+  "requests": 20,
+  "total_cost_usd": 0.00564,
+  "p50_latency_seconds": 4.00003045797348e-07,
+  "p95_latency_seconds": 1.7999991541728377e-06,
+  "note": "day 6 produced a working loop with zero cost/latency visibility; this day adds the instrumentation that turns 'it works' into 'it costs $X and runs in Yms,' which is the difference between a demo and something you'd put a budget alert on."
+}

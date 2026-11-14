@@ -1,0 +1,10 @@
+{
+  "metric": "accuracy",
+  "baseline": "no-retry loop (fails immediately on malformed tool call)",
+  "method": "count successful completions out of 20 malformed-call trials, with and without retry",
+  "trials": 20,
+  "with_retry_successes": 20,
+  "no_retry_successes": 12,
+  "with_retry_success_rate": 1.0,
+  "no_retry_success_rate": 0.6
+}

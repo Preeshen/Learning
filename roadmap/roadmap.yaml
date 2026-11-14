@@ -122,6 +122,50 @@ topics:
     first_day: 6
     resurface_after: [14, 35]
     references: []
+  binary-search:
+    name: Binary search (+ search-on-answer)
+    domain: dsa
+    first_day: 8
+    resurface_after: [7, 21]
+    references:
+      - title: "Search in Rotated Sorted Array"
+        url: "https://leetcode.com/problems/search-in-rotated-sorted-array/"
+  stacks-monotonic:
+    name: Stacks & monotonic stack
+    domain: dsa
+    first_day: 9
+    resurface_after: [7, 21]
+    references:
+      - title: "Daily Temperatures"
+        url: "https://leetcode.com/problems/daily-temperatures/"
+  gradient-descent-scratch:
+    name: Gradient descent & linear regression from scratch
+    domain: ml
+    first_day: 10
+    resurface_after: [14, 35]
+    references: []
+  linked-lists:
+    name: Linked lists (reversal, fast-slow, cycle, merge-k)
+    domain: dsa
+    first_day: 11
+    resurface_after: [7, 21]
+    references:
+      - title: "Linked List Cycle II"
+        url: "https://leetcode.com/problems/linked-list-cycle-ii/"
+  cost-latency-budgeting:
+    name: LLM cost & latency budgeting
+    domain: applied-ai
+    first_day: 12
+    resurface_after: [14, 35]
+    references: []
+  trees-traversals:
+    name: Trees I — traversals & BST properties
+    domain: dsa
+    first_day: 13
+    resurface_after: [7, 21]
+    references:
+      - title: "Validate Binary Search Tree"
+        url: "https://leetcode.com/problems/validate-binary-search-tree/"
 
 weeks:
   - number: 1
@@ -273,6 +317,152 @@ weeks:
         - "Audit the week's commits against constitution Principles I-VII."
         - "Cut optional days from next week if behind; never carry a backlog."
       output_path: progress/reviews/week-01.md
+
+  - number: 2
+    theme: "DSA patterns II and first ML mechanism"
+    domains: [dsa, ml, applied-ai]
+    outcome: "Binary search, stacks, linked lists, and trees-I solved cold; gradient descent implemented from scratch; LLM cost/latency budgeting instrumented."
+    days:
+      - id: 8
+        date: 2026-11-23
+        day_type: weekday
+        objective: "Solve the binary-search pattern from scratch, including search-on-answer and rotated-array variants."
+        domain: dsa
+        topic: binary-search
+        artifact: dsa/binary-search/solutions.py
+        verification: "pytest dsa/binary-search/ passes; complexity asserted per solution"
+        notes_topic: "Why 'search on answer' reframes an optimization problem as a monotonic predicate you can binary search over"
+        effort_hours: 4
+        tier: secondary
+        priority: core
+        gate:
+          - "pytest dsa/binary-search/ passes"
+          - "dsa/binary-search/NOTES.md modified in this commit"
+        minimum_viable: "Classic binary search plus one variant; defer search-on-answer to the review slot."
+      - id: 9
+        date: 2026-11-24
+        day_type: weekday
+        objective: "Solve the stacks / monotonic-stack pattern from scratch across 3 problems."
+        domain: dsa
+        topic: stacks-monotonic
+        artifact: dsa/stacks-monotonic/solutions.py
+        verification: "pytest dsa/stacks-monotonic/ passes; complexity asserted per solution"
+        notes_topic: "Why a monotonic stack answers 'next greater element' style questions in one O(n) pass instead of O(n^2)"
+        effort_hours: 4
+        tier: secondary
+        priority: core
+        gate:
+          - "pytest dsa/stacks-monotonic/ passes"
+          - "dsa/stacks-monotonic/NOTES.md modified in this commit"
+        minimum_viable: "Valid-parentheses plus one monotonic-stack problem; defer the third."
+      - id: 10
+        date: 2026-11-25
+        day_type: weekday
+        objective: "Implement gradient descent and linear regression from scratch in NumPy, then compare against scikit-learn."
+        domain: ml
+        topic: gradient-descent-scratch
+        artifact: ml/gradient-descent-scratch/gradient_descent.py
+        verification: "pytest ml/gradient-descent-scratch/ passes; benchmarks.json reports convergence vs scikit-learn's closed-form fit"
+        notes_topic: "Why gradient descent needs a learning rate and closed-form least-squares doesn't, and what that costs at scale"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        prerequisites: [1]
+        gate:
+          - "pytest ml/gradient-descent-scratch/ passes"
+          - "ml/gradient-descent-scratch/NOTES.md modified in this commit"
+          - "ml/gradient-descent-scratch/benchmarks.json committed"
+        minimum_viable: "From-scratch gradient descent only; defer the scikit-learn comparison to day 11's slack."
+        measurement:
+          metric: accuracy
+          baseline: "scikit-learn LinearRegression (closed-form OLS)"
+          results_path: ml/gradient-descent-scratch/benchmarks.json
+          method: "fit both on the same synthetic dataset; report MSE and iterations-to-converge for the scratch version"
+      - id: 11
+        date: 2026-11-26
+        day_type: weekday
+        objective: "Solve the linked-list pattern from scratch: reversal, fast-slow pointers, cycle detection, merge-k."
+        domain: dsa
+        topic: linked-lists
+        artifact: dsa/linked-lists/solutions.py
+        verification: "pytest dsa/linked-lists/ passes; complexity asserted per solution"
+        notes_topic: "Why fast-slow pointers detect a cycle in O(n) time and O(1) space without a visited set"
+        effort_hours: 4
+        tier: secondary
+        priority: core
+        gate:
+          - "pytest dsa/linked-lists/ passes"
+          - "dsa/linked-lists/NOTES.md modified in this commit"
+        minimum_viable: "Reversal and cycle detection only; defer merge-k to the review slot."
+      - id: 12
+        date: 2026-11-27
+        day_type: weekday
+        objective: "Instrument token usage and latency for the day-6 tool-calling loop; establish a cost/latency budget and measure against it."
+        domain: applied-ai
+        topic: cost-latency-budgeting
+        artifact: applied-ai/cost-latency-budgeting/budget_tracker.py
+        verification: "pytest applied-ai/cost-latency-budgeting/ passes; benchmarks.json reports token cost and p50/p95 latency against the day-6 baseline"
+        notes_topic: "Why token count alone is a cost signal but not a latency signal, and vice versa"
+        effort_hours: 4
+        tier: primary
+        priority: core
+        prerequisites: [6]
+        offline: true
+        offline_fallback: "replay recorded request/response pairs from applied-ai/_fixtures/ with their recorded token counts"
+        gate:
+          - "pytest applied-ai/cost-latency-budgeting/ passes"
+          - "applied-ai/cost-latency-budgeting/NOTES.md modified in this commit"
+          - "applied-ai/cost-latency-budgeting/benchmarks.json committed"
+        minimum_viable: "Token-cost tracking only; defer p50/p95 latency measurement to day 13's slack."
+        measurement:
+          metric: cost
+          baseline: "day-6 tool-calling loop, unmeasured"
+          results_path: applied-ai/cost-latency-budgeting/benchmarks.json
+          method: "run 20 requests through the loop; report total tokens, cost at list price, and p50/p95 wall-clock latency"
+      - id: 13
+        date: 2026-11-28
+        day_type: weekend
+        objective: "Solve tree traversals and BST-property problems from scratch across 4 problems."
+        domain: dsa
+        topic: trees-traversals
+        artifact: dsa/trees-traversals/solutions.py
+        verification: "pytest dsa/trees-traversals/ passes; complexity asserted per solution"
+        notes_topic: "Why an in-order traversal of a valid BST is always sorted, and how that property turns validation into a one-pass check"
+        effort_hours: 6
+        tier: secondary
+        priority: core
+        gate:
+          - "pytest dsa/trees-traversals/ passes"
+          - "dsa/trees-traversals/NOTES.md modified in this commit"
+        minimum_viable: "Preorder/inorder/postorder plus BST validation; defer the remaining problem to the review slot."
+      - id: 14
+        date: 2026-11-29
+        day_type: weekend
+        objective: "Weekly review: re-solve two DSA topics from a blank file, audit the week against the constitution, re-plan."
+        domain: dsa
+        topic: sliding-window
+        artifact: progress/reviews/week-02.md
+        verification: "roadmap review writes the Generated section; both re-solves recorded pass/fail"
+        notes_topic: "What the re-solve revealed about which parts of binary search and stacks were not actually retained"
+        effort_hours: 6
+        tier: secondary
+        priority: core
+        prerequisites: [8, 9]
+        gate:
+          - "roadmap review writes progress/reviews/week-02.md"
+          - "both re-solves recorded via roadmap complete --resolve"
+        minimum_viable: "Re-solve one topic instead of two; log the skip honestly."
+    review:
+      week: 2
+      day: 14
+      resolves: [sliding-window, two-pointers]
+      procedure:
+        - "Revision of fragile material outranks starting new material when time is short (FR-018)."
+        - "Re-solve each topic in `resolves` from a blank file; record pass/fail."
+        - "Run `roadmap review` and read the failed-gate report."
+        - "Audit the week's commits against constitution Principles I-VII."
+        - "Cut optional days from next week if behind; never carry a backlog."
+      output_path: progress/reviews/week-02.md
 
 milestones:
   - id: code-review-triage-agent

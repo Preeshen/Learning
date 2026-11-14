@@ -1,0 +1,21 @@
+{
+  "metric": "latency",
+  "baseline": "naive O(n^2) nested-loop lookup",
+  "method": "time both implementations across input sizes [100, 1000, 10000, 100000]",
+  "sizes": [
+    100,
+    1000,
+    10000
+  ],
+  "hashmap_seconds": [
+    2.890000178012997e-05,
+    0.00024980001035146415,
+    0.002623899999889545
+  ],
+  "naive_seconds": [
+    0.00038500000664498657,
+    0.055066100001567975,
+    6.7090434999990975
+  ],
+  "note": "naive grows roughly quadratically with size; hashmap grows roughly linearly \u2014 the ratio naive_seconds[-1]/hashmap_seconds[-1] should dwarf the ratio at the smallest size if the O(n) vs O(n^2) claim is real, not just asserted."
+}
