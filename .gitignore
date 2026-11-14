@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+
+# Data & model artifacts (keep small samples explicitly with git add -f)
+data/raw/
+data/large/
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.gguf
+
+# OS / editor
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
