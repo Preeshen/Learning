@@ -548,3 +548,51 @@ def test_notes_one_empty_section_is_reported():
     }
     del bodies["revision_notes"]
     assert v.notes_missing_sections(_notes(**bodies)) == ["Revision notes"]
+
+
+# ---------------------------------------------------------------------------
+# Rules de-hardcoded by the 133-day restructure (step 5)
+# ---------------------------------------------------------------------------
+
+def test_v03_week_count_is_derived_not_hardcoded():
+    """V-03 asserted 10 weeks; it must derive the count from total_days."""
+    # make_roadmap builds 2 weeks; declaring 21 days means 3 are expected.
+    r = make_roadmap([make_day(id=i) for i in range(1, 15)])
+    r.total_days = 21
+    findings = [f for f in v.v03_structure(r) if "weeks" in f.message]
+    assert findings and "expected 3 weeks" in findings[0].message, findings
+
+
+def test_v10_requires_the_cloud_domain():
+    r = make_roadmap([make_day()])
+    assert any(f.rule_id == "V-10" and "cloud" in f.message
+               for f in v.v10_domain_role_completeness(r))
+
+
+def test_v10_rejects_embedded_ml_as_a_role():
+    """FR-029 dropped Embedded ML as a target role."""
+    r = make_roadmap([make_day()])
+    msgs = " ".join(f.message for f in v.v10_domain_role_completeness(r))
+    assert "embedded-ml" not in msgs
+
+
+def test_v14_core_cap_is_derived_from_the_day_type_budgets():
+    """The 272h cap was 85% of a 320h programme; it must follow the budget instead."""
+    days = [make_day(id=i, day_type="weekday", effort_hours=6, dsa_hours=0)
+            for i in range(1, 15)]
+    r = make_roadmap(days)
+    r.total_days = 14
+    r.weekday_hours = 6
+    findings = v.v14_core_effort_budget(r)
+    # 14 weekday days x 6h = 84h budget, cap 71.4h, core 84h -> over by 12.6h
+    assert findings and "71.4h cap" in findings[0].message, findings
+
+
+def test_v19_and_v23_skip_review_days():
+    """A weekly review naming a milestone teaches nothing and provisions nothing."""
+    review = make_day(id=1, domain="cloud", artifact="progress/reviews/week-01.md",
+                      objective="Weekly review. Milestone readiness: Production MCP server.")
+    r = make_roadmap([review])
+    r.domains["cloud"] = r.domains["python"]
+    assert v.v19_generic_concept(r) == []
+    assert v.v23_cloud_cost_discipline(r) == []

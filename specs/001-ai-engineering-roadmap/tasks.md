@@ -541,3 +541,69 @@ produced.
 - **V-24 × 1** — DSA is scheduled as blocked consecutive days, not a continuous track.
 
 Step 5 (`roadmap.yaml` 70 → 133 days) resolves all three and flips T068's xfail.
+
+
+### Step 4 — NOTES.md module template
+
+- [X] T069 `tools/templates/NOTES.template.md`: the eleven required sections with guiding
+  prompts in HTML comments. Headings and prompts only, never content (Principle VIII).
+- [X] T070 `validate.notes_missing_sections()`: strips HTML comments and ignores a bare
+  `1./2./3.` skeleton, so an unfilled template counts as empty rather than passing on
+  structure. Six tests including the shipped template itself.
+- [X] T071 `roadmap check`: gate item `notes modified` (file non-empty) becomes
+  `notes complete` (n/11, naming what is missing). The old check passed on a 92-byte stub.
+- [X] T072 Migrate the 11 existing topic `NOTES.md`: 10 empty stubs replaced with the
+  template; `python/project-tooling` migrated by hand, preserving the learner's original
+  day-1 prose verbatim under the four closest-matching new headings and leaving the seven
+  genuinely new sections empty.
+
+### Step 5 — the 70 → 133 day restructure
+
+- [X] T073 Author the 19-week plan and generate `roadmap/roadmap.yaml`: 133 days, 19 weeks,
+  114 topics, 3 milestones. Generated from a declarative plan by a one-off migration script
+  kept in the scratchpad and **not** committed — `roadmap.yaml` remains the single source of
+  truth (R-001), and hand-editing ~4000 lines of YAML was not a safe option.
+- [X] T074 DSA converted to a continuous daily track: `dsa_hours: 1.0` on all 133 days plus
+  20 dedicated pattern days (one per interview-frequency pattern), interleaved so no run
+  exceeds 2 consecutive DSA-only days. 133 touches instead of 21 blocked days.
+- [X] T075 Close the P0 breach: no day entry builds a portfolio project. The three
+  milestones derive their `prerequisite_days` from the topics they actually depend on.
+- [X] T076 Rebalance to the amended constraints — domains all at or under 30% (applied-ai
+  29%, the largest), tiers 80/31/22 against the 60/25/15 target, core effort 629 h against
+  the 646 h cap, 23 optional days providing the required slack.
+- [X] T077 De-hardcode four rules that encoded the original 70-day programme: V-03 derives
+  the week count from `total_days`; V-10 requires 7 domains and the 5 in-scope roles; V-13's
+  cap moves 40% → 30% to match the amended SC-003; V-14 derives its core cap from the
+  day-type budgets rather than the literal 272 h. Five regression tests added.
+- [X] T078 V-19 and V-23 skip review days — a weekly review naming a milestone in a
+  readiness check teaches nothing Claude-specific and provisions no cloud resource. Same
+  false-positive class as the V-22 fix in T065.
+- [X] T079 Remove the `xfail(strict=True)` from
+  `test_validate_strict_exits_zero_against_the_complete_roadmap`; the restructure resolved
+  all 21 errors and strict mode duly failed on the unexpected pass.
+- [X] T080 Each week's declared `domains` now includes `dsa`, which is accurate under
+  FR-037 and restores `test_week1_front_loads_python_and_dsa...` without weakening it.
+
+### Decisions recorded during step 5
+
+- **`from_scratch_of` dropped from the generated plan.** V-05 requires the library day and
+  its scratch counterpart to share a topic id, which no scratch/framework pair here does
+  (LangGraph rebuilds `react-loop-scratch`; LlamaIndex rebuilds `retrieval-vector-search`).
+  Principle III is preserved by week ordering — scratch weeks 3-5 precede the framework week
+  7 — but it is no longer machine-checkable for cross-topic pairs. A future amendment could
+  add a `rebuilds_topic` field with its own rule.
+- **Inference days moved from `applied-ai` to the `ml` domain.** Model optimisation and
+  deployment sit under ML/DL in the audit brief's section 2E, and the move was also what
+  brought applied-ai under the 30% cap.
+- **20 planned content days were cut, one per week (two in week 19).** Each week has 6
+  planned content days and only 5 slots once its DSA day is placed. Thirteen cuts fall on
+  Applied AI, consistent with FR-028: the learner already has that material. Every cut is
+  named with its reason in the migration script's drop list.
+- **Three content directories are now orphaned** — `applied-ai/tool-calling`,
+  `applied-ai/cost-latency-budgeting`, `dsa/stacks-monotonic` (renamed to
+  `stacks-queues-monotonic`). They are **kept, not deleted**, per Principle VII: dead ends
+  stay. Their stub code may be reused when the renamed topic comes round.
+- **Milestone timing**: the flagship opens at day 36 (week 6), matching the decision to
+  defer the choice past week 4. The MCP server opens at day 89 and the inference gateway at
+  day 125, so the third project largely runs past the programme end. That is a deliberate
+  consequence of putting inference last; if the gateway matters more, inference moves earlier.

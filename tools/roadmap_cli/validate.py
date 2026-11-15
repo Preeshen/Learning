@@ -16,6 +16,9 @@ from tools.roadmap_cli.models import DayProgress, ProgressRecord, ProgressStatus
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
+DAYS_PER_WEEK = 7
+CORE_EFFORT_SLACK = 0.15
+
 
 @dataclass
 class Finding:
@@ -61,8 +64,10 @@ def v02_required_fields(r: Roadmap) -> list[Finding]:
 
 def v03_structure(r: Roadmap) -> list[Finding]:
     findings = []
-    if len(r.weeks) != 10:
-        findings.append(Finding("V-03", "error", f"expected 10 weeks, found {len(r.weeks)}"))
+    expected_weeks = r.total_days // DAYS_PER_WEEK
+    if len(r.weeks) != expected_weeks:
+        findings.append(Finding("V-03", "error",
+            f"expected {expected_weeks} weeks for {r.total_days} days, found {len(r.weeks)}"))
     seen_days: set[int] = set()
     for week in r.weeks:
         if len(week.days) != 7:
@@ -179,12 +184,12 @@ def v09_referential_integrity(r: Roadmap) -> list[Finding]:
 
 def v10_domain_role_completeness(r: Roadmap) -> list[Finding]:
     findings = []
-    expected_domains = {"python", "dsa", "git", "systems", "ml", "applied-ai"}
+    expected_domains = {"python", "dsa", "git", "systems", "ml", "applied-ai", "cloud"}
     if set(r.domains) != expected_domains:
         findings.append(Finding("V-10", "error",
             f"domains must be exactly {expected_domains}, found {set(r.domains)}"))
-    expected_roles = {"agentic-ai", "fde", "ml-engineer", "inference", "embedded-ml",
-                      "test-validation"}
+    # Embedded ML was dropped as a target role by the v1.1.0 amendment (FR-029).
+    expected_roles = {"agentic-ai", "fde", "ml-engineer", "inference", "test-validation"}
     if set(r.roles) != expected_roles:
         findings.append(Finding("V-10", "error",
             f"roles must be exactly {expected_roles}, found {set(r.roles)}"))
@@ -227,18 +232,24 @@ def v13_domain_share(r: Roadmap) -> list[Finding]:
         counts[day.domain] = counts.get(day.domain, 0) + 1
     for domain_id, count in counts.items():
         share = count / total
-        if share > 0.40:
+        if share > 0.30:
             findings.append(Finding("V-13", "warn",
-                f"domain {domain_id}: {share:.0%} of days exceeds the 40% cap"))
+                f"domain {domain_id}: {share:.0%} of days exceeds the 30% cap"))
     return findings
 
 
 def v14_core_effort_budget(r: Roadmap) -> list[Finding]:
     findings = []
-    core_total = sum(d.effort_hours for d in r.all_days() if d.priority == "core")
-    if core_total > 272:
+    # Derived from the day-type budgets rather than hardcoded: the original 272h was 85%
+    # of a 320h programme, and the v1.1.0 amendment moved the budget to 760h (SC-009).
+    budget = sum(r.weekday_hours if d.day_type == "weekday" else r.weekend_hours
+                 for d in r.all_days())
+    cap = round(budget * (1 - CORE_EFFORT_SLACK), 1)
+    core_total = sum(d.effort_hours + d.dsa_hours for d in r.all_days() if d.priority == "core")
+    if core_total > cap:
         findings.append(Finding("V-14", "warn",
-            f"core effort {core_total}h exceeds the 272h budget by {core_total - 272}h"))
+            f"core effort {core_total}h exceeds the {cap}h cap "
+            f"(85% of the {budget}h budget) by {round(core_total - cap, 1)}h"))
     return findings
 
 
@@ -295,6 +306,10 @@ CLAUDE_TOOLING_MARKERS = ("claude code skill", "claude agent sdk", "mcp", "model
 def v19_generic_concept(r: Roadmap) -> list[Finding]:
     findings = []
     for day in r.all_days():
+        if day.artifact.startswith("progress/reviews/"):
+            # A review day teaches nothing; naming a milestone in its objective (e.g. a
+            # readiness check for the MCP server project) is not Claude-specific teaching.
+            continue
         haystack = f"{day.objective} {day.notes_topic} {day.artifact}".lower()
         if any(marker in haystack for marker in CLAUDE_TOOLING_MARKERS):
             if not day.generic_concept:
@@ -377,7 +392,9 @@ def v22_no_milestone_implementation(r: Roadmap) -> list[Finding]:
 def v23_cloud_cost_discipline(r: Roadmap) -> list[Finding]:
     """FR-040: every cloud day needs a cost estimate, teardown, and budget-day ordering."""
     findings = []
-    cloud_days = [d for d in r.all_days() if d.domain == "cloud"]
+    cloud_days = [d for d in r.all_days()
+                  if d.domain == "cloud"
+                  and not d.artifact.startswith("progress/reviews/")]
     if not cloud_days:
         return findings
     budget_days = [d for d in cloud_days if d.is_budget_setup]

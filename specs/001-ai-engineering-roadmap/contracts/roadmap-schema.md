@@ -147,27 +147,27 @@ offending day or topic. Exit code 0 only when no `error`-severity rule fires.
 |---|---|---|---|
 | V-01 | error | `end_date` equals `start_date` + `total_days` − 1; all day `date` values derived consistently; `day_type` matches the weekday/weekend of `date` | FR-001 |
 | V-02 | error | Every DayEntry has a non-empty `artifact`, `verification`, `notes_topic`, `minimum_viable`, and ≥1 `gate` entry | FR-004, FR-005, SC-002, Principle I |
-| V-03 | error | Exactly 10 weeks, exactly 7 days each, day ids contiguous 1..70 with no gaps or duplicates | FR-002, FR-003 |
+| V-03 | error | Week count derived as `total_days / 7`, exactly 7 days each, day ids contiguous 1..N with no gaps or duplicates | FR-002, FR-003 |
 | V-04 | error | `effort_hours` ≤ 4 for `weekday`, ≤ 6 for `weekend` | FR-027 |
 | V-05 | error | For any day with `from_scratch_of: N`, N < that day's id and N's topic matches | FR-010, Principle III |
 | V-06 | error | If `measurement` present, all of `metric`/`baseline`/`results_path`/`method` are non-empty | FR-012, Principle V |
 | V-07 | error | Every topic has ≥2 strictly increasing `resurface_after` intervals. For `dsa`/`ml` topics specifically (FR-015's actual scope — "every DSA problem set and core ML concept"), the topic must also appear in ≥2 checkpoints' `resolves` — unless fewer than 2 review checkpoints occur after its `first_day`, in which case it must appear in every checkpoint that remains (a topic introduced in the programme's last content day cannot be resurfaced twice before the programme ends; that is a scheduling fact, not a violation) | FR-014, FR-015, Principle VI |
 | V-08 | error | No milestone references a path inside this repository other than its `record_path`; `external` is `true` | FR-021, Principle VII |
 | V-09 | error | No day references a `topic`, `domain` or `tier` that is not declared | referential integrity |
-| V-10 | error | All 6 domains and all 6 roles declared; exactly one `primary` and one `secondary` role | FR-008, FR-029 |
+| V-10 | error | All 7 domains and all 5 in-scope roles declared (Embedded ML dropped); exactly one `primary` and one `secondary` role | FR-008, FR-029 |
 | V-11 | error | Every id in `prerequisites` is lower than the referencing day's id | FR-011 |
 | V-12 | error | `language != python` requires `language_exception`; `offline: false` requires `offline_fallback` | FR-034, constitution Scope |
-| V-13 | warn | No domain exceeds 40% of `total_days` | SC-003 |
-| V-14 | warn | Sum of `effort_hours` where `priority == core` ≤ 272 | SC-009 |
+| V-13 | warn | No domain exceeds 30% of `total_days` | SC-003 |
+| V-14 | warn | Sum of `effort_hours + dsa_hours` where `priority == core` is at most 85% of the budget derived from the day-type hours (646 h at 133 days) | SC-009 |
 | V-15 | warn | Each tier's day share within ±5 points of 60 / 25 / 15 | SC-012 |
 | V-16 | warn | Every `remaining`-tier role's `evidence_required` items are each satisfied by ≥1 day | FR-032, SC-013 |
 | V-17 | warn | ≥3 milestones declared | FR-019 |
 | V-18 | error | `serving`, when set, is `fastapi` | Clarification 2026-11-14 |
-| V-19 | error | A day referencing Claude-specific tooling declares `generic_concept` | Clarification 2026-11-14 |
+| V-19 | error | A day referencing Claude-specific tooling declares `generic_concept`. Review days are skipped: naming a milestone in a readiness check is not Claude-specific teaching | Clarification 2026-11-14 |
 | V-20 | error | Each milestone has non-empty `purpose`, `demonstrates`, `supports_roles` | FR-020 |
 | V-21 | error | `interview_imminent_plan` exists; per role ≥6 known topics spanning ≥3 domains | FR-026 |
 | V-22 | error | No day entry's `topic` or `artifact` names a milestone — day entries must not implement a portfolio project. The free-text `objective` is deliberately **not** scanned, so a review day's "is milestone X ready?" and a pattern day's "feeds milestone X" are not breaches | FR-039, Principle VII |
-| V-23 | error | Every `cloud` day has `estimated_cost` and `teardown`; exactly one cloud day is `is_budget_setup`; no cloud day is sequenced before it | FR-040 |
+| V-23 | error | Every non-review `cloud` day has `estimated_cost` and `teardown`; at least one cloud day is `is_budget_setup`; no cloud day is sequenced before it. Review days provision nothing and are skipped | FR-040 |
 | V-24 | error | No more than 2 consecutive DSA-only days; `effort_hours + dsa_hours` fits the day-type budget | FR-037, SC-016 |
 | V-18 | error | Any day with `serving` set uses value `fastapi` (no other serving framework permitted) | FR-030a |
 | V-19 | error | Any day whose topic or tooling references Claude Code skills, the Claude Agent SDK, or MCP declares a non-empty `generic_concept` | FR-030b |

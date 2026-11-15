@@ -113,16 +113,9 @@ def test_check_reports_notes_section_shortfall():
     assert "/11 sections" in result.stdout
 
 
-@pytest.mark.xfail(
-    strict=True,
-    reason="Constitution v1.1.0 deliberately made the current roadmap non-compliant: "
-           "V-22 flags days 60/61/66/67 building portfolio-project code, V-21 flags the "
-           "placeholder interview plan, V-24 flags blocked DSA days. Migration step 5 "
-           "restructures roadmap.yaml to 133 days and fixes all three; remove this marker "
-           "then. strict=True so an unexpected pass fails loudly and forces its removal.",
-)
 def test_validate_strict_exits_zero_against_the_complete_roadmap():
-    # quickstart S-1: roadmap validate --strict must pass clean.
+    # quickstart S-1: roadmap validate --strict must pass clean. The v1.1.0
+    # non-compliance (V-21/V-22/V-24) was resolved by the 133-day restructure.
     result = runner.invoke(app, ["validate", "--strict"])
     assert result.exit_code == 0
     assert "0 error(s), 0 warning(s)" in result.stdout
