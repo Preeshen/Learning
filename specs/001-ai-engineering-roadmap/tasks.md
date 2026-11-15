@@ -607,3 +607,37 @@ Step 5 (`roadmap.yaml` 70 → 133 days) resolves all three and flips T068's xfai
   defer the choice past week 4. The MCP server opens at day 89 and the inference gateway at
   day 125, so the third project largely runs past the programme end. That is a deliberate
   consequence of putting inference last; if the gateway matters more, inference moves earlier.
+
+
+## Analyze remediation, round 1 — the two CRITICALs (2026-11-15)
+
+From `/speckit-analyze`: two constitution gates were documented as enforced while
+enforcing nothing, and the contract documented four rules twice with conflicting
+definitions.
+
+- [X] T081 **D1 — Principle VIII had no gate anywhere.** Added
+  `validate.artifact_is_unimplemented()` and a sixth `roadmap check` item,
+  `implementation written`, which fails a day whose artifact still carries a stub marker
+  (`NotImplementedError`, `TODO: implement`), with comment lines excluded so discussing the
+  marker is not a failure. Added the Principle VIII row to plan.md's Constitution Check,
+  recorded as **PARTIAL on purpose**: no check can prove who typed a line, so authorship
+  stays human-verified in the weekly review. Naming the gap beats implying a protection
+  that does not exist. 3 tests.
+- [X] T082 **D2 — Principle III's enforcement was vacuous.** V-05 requires both days to
+  share a topic id; the restructure left 0 days using `from_scratch_of`, so the rule
+  evaluated nothing while plan.md recorded it as PASS. Added the `rebuilds_topic` field
+  (cross-topic) and **V-25**, which requires the named topic to exist, to differ from the
+  day's own topic, and to have an earlier `first_day`. 5 days now declare it: LangGraph
+  (43) and LangChain (46) rebuild `react-loop-scratch` (22); PyTorch (111) rebuilds
+  `neural-net-scratch` (108); KV caching (122) rebuilds `transformers-attention-scratch`
+  (110); the network (108) rebuilds `math-calculus-autodiff` (99). 4 tests.
+  - V-25 immediately earned itself: `transformers-attention-scratch` had been pointing at
+    `math-linear-algebra`, a topic cut in step 5. A dangling reference the old field could
+    not have caught.
+- [X] T083 **F1 + A1 — removed the duplicate V-18..V-21 contract rows.** Added in step 3
+  without noticing they were already documented; V-21's two definitions contradicted each
+  other ("≥6 topics spanning ≥3 domains" vs "a non-empty subset"), and the stale rows cited
+  `FR-030a`/`FR-030b`, which do not exist in spec.md.
+- [X] T084 Documented V-25, the five v1.1.0 day fields (`dsa_hours`, `rebuilds_topic`,
+  `estimated_cost`, `teardown`, `is_budget_setup`) and the six-item gate in the contracts;
+  corrected plan.md's Principle III, IV and VII rows, which described pre-amendment behaviour.

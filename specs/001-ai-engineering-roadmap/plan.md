@@ -61,17 +61,18 @@ checkpoints, 3 promotion milestones, 6 role-coverage mappings. The CLI is roughl
 
 *GATE: Must pass before Phase 0 research. Re-checked after Phase 1 design.*
 
-Gates derived from constitution v1.0.0, principles I–VII.
+Gates derived from constitution v1.1.0, principles I–VIII. Re-verified after the 133-day restructure (2026-11-15).
 
 | # | Principle | Gate | Pre-Phase 0 | Post-Phase 1 |
 |---|---|---|---|---|
 | I | Learn By Building | Every day entry terminates in a committed, runnable artifact; no entry may have an empty `artifact` field | PASS — enforced by schema `required` and by `roadmap validate` | PASS — `contracts/roadmap-schema.md` makes `artifact` required; validator rule V-02 |
 | II | Daily Deliverable | A per-day record exists with status and a prose log; skipped days are recorded explicitly, never omitted | PASS — `progress.yaml` + `journal.md` (R-003) | PASS — `skipped` is an explicit status in `contracts/progress-schema.md`; validator rule V-09 forbids gaps |
-| III | From Scratch Before Framework | For any topic with both, the scratch day precedes the library day | PASS — `from_scratch_of` field on day entries | PASS — validator rule V-05 fails if a library day's scratch counterpart has a higher day number |
-| IV | Explain It Back | Every day names a `notes_topic`; the day's check verifies `NOTES.md` was touched | PASS — required field | PASS — `roadmap check` step 3 |
+| III | From Scratch Before Framework | For any concept with both, the from-scratch day precedes the framework day | PASS — `from_scratch_of` (same topic) and `rebuilds_topic` (cross-topic) on day entries | PASS — V-05 covers same-topic pairs; **V-25** covers cross-topic pairs and is what actually enforces this: 5 days declare `rebuilds_topic` (LangGraph and LangChain rebuild `react-loop-scratch`, PyTorch rebuilds `neural-net-scratch`, KV caching rebuilds `transformers-attention-scratch`). V-05 alone evaluated 0 days after the restructure, which is why V-25 exists |
+| IV | Explain It Back | Every day names a `notes_topic`; the day's check verifies `NOTES.md` carries all eleven required sections | PASS — required field | PASS — `roadmap check`'s `notes complete` item reports n/11 and names what is missing; a non-empty stub no longer passes |
 | V | Measure, Don't Guess | Days claiming performance/accuracy/latency/memory declare a measurement and a baseline | PASS — `measurement` block with required `baseline` | PASS — validator rule V-06; `roadmap check` step 4 |
 | VI | Spaced Repetition Over Coverage | Every topic schedules ≥2 re-surfacings at increasing intervals | PASS — `resurface_after` on topics (R-004) | PASS — validator rule V-07 |
-| VII | Playground Here, Production Elsewhere | No milestone schedules project implementation inside this repo; promoted projects recorded as pointers only | PASS — milestones carry no day entries | PASS — validator rule V-08 rejects a milestone with an `artifact` path inside this repo |
+| VII | Playground Here, Production Elsewhere | No milestone **and no day entry** schedules project implementation inside this repo; promoted projects recorded as pointers only | PASS — milestones carry no day entries | PASS — V-08 covers milestone definitions and **V-22** covers day entries. V-08 alone passed while four days were building projects, which is why V-22 exists |
+| VIII | Progressive Assistance (NON-NEGOTIABLE) | Code is never ghostwritten; assistance escalates explain → hint → typed skeleton → debug → reference solution, and a ghostwritten artifact is reverted | PARTIAL — see below | **PARTIAL, and deliberately so.** Mechanised: `roadmap check`'s `implementation written` item fails a day whose artifact still contains a stub marker, so a day cannot be completed on the handed-over skeleton; and the skeleton-first workflow is the authored shape of every day's starting artifact. **Not mechanised: authorship itself.** No check can prove who typed a line, and pretending otherwise would be worse than naming the gap. Authorship is human-verified in the weekly review, whose procedure audits Principles I–VIII |
 
 **Scope & Domain constraints**
 

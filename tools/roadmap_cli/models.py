@@ -70,6 +70,10 @@ class DayEntry:
     # Constitution v1.1.0: DSA runs as a continuous daily track (FR-037), accounted
     # separately from the day's main artifact effort.
     dsa_hours: float = 0.0
+    # Principle III: this day rebuilds an earlier from-scratch topic with a library or
+    # framework. Unlike `from_scratch_of` (same topic, earlier day) this crosses topics,
+    # which is the shape every scratch/framework pair in this programme actually has.
+    rebuilds_topic: str | None = None
     # Constitution v1.1.0 cloud cost discipline (FR-040).
     estimated_cost: str | None = None
     teardown: list[str] = field(default_factory=list)

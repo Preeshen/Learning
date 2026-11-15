@@ -94,6 +94,7 @@ def _build_day(raw: dict) -> DayEntry:
         serving=raw.get("serving"),
         generic_concept=raw.get("generic_concept"),
         dsa_hours=raw.get("dsa_hours", 0.0),
+        rebuilds_topic=raw.get("rebuilds_topic"),
         estimated_cost=raw.get("estimated_cost"),
         teardown=list(raw.get("teardown", [])),
         is_budget_setup=raw.get("is_budget_setup", False),

@@ -1,4 +1,4 @@
-"""Validator rules V-01..V-24 (roadmap.yaml), P-01..P-07 (progress.yaml), J-01..J-03 (journal.md).
+"""Validator rules V-01..V-25 (roadmap.yaml), P-01..P-07 (progress.yaml), J-01..J-03 (journal.md).
 
 Each rule function returns a list of Finding. See contracts/roadmap-schema.md and
 contracts/progress-schema.md for the authoritative rule definitions this mirrors.
@@ -446,6 +446,36 @@ def v24_dsa_continuous(r: Roadmap) -> list[Finding]:
     return findings
 
 
+def v25_rebuilds_after_scratch(r: Roadmap) -> list[Finding]:
+    """Principle III across topics: a framework day must follow its from-scratch topic.
+
+    V-05 only covers a library day that shares a topic id with its scratch counterpart.
+    No pair in this programme does — LangGraph rebuilds `react-loop-scratch`, PyTorch
+    rebuilds `neural-net-scratch` — so V-05 was evaluating zero days and Principle III
+    was unenforced. This rule checks the cross-topic case.
+    """
+    findings = []
+    for day in r.all_days():
+        target = day.rebuilds_topic
+        if target is None:
+            continue
+        if target == day.topic:
+            findings.append(Finding("V-25", "error",
+                f"day {day.id}: rebuilds_topic {target!r} is its own topic — use "
+                f"from_scratch_of for same-topic pairs"))
+            continue
+        topic = r.topics.get(target)
+        if topic is None:
+            findings.append(Finding("V-25", "error",
+                f"day {day.id}: rebuilds_topic {target!r} is not a declared topic"))
+        elif topic.first_day >= day.id:
+            findings.append(Finding("V-25", "error",
+                f"day {day.id}: rebuilds_topic {target!r} is introduced on day "
+                f"{topic.first_day}, which is not earlier — the from-scratch version "
+                f"MUST precede the framework version (Principle III)"))
+    return findings
+
+
 ROADMAP_RULES = [
     v01_dates, v02_required_fields, v03_structure, v04_effort_budget, v05_scratch_before_library,
     v06_measurement, v07_resurfacing, v08_milestone_external, v09_referential_integrity,
@@ -453,6 +483,7 @@ ROADMAP_RULES = [
     v14_core_effort_budget, v15_tier_split, v16_remaining_evidence, v17_milestone_count,
     v18_serving_fastapi, v19_generic_concept, v20_milestone_fields, v21_interview_plan,
     v22_no_milestone_implementation, v23_cloud_cost_discipline, v24_dsa_continuous,
+    v25_rebuilds_after_scratch,
 ]
 
 
@@ -657,3 +688,23 @@ def notes_missing_sections(notes_text: str) -> list[str]:
         if not stripped:
             missing.append(section)
     return missing
+
+
+# ---------------------------------------------------------------------------
+# Principle VIII: the skeleton-first half, mechanised
+# ---------------------------------------------------------------------------
+
+STUB_MARKERS = ("NotImplementedError", "TODO: implement", "FIXME: implement")
+
+
+def artifact_is_unimplemented(artifact_text: str) -> bool:
+    """True when the artifact is still the handed-over skeleton.
+
+    Principle VIII cannot be fully mechanised: no check can prove who typed a line.
+    What IS checkable is the inverse failure — a day marked complete while its artifact
+    is still the skeleton, which means either the work was not done or the gate was
+    waved through. Authorship itself stays human-verified at the weekly review.
+    """
+    body = "\n".join(line for line in artifact_text.splitlines()
+                     if not line.lstrip().startswith("#"))
+    return any(marker in body for marker in STUB_MARKERS)

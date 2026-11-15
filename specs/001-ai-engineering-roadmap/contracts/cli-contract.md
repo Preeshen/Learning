@@ -60,8 +60,11 @@ programme summary and the promotion milestone status.
 
 ## `roadmap check`
 
-Runs the current day's gate. Mechanises the constitution's five-item day-completion gate so it is
-not a self-assessment.
+Runs the current day's gate. Mechanises the constitution's day-completion gate so it is not a
+self-assessment. Six items, in order: the artifact exists; its tests pass; `NOTES.md` carries all
+eleven sections required by Principle IV; the implementation is written rather than still the
+handed-over skeleton (Principle VIII); any declared measurement is committed; and a commit exists.
+For a cloud day, the teardown record is also required.
 
 ```text
 $ roadmap check
@@ -70,7 +73,8 @@ $ roadmap check
 
   [PASS] artifact exists            applied-ai/tool-calling/loop.py
   [PASS] tests pass                 3 passed in 0.41s
-  [FAIL] notes modified             applied-ai/tool-calling/NOTES.md unchanged since day 11
+  [FAIL] notes complete             7/11 sections — missing: Interview questions, ...
+  [FAIL] implementation written     still a skeleton — NotImplementedError present
   [FAIL] measurement committed      benchmarks.json not found
   [PASS] working tree has a commit  a91c3f0
 

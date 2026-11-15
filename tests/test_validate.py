@@ -596,3 +596,76 @@ def test_v19_and_v23_skip_review_days():
     r.domains["cloud"] = r.domains["python"]
     assert v.v19_generic_concept(r) == []
     assert v.v23_cloud_cost_discipline(r) == []
+
+
+# ---------------------------------------------------------------------------
+# D2: Principle III made verifiable across topics (V-25)
+# ---------------------------------------------------------------------------
+
+def test_v25_framework_day_before_its_scratch_topic_fails():
+    scratch = make_day(id=5, topic="t2", artifact="applied-ai/scratch/loop.py")
+    framework = make_day(id=2, topic="t1", artifact="applied-ai/framework/graph.py",
+                         rebuilds_topic="t2")
+    r = make_roadmap([framework, scratch])
+    r.topics["t2"].first_day = 5
+    findings = v.v25_rebuilds_after_scratch(r)
+    assert any(f.rule_id == "V-25" and "not earlier" in f.message for f in findings)
+
+
+def test_v25_framework_day_after_its_scratch_topic_passes():
+    scratch = make_day(id=1, topic="t2", artifact="applied-ai/scratch/loop.py")
+    framework = make_day(id=4, topic="t1", artifact="applied-ai/framework/graph.py",
+                         rebuilds_topic="t2")
+    r = make_roadmap([scratch, framework])
+    r.topics["t2"].first_day = 1
+    assert v.v25_rebuilds_after_scratch(r) == []
+
+
+def test_v25_unknown_rebuilds_topic_fails():
+    r = make_roadmap([make_day(id=1, rebuilds_topic="does-not-exist")])
+    assert any(f.rule_id == "V-25" and "not a declared topic" in f.message
+               for f in v.v25_rebuilds_after_scratch(r))
+
+
+def test_v25_self_reference_fails():
+    """Same-topic pairs belong to from_scratch_of (V-05), not rebuilds_topic."""
+    r = make_roadmap([make_day(id=1, topic="t1", rebuilds_topic="t1")])
+    assert any(f.rule_id == "V-25" and "its own topic" in f.message
+               for f in v.v25_rebuilds_after_scratch(r))
+
+
+# ---------------------------------------------------------------------------
+# D1: Principle VIII, the skeleton-first half
+# ---------------------------------------------------------------------------
+
+STUB_SOURCE = """def two_sum(nums, target):
+    \"\"\"O(n) time. A hash map turns the complement lookup into O(1).\"\"\"
+    raise NotImplementedError
+"""
+
+DONE_SOURCE = """def two_sum(nums, target):
+    seen = {}
+    for i, n in enumerate(nums):
+        if target - n in seen:
+            return seen[target - n], i
+        seen[n] = i
+    return None
+"""
+
+
+def test_skeleton_artifact_is_detected_as_unimplemented():
+    assert v.artifact_is_unimplemented(STUB_SOURCE)
+
+
+def test_implemented_artifact_passes():
+    assert not v.artifact_is_unimplemented(DONE_SOURCE)
+
+
+def test_stub_marker_in_a_comment_does_not_count():
+    """Discussing NotImplementedError in a comment is not an unimplemented artifact."""
+    text = (
+        "# The skeleton raised NotImplementedError until this was written.\n"
+        "def f():\n"
+        "    return 1\n"
+    )
+    assert not v.artifact_is_unimplemented(text)

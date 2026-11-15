@@ -25,6 +25,7 @@ from tools.roadmap_cli.loader import (
 from tools.roadmap_cli.models import DayEntry, ProgressStatus, Roadmap
 from tools.roadmap_cli.validate import (
     REQUIRED_NOTES_SECTIONS,
+    artifact_is_unimplemented,
     notes_missing_sections,
     validate_journal,
     validate_progress,
@@ -195,6 +196,13 @@ def _gate_results(r: Roadmap, day: DayEntry) -> list[tuple[str, bool, str]]:
             notes_msg = (f"{filled}/{len(REQUIRED_NOTES_SECTIONS)} sections"
                          + (f" — missing: {', '.join(missing)}" if missing else ""))
     results.append(("notes complete", notes_ok, notes_msg))
+
+    # Principle VIII (skeleton-first half): a day cannot complete on an unimplemented stub.
+    if artifact_path.exists() and artifact_path.suffix == ".py":
+        stub = artifact_is_unimplemented(artifact_path.read_text(encoding="utf-8"))
+        results.append(("implementation written", not stub,
+                        "still a skeleton — NotImplementedError present" if stub
+                        else "no stub markers remain"))
 
     measurement_ok = True
     measurement_msg = "no measurement required"

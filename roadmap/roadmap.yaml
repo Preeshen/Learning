@@ -1968,6 +1968,7 @@ weeks:
     - pytest passes; the graph handles the same 3-step task as the scratch loop
     - applied-ai/langgraph-state-graphs/NOTES.md carries all eleven required sections
     minimum_viable: Two-node graph running end to end.
+    rebuilds_topic: react-loop-scratch
   - id: 44
     date: 2026-12-29
     day_type: weekday
@@ -2025,6 +2026,7 @@ weeks:
     - pytest passes for both implementations with identical outputs
     - applied-ai/langchain-abstractions/NOTES.md carries all eleven required sections
     minimum_viable: LangChain version only; note the comparison as pending.
+    rebuilds_topic: react-loop-scratch
   - id: 47
     date: 2027-01-01
     day_type: weekday
@@ -3448,6 +3450,7 @@ weeks:
     - pytest passes gradient checking against numerical gradients
     - ml/neural-net-scratch/NOTES.md carries all eleven required sections
     minimum_viable: Forward pass plus one layer of backward.
+    rebuilds_topic: math-calculus-autodiff
   - id: 109
     date: 2027-03-04
     day_type: weekday
@@ -3505,6 +3508,7 @@ weeks:
       baseline: the from-scratch NumPy network
       results_path: ml/pytorch-gpu-training/benchmarks.json
       method: wall clock for 10 epochs on identical data
+    rebuilds_topic: neural-net-scratch
   - id: 112
     date: 2027-03-07
     day_type: weekend
@@ -3778,6 +3782,7 @@ weeks:
       baseline: decoding with no KV cache
       results_path: ml/inference-kv-cache/benchmarks.json
       method: tokens/sec and peak memory at sequence lengths 128, 512, 1024
+    rebuilds_topic: transformers-attention-scratch
   - id: 123
     date: 2027-03-18
     day_type: weekday

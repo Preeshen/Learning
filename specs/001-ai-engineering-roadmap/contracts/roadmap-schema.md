@@ -138,6 +138,16 @@ milestones:
     record_path: promoted/README.md
 ```
 
+### Day fields added by constitution v1.1.0
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| `dsa_hours` | number | no | Hours of the continuous DSA track on this day. Defaults to 0; set to 1.0 on every day. Accounted separately from `effort_hours`, and V-24 checks their sum against the day-type budget |
+| `rebuilds_topic` | topic id | no | This day rebuilds an earlier from-scratch topic with a library or framework. Cross-topic, unlike `from_scratch_of`. Checked by V-25 |
+| `estimated_cost` | string | cloud days | Expected spend, stated before the exercise runs. Required on every non-review `cloud` day (V-23) |
+| `teardown` | list of string | cloud days | The exact steps that remove every resource, plus the verification that they are gone. Required on every non-review `cloud` day (V-23) |
+| `is_budget_setup` | bool | no | Marks the budget-alarm day. At least one cloud day must set it, and no cloud day may be sequenced before it (V-23) |
+
 ## Validator rules
 
 `roadmap validate` implements these. Each returns a rule id, severity, and a message naming the
@@ -169,10 +179,7 @@ offending day or topic. Exit code 0 only when no `error`-severity rule fires.
 | V-22 | error | No day entry's `topic` or `artifact` names a milestone — day entries must not implement a portfolio project. The free-text `objective` is deliberately **not** scanned, so a review day's "is milestone X ready?" and a pattern day's "feeds milestone X" are not breaches | FR-039, Principle VII |
 | V-23 | error | Every non-review `cloud` day has `estimated_cost` and `teardown`; at least one cloud day is `is_budget_setup`; no cloud day is sequenced before it. Review days provision nothing and are skipped | FR-040 |
 | V-24 | error | No more than 2 consecutive DSA-only days; `effort_hours + dsa_hours` fits the day-type budget | FR-037, SC-016 |
-| V-18 | error | Any day with `serving` set uses value `fastapi` (no other serving framework permitted) | FR-030a |
-| V-19 | error | Any day whose topic or tooling references Claude Code skills, the Claude Agent SDK, or MCP declares a non-empty `generic_concept` | FR-030b |
-| V-20 | error | Every milestone has non-empty `purpose`, ≥1 `demonstrates` entry, and ≥1 `supports_roles` entry | FR-020 |
-| V-21 | error | `interview_imminent_plan` is present and names, for each role, a non-empty subset of existing topic ids to drill | FR-026 |
+| V-25 | error | A day declaring `rebuilds_topic` names a declared topic other than its own, whose `first_day` is earlier — the from-scratch version must precede the framework version | FR-010, Principle III |
 
 Severity rationale: structural and constitutional breaches are `error` because they make the
 roadmap wrong. The budget and distribution rules are `warn` because they are targets the learner may
