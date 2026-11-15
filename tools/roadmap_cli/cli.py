@@ -23,6 +23,7 @@ from tools.roadmap_cli.loader import (
     topics_due,
 )
 from tools.roadmap_cli.models import DayEntry, ProgressStatus, Roadmap
+from tools.roadmap_cli import policy
 from tools.roadmap_cli.validate import (
     REQUIRED_NOTES_SECTIONS,
     artifact_is_unimplemented,
@@ -561,6 +562,140 @@ def render(check_only: bool = typer.Option(False, "--check")):
     console.print(f"wrote {render_mod.MILESTONES_MD.relative_to(REPO_ROOT)} "
                   f"({len(r.milestones)} milestones)")
     raise typer.Exit(0)
+
+
+TEXT_SUFFIXES = {".py", ".md", ".yaml", ".yml", ".json", ".txt", ".sh", ".toml", ".cfg",
+                 ".ini", ".sql", ".env", ".ipynb"}
+
+
+def _tracked_text_files() -> list[Path]:
+    proc = subprocess.run(["git", "ls-files"], cwd=REPO_ROOT, capture_output=True, text=True)
+    out = []
+    for rel in proc.stdout.splitlines():
+        path = REPO_ROOT / rel
+        if path.suffix in TEXT_SUFFIXES and path.is_file():
+            out.append(path)
+    return out
+
+
+def _scan_paths(paths: list[Path]) -> list[tuple[str, str, str]]:
+    """Return (severity, repo-relative path, message) for every policy hit."""
+    findings: list[tuple[str, str, str]] = []
+    for path in paths:
+        rel = path.relative_to(REPO_ROOT).as_posix()
+        try:
+            text = path.read_text(encoding="utf-8")
+        except (UnicodeDecodeError, OSError):
+            continue
+        for label in policy.find_secrets(text):
+            findings.append(("BLOCK", rel, f"possible secret: {label}"))
+        if path.suffix in {".md", ".txt"} and policy.looks_like_problem_statement(text):
+            findings.append(("WARN", rel,
+                             "reads like a pasted problem statement; FR-035 allows title "
+                             "and URL only"))
+        if not policy.is_allowlisted(rel):
+            terms = policy.nda_adjacent_terms(text)
+            if terms:
+                findings.append(("WARN", rel,
+                                 f"NDA-adjacent wording: {', '.join(terms)}"))
+    return findings
+
+
+@app.command()
+def scan(
+    staged: bool = typer.Option(False, "--staged", help="Scan only files staged for commit"),
+    json_out: bool = typer.Option(False, "--json"),
+):
+    """FR-035: scan committed content for secrets, licensed material and NDA analogues."""
+    if staged:
+        proc = subprocess.run(["git", "diff", "--cached", "--name-only", "--diff-filter=ACM"],
+                              cwd=REPO_ROOT, capture_output=True, text=True)
+        paths = [REPO_ROOT / r for r in proc.stdout.splitlines()
+                 if (REPO_ROOT / r).suffix in TEXT_SUFFIXES and (REPO_ROOT / r).is_file()]
+    else:
+        paths = _tracked_text_files()
+
+    findings = _scan_paths(paths)
+    if json_out:
+        print(json.dumps({"scanned": len(paths),
+                          "findings": [{"severity": s, "path": p, "message": m}
+                                       for s, p, m in findings]}))
+    else:
+        console.print(f"scanned {len(paths)} text file(s)")
+        if not findings:
+            console.print("[green]no policy findings[/green]")
+        for severity, rel, message in findings:
+            colour = "red" if severity == "BLOCK" else "yellow"
+            console.print(f"  [{colour}]{severity}[/{colour}] {rel}: {message}")
+        blocking = sum(1 for s, _, _ in findings if s == "BLOCK")
+        console.print(f"\n{blocking} blocking, {len(findings) - blocking} warning(s)")
+    raise typer.Exit(1 if any(s == "BLOCK" for s, _, _ in findings) else 0)
+
+
+@app.command()
+def audit(json_out: bool = typer.Option(False, "--json")):
+    """SC-004 and SC-014: audit every completed day, not just today's."""
+    r = _load_roadmap_or_exit()
+    progress = load_progress()
+    done = [e for e in progress.entries if e.status == ProgressStatus.COMPLETE]
+
+    notes_rows, artifact_rows = [], []
+    for entry in done:
+        day = r.day_by_id(entry.day)
+        if day is None:
+            continue
+        artifact = REPO_ROOT / day.artifact
+        artifact_rows.append((day.id, day.artifact, artifact.exists()))
+        if day.artifact.startswith("progress/reviews/"):
+            continue
+        notes_path = artifact.parent / "NOTES.md"
+        if not notes_path.exists():
+            notes_rows.append((day.id, day.topic, 0, ["file missing"]))
+        else:
+            missing = notes_missing_sections(notes_path.read_text(encoding="utf-8"))
+            notes_rows.append((day.id, day.topic,
+                               len(REQUIRED_NOTES_SECTIONS) - len(missing), missing))
+
+    policy_findings = _scan_paths(_tracked_text_files())
+    notes_incomplete = [row for row in notes_rows if row[3]]
+    artifacts_missing = [row for row in artifact_rows if not row[2]]
+    blocking = [f for f in policy_findings if f[0] == "BLOCK"]
+
+    if json_out:
+        print(json.dumps({
+            "completed_days": len(done),
+            "notes_complete": len(notes_rows) - len(notes_incomplete),
+            "notes_incomplete": [{"day": d, "topic": t, "filled": f, "missing": m}
+                                 for d, t, f, m in notes_incomplete],
+            "artifacts_missing": [{"day": d, "artifact": a} for d, a, _ in artifacts_missing],
+            "policy_findings": [{"severity": s, "path": p, "message": m}
+                                for s, p, m in policy_findings],
+        }))
+    else:
+        console.print(f"[bold]Audit across {len(done)} completed day(s)[/bold]\n")
+        console.print("Notes completeness (SC-014)")
+        if not notes_rows:
+            console.print("  no completed code days yet")
+        for day_id, topic, filled, missing in notes_rows:
+            mark = "[green]OK[/green]" if not missing else "[red]INCOMPLETE[/red]"
+            console.print(f"  [{mark}] day {day_id} {topic}: "
+                          f"{filled}/{len(REQUIRED_NOTES_SECTIONS)} sections")
+        console.print("\nArtifact presence (SC-004)")
+        for day_id, art, exists in artifact_rows:
+            mark = "[green]OK[/green]" if exists else "[red]MISSING[/red]"
+            console.print(f"  [{mark}] day {day_id} {art}")
+        console.print("\nContent policy (FR-035)")
+        if not policy_findings:
+            console.print("  [green]no findings[/green]")
+        for severity, rel, message in policy_findings:
+            colour = "red" if severity == "BLOCK" else "yellow"
+            console.print(f"  [{colour}]{severity}[/{colour}] {rel}: {message}")
+        console.print(f"\n{len(notes_incomplete)} day(s) with incomplete notes, "
+                      f"{len(artifacts_missing)} missing artifact(s), "
+                      f"{len(blocking)} blocking policy finding(s)")
+
+    ok = not notes_incomplete and not artifacts_missing and not blocking
+    raise typer.Exit(0 if ok else 1)
 
 
 if __name__ == "__main__":

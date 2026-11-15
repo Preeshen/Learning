@@ -2,7 +2,7 @@
 
 **Feature**: 001-ai-engineering-roadmap | **Date**: 2026-11-14
 
-Seven commands. Installed via `uv sync` in editable mode, invoked as `uv run roadmap <command>` or
+Nine commands. Installed via `uv sync` in editable mode, invoked as `uv run roadmap <command>` or
 plain `roadmap <command>` inside the activated environment.
 
 Global conventions:
@@ -213,6 +213,71 @@ one failure mode that would silently desynchronise the source of truth from what
 each morning.
 
 ---
+
+---
+
+## `roadmap scan`
+
+FR-035's mechanism. Scans tracked text files for three classes of content that must never
+be committed, and is the one check wired into the pre-commit hook as **blocking** — a
+secret or a third-party-owned analogue cannot be un-committed once history is public.
+
+```text
+$ roadmap scan
+  scanned 101 text file(s)
+    WARN promoted/README.md: NDA-adjacent wording: code-review-triage
+
+  0 blocking, 1 warning(s)
+```
+
+| Class | Severity | Detection |
+|---|---|---|
+| Secrets | **BLOCK** | Key shapes (Anthropic, OpenAI, AWS, GitHub, Google, Hugging Face, Slack, private-key blocks, bearer literals) plus long hardcoded assignments to `api_key`/`secret`/`token`/`password`. Environment lookups and placeholders are exempt |
+| Licensed material | WARN | Two or more distinct problem-statement markers in one `.md`/`.txt` file (`Example 1:`, `Constraints:`, `Input:`/`Output:`, "Given an array … return"). R-007 permits title and URL only |
+| Third-party-owned work | WARN | Wording matching the NDA-restricted thesis domain (FR-042). Governance paths (`specs/`, `.specify/`, `promoted/briefs/`, `progress/`) are allowlisted so they can state the restriction |
+
+| Arg | Effect |
+|---|---|
+| `--staged` | Scan only files staged for commit; what the hook uses |
+| `--json` | Structured output |
+
+Exit `0` when no **BLOCK** finding, `1` otherwise. Warnings never fail the command: a scan
+that cries wolf gets bypassed, and these two classes are heuristic by nature.
+
+The detection lists in `tools/roadmap_cli/policy.py` are meant to be edited as the
+programme goes on.
+
+---
+
+## `roadmap audit`
+
+SC-004 and SC-014's mechanism. `roadmap check` verifies one day; this verifies every
+completed day, which is what the success criteria actually claim.
+
+```text
+$ roadmap audit
+  Audit across 1 completed day(s)
+
+  Notes completeness (SC-014)
+    [INCOMPLETE] day 1 project-tooling: 4/11 sections
+
+  Artifact presence (SC-004)
+    [OK] day 1 python/project-tooling/env_report.py
+
+  Content policy (FR-035)
+    no findings
+
+  1 day(s) with incomplete notes, 0 missing artifact(s), 0 blocking policy finding(s)
+```
+
+Review days are excluded from the notes check: their prose lives in the review file itself.
+
+| Arg | Effect |
+|---|---|
+| `--json` | Structured output, suitable for CI |
+
+Exit `0` only when every completed day has complete notes and a present artifact, and no
+blocking policy finding exists. Intended for the weekly review and for CI.
 
 ## Error handling
 

@@ -19,4 +19,7 @@ are complete.
 
 ## Records
 
-_(none yet — the earliest milestone, `code-review-triage-agent`, opens after day 35)_
+_(none yet — the earliest milestone, `agent-eval-observability-platform`, opens after day 36)_
+
+> The flagship choice stays open until after programme week 4 (FR-042). All three candidate
+> briefs are maintained until then; see `roadmap/milestones.md`.

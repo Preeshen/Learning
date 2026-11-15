@@ -1,18 +1,36 @@
 #!/usr/bin/env bash
-# Optional pre-commit hook: warns if the current day's gate isn't passing yet.
-# Deliberately never blocks the commit (plan.md's Post-Design Constitution Re-Check note on
-# R-010) -- a blocking hook pushes toward --no-verify or toward not committing exploratory
-# work, which constitution Principle VII explicitly wants preserved.
+# Optional pre-commit hook. Two checks with deliberately different force.
 #
 # Install: cp tools/hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
 
-uv run roadmap check > /tmp/roadmap-check-output 2>&1
-if [ $? -ne 0 ]; then
-    echo "--------------------------------------------------------------"
-    echo "roadmap check: today's gate is not passing yet (warning only)"
-    cat /tmp/roadmap-check-output
-    echo "--------------------------------------------------------------"
+set -u
+
+# 1. Content policy (FR-035) -- BLOCKS.
+#
+# A secret, a pasted problem statement, or wording that mirrors the NDA-restricted thesis
+# work cannot be un-committed: history is public and rewriting it is unreliable. This is
+# the one case where blocking is right, because the cost of letting it through is not
+# recoverable by fixing the next commit.
+if ! uv run roadmap scan --staged; then
+    echo "----------------------------------------------------------------"
+    echo "COMMIT BLOCKED: roadmap scan found a content-policy violation."
+    echo "Constitution Scope forbids committing secrets, licensed material,"
+    echo "or work owned by a third party. Fix the finding above, or if it is"
+    echo "a false positive, extend tools/roadmap_cli/policy.py and say why."
+    echo "----------------------------------------------------------------"
+    exit 1
 fi
-rm -f /tmp/roadmap-check-output
+
+# 2. Day gate -- WARNS ONLY.
+#
+# Never blocks (plan.md's Post-Design Constitution Re-Check note on R-010): a blocking
+# gate pushes toward --no-verify or toward not committing exploratory work, which
+# constitution Principle VII explicitly wants preserved.
+GATE_OUTPUT=$(uv run roadmap check 2>&1) || {
+    echo "----------------------------------------------------------------"
+    echo "roadmap check: today's gate is not passing yet (warning only)"
+    echo "$GATE_OUTPUT"
+    echo "----------------------------------------------------------------"
+}
 
 exit 0

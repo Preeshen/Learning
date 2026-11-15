@@ -641,3 +641,34 @@ definitions.
 - [X] T084 Documented V-25, the five v1.1.0 day fields (`dsa_hours`, `rebuilds_topic`,
   `estimated_cost`, `teardown`, `is_budget_setup`) and the six-item gate in the contracts;
   corrected plan.md's Principle III, IV and VII rows, which described pre-amendment behaviour.
+
+
+## Analyze remediation, round 2 — C1 and C2 (2026-11-15)
+
+- [X] T085 **C1 — FR-035 had no mechanism at all.** Added `tools/roadmap_cli/policy.py` and
+  `roadmap scan`, covering three classes: secret shapes (8 provider patterns plus long
+  hardcoded assignments, with environment lookups and placeholders exempt); pasted judge
+  problem statements (two or more distinct markers in one file, since one alone is ordinary
+  prose); and wording mirroring the NDA-restricted thesis domain, with governance paths
+  allowlisted so spec.md can state FR-042 without tripping. 20 tests, weighted toward the
+  negative cases — a scan that cries wolf gets bypassed.
+  - **Secrets block, the two heuristics warn.** Wired into the pre-commit hook as the one
+    blocking check: a committed secret or third-party analogue cannot be un-committed once
+    history is public, so it is the one case where blocking beats warning.
+  - It found a real hit on first run: `promoted/README.md` still named the retired
+    `code-review-triage-agent` milestone. Fixed.
+- [X] T086 **C2 — no bulk audit existed.** Added `roadmap audit`, which checks every
+  completed day rather than only today: notes completeness per day (SC-014), artifact
+  presence (SC-004), and the full content-policy scan (FR-035). Review days are excluded
+  from the notes check, since their prose lives in the review file. Exits non-zero unless
+  everything passes, so it suits the weekly review and CI.
+- [X] T087 Documented both commands in `contracts/cli-contract.md` (seven commands -> nine)
+  and in the README session flow, including hook installation.
+
+### Still open after round 2
+
+- **L2 — console mojibake.** The middle dot renders as a replacement character under the
+  Windows console's cp1252 default. Cosmetic, affects every command's output, not yet fixed.
+- **T027** remains partially satisfied, as recorded in round 1.
+- **Day 1's notes** remain 4/11; `roadmap audit` now reports it, and
+  `test_check_day1_all_pass` stays `xfail(strict=True)` until the learner writes them.

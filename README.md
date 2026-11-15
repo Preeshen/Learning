@@ -31,6 +31,20 @@ uv run roadmap check         # mechanised day-completion gate
 uv run roadmap complete --built "..." --broke "..." --learned "..."
 ```
 
+Weekly, or before a push:
+
+```powershell
+uv run roadmap audit         # every completed day, not just today
+uv run roadmap scan          # secrets, licensed material, third-party-owned work
+```
+
+Install the pre-commit hook once to get both automatically — the content scan blocks a
+commit, the day gate only warns:
+
+```powershell
+Copy-Item tools/hooks/pre-commit .git/hooks/pre-commit
+```
+
 See [`specs/001-ai-engineering-roadmap/quickstart.md`](specs/001-ai-engineering-roadmap/quickstart.md)
 for the full bootstrap and validation walkthrough, and
 [`specs/001-ai-engineering-roadmap/contracts/cli-contract.md`](specs/001-ai-engineering-roadmap/contracts/cli-contract.md)
