@@ -162,6 +162,13 @@ offending day or topic. Exit code 0 only when no `error`-severity rule fires.
 | V-15 | warn | Each tier's day share within ±5 points of 60 / 25 / 15 | SC-012 |
 | V-16 | warn | Every `remaining`-tier role's `evidence_required` items are each satisfied by ≥1 day | FR-032, SC-013 |
 | V-17 | warn | ≥3 milestones declared | FR-019 |
+| V-18 | error | `serving`, when set, is `fastapi` | Clarification 2026-11-14 |
+| V-19 | error | A day referencing Claude-specific tooling declares `generic_concept` | Clarification 2026-11-14 |
+| V-20 | error | Each milestone has non-empty `purpose`, `demonstrates`, `supports_roles` | FR-020 |
+| V-21 | error | `interview_imminent_plan` exists; per role ≥6 known topics spanning ≥3 domains | FR-026 |
+| V-22 | error | No day entry's `topic` or `artifact` names a milestone — day entries must not implement a portfolio project. The free-text `objective` is deliberately **not** scanned, so a review day's "is milestone X ready?" and a pattern day's "feeds milestone X" are not breaches | FR-039, Principle VII |
+| V-23 | error | Every `cloud` day has `estimated_cost` and `teardown`; exactly one cloud day is `is_budget_setup`; no cloud day is sequenced before it | FR-040 |
+| V-24 | error | No more than 2 consecutive DSA-only days; `effort_hours + dsa_hours` fits the day-type budget | FR-037, SC-016 |
 | V-18 | error | Any day with `serving` set uses value `fastapi` (no other serving framework permitted) | FR-030a |
 | V-19 | error | Any day whose topic or tooling references Claude Code skills, the Claude Agent SDK, or MCP declares a non-empty `generic_concept` | FR-030b |
 | V-20 | error | Every milestone has non-empty `purpose`, ≥1 `demonstrates` entry, and ≥1 `supports_roles` entry | FR-020 |

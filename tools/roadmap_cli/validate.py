@@ -1,4 +1,4 @@
-"""Validator rules V-01..V-21 (roadmap.yaml), P-01..P-07 (progress.yaml), J-01..J-03 (journal.md).
+"""Validator rules V-01..V-24 (roadmap.yaml), P-01..P-07 (progress.yaml), J-01..J-03 (journal.md).
 
 Each rule function returns a list of Finding. See contracts/roadmap-schema.md and
 contracts/progress-schema.md for the authoritative rule definitions this mirrors.
@@ -315,6 +315,10 @@ def v20_milestone_fields(r: Roadmap) -> list[Finding]:
     return findings
 
 
+MIN_INTERVIEW_PLAN_TOPICS = 6
+MIN_INTERVIEW_PLAN_DOMAINS = 3
+
+
 def v21_interview_plan(r: Roadmap) -> list[Finding]:
     findings = []
     if not r.interview_imminent_plan:
@@ -329,6 +333,99 @@ def v21_interview_plan(r: Roadmap) -> list[Finding]:
             if tid not in all_topic_ids:
                 findings.append(Finding("V-21", "error",
                     f"interview_imminent_plan[{role_id}] references unknown topic {tid}"))
+        # FR-026 as strengthened by the v1.1.0 amendment: a drill path of two early
+        # topics is a placeholder, not a plan.
+        if len(topic_ids) < MIN_INTERVIEW_PLAN_TOPICS:
+            findings.append(Finding("V-21", "error",
+                f"interview_imminent_plan[{role_id}] has {len(topic_ids)} topics, "
+                f">={MIN_INTERVIEW_PLAN_TOPICS} required"))
+        plan_domains = {r.topics[t].domain for t in topic_ids if t in r.topics}
+        if len(plan_domains) < MIN_INTERVIEW_PLAN_DOMAINS:
+            findings.append(Finding("V-21", "error",
+                f"interview_imminent_plan[{role_id}] spans {len(plan_domains)} domain(s), "
+                f">={MIN_INTERVIEW_PLAN_DOMAINS} required"))
+    return findings
+
+
+def v22_no_milestone_implementation(r: Roadmap) -> list[Finding]:
+    """Principle VII / FR-039: no day entry may implement a milestone's project.
+
+    V-08 checks milestone definitions. This checks day entries, which is where the
+    breach actually occurred: days named after milestones were building the projects
+    while every other rule passed.
+    """
+    findings = []
+    handles = {m.id for m in r.milestones}
+    for i, _ in enumerate(r.milestones, start=1):
+        handles.add(f"milestone{i}")
+    # Only the topic id and artifact path are evidence of implementation. A day's prose
+    # may legitimately reference a milestone — a weekly review asking "is milestone X
+    # ready to start?", or a pattern day noting what it feeds — so the objective is
+    # deliberately not scanned.
+    for day in r.all_days():
+        haystack = f"{day.topic} {day.artifact}".lower()
+        for handle in sorted(h for h in handles if h):
+            if handle.lower() in haystack:
+                findings.append(Finding("V-22", "error",
+                    f"day {day.id}: topic/artifact names milestone {handle!r} "
+                    f"({day.artifact}) — day entries must not implement a portfolio "
+                    f"project (constitution Principle VII); re-scope to the generic pattern"))
+                break
+    return findings
+
+
+def v23_cloud_cost_discipline(r: Roadmap) -> list[Finding]:
+    """FR-040: every cloud day needs a cost estimate, teardown, and budget-day ordering."""
+    findings = []
+    cloud_days = [d for d in r.all_days() if d.domain == "cloud"]
+    if not cloud_days:
+        return findings
+    budget_days = [d for d in cloud_days if d.is_budget_setup]
+    first_budget_id = min((d.id for d in budget_days), default=None)
+    for day in cloud_days:
+        if not day.estimated_cost:
+            findings.append(Finding("V-23", "error",
+                f"day {day.id}: cloud day has no estimated_cost"))
+        if not day.teardown:
+            findings.append(Finding("V-23", "error",
+                f"day {day.id}: cloud day has no teardown steps"))
+        if first_budget_id is None:
+            findings.append(Finding("V-23", "error",
+                f"day {day.id}: cloud days exist but no day is marked is_budget_setup — "
+                f"budget alerts must be the first cloud exercise"))
+        elif day.id < first_budget_id and not day.is_budget_setup:
+            findings.append(Finding("V-23", "error",
+                f"day {day.id}: sequenced before the budget-alert day "
+                f"({first_budget_id}); no cloud resource may be provisioned first"))
+    return findings
+
+
+MAX_CONSECUTIVE_DSA_DAYS = 2
+
+
+def v24_dsa_continuous(r: Roadmap) -> list[Finding]:
+    """FR-037: DSA is a continuous daily track, not a block of DSA-only days.
+
+    Also enforces that the day's main artifact effort plus its DSA hour fit the
+    day-type budget (SC-016), which FR-027's per-day check alone does not cover.
+    """
+    findings = []
+    run = 0
+    for day in r.all_days():
+        run = run + 1 if day.domain == "dsa" else 0
+        if run > MAX_CONSECUTIVE_DSA_DAYS:
+            findings.append(Finding("V-24", "error",
+                f"day {day.id}: {run} consecutive DSA-only days — DSA must run as a "
+                f"continuous daily track, not blocked days (max "
+                f"{MAX_CONSECUTIVE_DSA_DAYS} consecutive)"))
+            break
+    for day in r.all_days():
+        cap = r.weekday_hours if day.day_type == "weekday" else r.weekend_hours
+        total = day.effort_hours + day.dsa_hours
+        if total > cap:
+            findings.append(Finding("V-24", "error",
+                f"day {day.id}: main effort {day.effort_hours} h + DSA {day.dsa_hours} h "
+                f"= {total} h exceeds the {day.day_type} budget of {cap} h"))
     return findings
 
 
@@ -338,6 +435,7 @@ ROADMAP_RULES = [
     v10_domain_role_completeness, v11_prerequisites, v12_exceptions, v13_domain_share,
     v14_core_effort_budget, v15_tier_split, v16_remaining_evidence, v17_milestone_count,
     v18_serving_fastapi, v19_generic_concept, v20_milestone_fields, v21_interview_plan,
+    v22_no_milestone_implementation, v23_cloud_cost_discipline, v24_dsa_continuous,
 ]
 
 

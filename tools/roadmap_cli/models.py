@@ -67,6 +67,13 @@ class DayEntry:
     offline_fallback: str | None = None
     serving: str | None = None
     generic_concept: str | None = None
+    # Constitution v1.1.0: DSA runs as a continuous daily track (FR-037), accounted
+    # separately from the day's main artifact effort.
+    dsa_hours: float = 0.0
+    # Constitution v1.1.0 cloud cost discipline (FR-040).
+    estimated_cost: str | None = None
+    teardown: list[str] = field(default_factory=list)
+    is_budget_setup: bool = False
 
 
 @dataclass

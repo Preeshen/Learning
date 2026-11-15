@@ -4,7 +4,7 @@
 
 **Created**: 2026-11-14
 
-**Status**: Ready for planning — all clarifications resolved 2026-11-14
+**Status**: Amended 2026-11-15 under constitution v1.1.0 — see Clarifications session 2026-11-15
 
 ## Clarifications
 
@@ -13,6 +13,21 @@
 - Q: Should FastAPI (or an equivalent serving framework) be named explicitly as a required skill in the roadmap, since 'Applied AI Engineering' currently says 'LLM APIs' without naming the serving layer used to expose them? → A: Yes, require FastAPI explicitly as the named framework for wrapping models/agents as services.
 - Q: Should the roadmap explicitly add a domain/day-set for Claude-specific tooling (Claude Code skills, Claude Agent SDK, MCP, multi-agent orchestration), given the constitution currently names six domains that don't mention these by name? → A: Yes, cover it as a named sub-topic inside the existing Applied AI Engineering domain (agentic patterns), not as a 7th domain.
 - Q: Since MCP, Claude Agent SDK, and Claude Code skills are Anthropic-specific, how should their depth compare to the general agentic-patterns material (tool use, multi-step control flow) already required by FR-030? → A: Secondary — generic, interview-transferable agentic-pattern concepts stay primary; Claude-specific tooling is practiced as the implementation vehicle for those days rather than a separate deeper track.
+
+### Session 2026-11-15 (post-audit amendment)
+
+Arising from the strict repository audit of 2026-11-15, which found the stated baseline
+contradicted by the learner's actual experience, AWS entirely absent, the module methodology ~29%
+implemented, and four day entries building portfolio-project code in breach of Principle VII.
+
+- Q: The spec's baseline (FR-028) assumed working Python with no substantive DSA and only conceptual ML/DL. What is the actual baseline? → A: Roughly two years of applied ML/DL, a completed master's thesis building an agent orchestrator with RAG and MCP for merge-request code review, and a six-month MLOps internship fine-tuning a local model toward Gemini 2.5 Pro parity. Introductory Applied AI material is therefore wasted time; the real gaps are DSA, system design, inference internals, cloud, and production engineering.
+- Q: What is the real programme duration and weekly budget, given the master's completion date? → A: 19 weeks to end-March 2027 at ~40 focused hours per week — 133 day entries, 760 hours. Thesis and internship are already complete, so the budget does not compete with coursework.
+- Q: Should the secondary target role switch from FDE to ML/MLOps Engineer, given FDE is a scarce title in Germany? → A: No — FDE stays secondary; ML/MLOps leads the remaining tier. FDE preparation is strong-generalist preparation and transfers to the European "AI Engineer (generalist)" roles that dominate the market, so DSA stays at moderate rather than minimal depth.
+- Q: Who owns the thesis code, and can milestone 1 (a code-review triage agent) reuse it? → A: An industry partner owns it. It cannot be published, and no public close analogue may be built either. Milestone 1 as specified is withdrawn and replaced.
+- Q: Which flagship portfolio project should be committed to? → A: Deferred until after programme week 4. Three candidate briefs are maintained until then: an agent evaluation and observability platform, a multi-backend inference gateway, and a production MCP server with governance.
+- Q: Should Embedded ML Engineer remain a target role? → A: No — dropped. It requires C/C++ and hardware work that would dilute the two primary targets, and a single artifact would not make the learner competitive for it.
+- Q: Should a seventh domain be added for cloud, given AWS student credits and a strict cost policy? → A: Yes — Cloud & Infrastructure, at 6–7 days, with budget alerts as the first exercise, mandatory per-day cost estimates, and same-day verified teardown. Added to the constitution at v1.1.0.
+- Q: Which agent frameworks should be taught, of the six named? → A: LangGraph, LangChain and LlamaIndex. DSPy, Semantic Kernel and Haystack move to a documented Phase 2 backlog — DSPy on engineering merit is the strongest of the three dropped, but it appears in few job descriptions.
 
 **Input**: User description: "A 2-3 month structured AI engineering learning roadmap for this playground repository, with per-day deliverables. The roadmap must sequence the six in-scope domains from the constitution (Python, DSA with large-tech interview weighting, Git, System Design including ML/inference architectures, ML & DL fundamentals and internals, and Applied AI Engineering covering LLM APIs, retrieval, agentic patterns, inference optimization and AI test/validation). Each day must specify a concrete committed artifact, a measurement or test where applicable, and a NOTES.md topic, per constitution Principles I-VI. The roadmap must include weekly review checkpoints with spaced-repetition re-solve slots, and must identify milestones where learnings are ready to be promoted outward into separate production-deployable CV projects (Principle VII) without those projects being built inside this repo. Target outcome: readiness for AI engineering interviews (FDE, AI/Agentic AI engineer, ML engineer, Embedded ML, Inference engineer, AI test validation)."
 
@@ -176,8 +191,8 @@ target roles are adequately covered and which are not.
 
 **Roadmap structure**
 
-- **FR-001**: The roadmap MUST cover a continuous 10-week programme of 70 numbered day entries,
-  starting Monday 2026-11-16 and ending Sunday 2027-01-24, and MUST state that start date, end
+- **FR-001**: The roadmap MUST cover a continuous 19-week programme of 133 numbered day entries,
+  starting Monday 2026-11-16 and ending Sunday 2027-03-28, and MUST state that start date, end
   date, and day count explicitly.
 - **FR-002**: The roadmap MUST be organised into weeks, each with a stated theme, the domains it
   advances, and its expected outcome.
@@ -187,16 +202,19 @@ target roles are adequately covered and which are not.
   expected effort in hours, any prerequisite day, and a reduced minimum-viable artifact for short
   sessions.
 - **FR-005**: Each day entry MUST state an explicit, objectively evaluable completion gate.
-- **FR-006**: The roadmap MUST identify, for each day, which of the six in-scope domains it advances.
+- **FR-006**: The roadmap MUST identify, for each day, which of the seven in-scope domains it
+  advances.
 - **FR-007**: The roadmap MUST designate every day as either core (never cut) or optional
   (cut first when behind), so that scope reduction is a lookup rather than a judgement call.
 
 **Domain coverage**
 
-- **FR-008**: The roadmap MUST include days advancing all six in-scope constitution domains: Python;
-  Data Structures & Algorithms; Git; System Design including ML and inference architectures; ML & DL
-  fundamentals and internals; and Applied AI Engineering covering LLM APIs, retrieval, agentic
-  patterns, inference optimization, and AI test/validation.
+- **FR-008**: The roadmap MUST include days advancing all seven in-scope constitution domains:
+  Python including OOP, internals and software-engineering principles; Data Structures & Algorithms;
+  Git & Linux; System Design including networking, data modelling, distributed fundamentals and ML
+  and inference architectures; ML & DL including applied mathematics and the MLOps lifecycle;
+  Applied AI Engineering covering LLM internals, retrieval, agentic patterns, protocols, inference
+  optimization, observability and AI test/validation; and Cloud & Infrastructure.
 - **FR-009**: The DSA material MUST be organised by interview-frequency-weighted pattern rather than
   by data-structure taxonomy, and MUST state which pattern each problem set exercises.
 - **FR-010**: For every foundational topic, the roadmap MUST schedule the from-scratch
@@ -227,7 +245,8 @@ target roles are adequately covered and which are not.
 - **FR-020**: Each promotion milestone MUST state its prerequisite days, the project's purpose, the
   minimum capability the project must demonstrate, and the target roles it supports.
 - **FR-021**: Each promotion milestone MUST direct that the project be created in a separate
-  repository and MUST NOT schedule project implementation work inside this repository.
+  repository and MUST NOT schedule project implementation work inside this repository. This
+  prohibition binds individual day entries as well as milestone definitions (see FR-039).
 - **FR-022**: The roadmap MUST provide a record format for promoted projects in this repository
   capturing the project name, the learnings it draws on, and a link.
 
@@ -235,29 +254,35 @@ target roles are adequately covered and which are not.
 
 - **FR-023**: The roadmap MUST provide a progress record in which each day is marked complete,
   skipped, or carried over, with the date and a one-paragraph log entry.
-- **FR-024**: The roadmap MUST map each of the six target role families to the domains and days that
-  support it, so that coverage gaps per role are visible.
+- **FR-024**: The roadmap MUST map each of the five in-scope target role families to the domains and
+  days that support it, so that coverage gaps per role are visible.
 - **FR-025**: The roadmap MUST allocate programme days by role priority in the ratio 60% primary /
   25% secondary / 15% remaining, and MUST still cover every in-scope domain to a stated minimum
   depth. Days that serve more than one role tier count toward the highest tier they serve.
-- **FR-026**: The roadmap MUST provide an interview-imminent re-prioritisation path identifying the
-  minimum subset of material to drill when an interview is scheduled before the programme ends.
+- **FR-026**: The roadmap MUST provide an interview-imminent re-prioritisation path per target role,
+  each naming at least six topics ordered by drill priority, spanning at least three distinct
+  domains, and drawn only from days already completed or completable within one week. Each path
+  MUST state the expected drill time and MUST NOT consist solely of early-programme topics.
 
 **Fit to the learner**
 
-- **FR-027**: Day effort estimates MUST fit a budget of 4 focused hours on weekdays (Monday to
-  Friday) and 6 focused hours on weekend days, totalling 32 hours per week and 320 hours across the
-  programme. No single day entry MUST exceed its own day-type budget, and weekday entries MUST NOT
-  assume weekend-length sessions.
-- **FR-028**: The roadmap MUST assume a starting baseline of working Python ability with no
-  substantive DSA practice and only conceptual ML/DL exposure. It MUST NOT schedule days teaching
-  Python syntax, basic control flow, or basic data types. It MUST begin DSA at pattern level from
-  week 1 and MUST begin ML/DL at mechanism level — implemented from scratch — rather than at
-  conceptual overview level.
+- **FR-027**: Day effort estimates MUST fit a budget of 6 focused hours on weekdays (Monday to
+  Friday) and 5 focused hours on weekend days, totalling 40 hours per week and 760 hours across the
+  programme. No single day entry MUST exceed its own day-type budget, and the day's main artifact
+  effort plus the FR-037 daily DSA hour MUST together fit within that budget.
+- **FR-028**: The roadmap MUST assume a starting baseline of **applied professional experience in
+  ML/DL and applied AI engineering**: approximately two years of ML/DL work, a completed master's
+  thesis building an agent orchestrator with retrieval and MCP, and an MLOps internship including
+  fine-tuning a local model toward a frontier-model baseline. Accordingly it MUST NOT schedule
+  introductory days on Python syntax, LLM API basics, basic tool calling, introductory chunking or
+  introductory vector search. It MUST treat the learner's genuine gaps as the subject of the
+  programme: Data Structures & Algorithms, System Design, inference and serving internals, Cloud &
+  Infrastructure, and the production-engineering layer — observability, evaluation rigour under
+  load, guardrails — around systems of the kind the learner can already build.
 - **FR-029**: The roadmap MUST treat **AI / Agentic AI Engineer** as the primary target role and
-  **Forward Deployed Engineer (FDE)** as the secondary target role, with ML Engineer, Inference
-  Engineer, Embedded ML Engineer, and AI Test Validation Engineer covered at minimum depth in that
-  order of preference.
+  **Forward Deployed Engineer (FDE)** as the secondary target role, with the remaining tier ordered
+  **ML/MLOps Engineer, Inference Engineer, AI Test Validation Engineer**. Embedded ML Engineer is
+  **out of scope** as a target role; no day or milestone is required to serve it.
 - **FR-030**: Because the primary role is AI / Agentic AI Engineer, the roadmap MUST give greatest
   depth to Applied AI Engineering — LLM API usage and cost/latency control, retrieval and its
   evaluation, agentic patterns including tool use and multi-step control flow, and systematic
@@ -275,23 +300,54 @@ target roles are adequately covered and which are not.
 - **FR-031**: Because the secondary role is FDE, the roadmap MUST give second-greatest depth to
   breadth-of-delivery material: system design, integration and deployment patterns, debugging
   unfamiliar systems, and interview-grade DSA fluency.
-- **FR-032**: The roadmap MUST ensure that minimum-depth coverage of the four remaining roles is
+- **FR-032**: The roadmap MUST ensure that minimum-depth coverage of the three remaining roles is
   sufficient for the learner to hold a competent technical conversation about each — specifically
-  at least one committed artifact exercising classical ML training and evaluation, one exercising
-  inference latency and memory measurement, one exercising model size reduction, and one exercising
-  systematic test and validation of a model or model-backed system.
-- **FR-033**: The roadmap MUST front-load the Python depth that the stated baseline leaves open and
-  that the primary role requires — typing, packaging, testing, async concurrency, and profiling —
-  rather than assuming it from general Python comfort.
+  at least one committed artifact exercising the MLOps lifecycle (pipeline, registry, drift or
+  serving), one exercising inference latency and memory measurement, one exercising model size
+  reduction, and one exercising systematic test and validation of a model or model-backed system.
+- **FR-033**: The roadmap MUST front-load the Python and software-engineering depth that the stated
+  baseline leaves open and that the primary role requires — typing, packaging, testing, async
+  concurrency, profiling, OOP and the object model, memory internals, clean code, SOLID, and design
+  patterns.
 
 **Constraints**
 
-- **FR-034**: Every day's artifact MUST be runnable from a clean checkout of this repository without
-  paid infrastructure; any day requiring otherwise MUST specify a reduced local substitute.
+- **FR-034**: Every day's artifact and its tests MUST be runnable from a clean checkout of this
+  repository without paid infrastructure; any day requiring otherwise MUST specify a reduced local
+  substitute. Cloud & Infrastructure days are the sole exception and MUST still commit a reviewable
+  artifact — configuration, infrastructure definition, measurements, and a teardown record.
 - **FR-035**: The roadmap MUST NOT schedule the commitment of secrets, API keys, proprietary
-  datasets, or licensed course material.
+  datasets, or licensed course material. It MUST NOT schedule any artifact that reproduces, or is a
+  close public analogue of, work owned by a third party under agreement.
 - **FR-036**: The roadmap MUST NOT schedule work that violates any constitution principle; where the
   roadmap and the constitution conflict, the constitution governs.
+
+**Amendments under constitution v1.1.0 (2026-11-15)**
+
+- **FR-037**: The DSA material MUST run as a continuous daily track across every day of the
+  programme, budgeted at approximately one hour per day, and MUST NOT be scheduled as a block of
+  consecutive DSA-only days. DSA effort MUST be accounted separately from the day's main artifact
+  effort so that both together fit the day-type budget in FR-027.
+- **FR-038**: Every topic's `NOTES.md` MUST carry all eleven sections required by constitution
+  Principle IV: learning objectives, prerequisites, conceptual explanation, why it matters,
+  internal mechanisms, real-world applications, alternatives and trade-offs, failure modes and
+  common mistakes, at least three interview questions with the learner's answers, assessment
+  criteria, and revision notes.
+- **FR-039**: No day entry MUST produce an artifact that implements a promotion milestone's project,
+  including its scaffold, core, prototype, or evaluation harness. A day MAY teach a pattern that a
+  project later uses; where a day's artifact and a project component would be the same code, the day
+  MUST be re-scoped to the generic pattern.
+- **FR-040**: Every Cloud & Infrastructure day entry MUST state an estimated cost and explicit
+  teardown steps, MUST NOT be sequenced before the budget-alert and cost-monitoring day, and MUST
+  require the teardown record as part of its completion gate.
+- **FR-041**: The roadmap MUST be weighted for the **Germany and Europe** market as primary: applied
+  project depth, system design, and production engineering MUST receive greater day allocation than
+  algorithmic-screening volume, while DSA MUST remain at sufficient depth to serve FDE coding
+  screens.
+- **FR-042**: The roadmap MUST define the promotion milestones such that none is a close analogue of
+  the learner's NDA-restricted thesis work (an agent that triages code review from merge requests),
+  and MUST allow the flagship project choice to remain undecided until after programme week 4, with
+  all candidate briefs maintained until then.
 
 ### Key Entities
 
@@ -302,7 +358,7 @@ target roles are adequately covered and which are not.
 - **Day Entry**: The atomic unit of work. Has a number, an objective, a target artifact, a
   verification step, a note topic, an effort estimate, a domain, a core/optional designation, a
   completion gate, optional prerequisites, and a minimum-viable fallback.
-- **Domain**: One of the six in-scope learning areas. Has a target depth and a mapping to the roles
+- **Domain**: One of the seven in-scope learning areas. Has a target depth and a mapping to the roles
   it supports.
 - **Topic**: A named concept or pattern within a domain. Has a first-encounter day and a set of
   scheduled re-surfacing dates.
@@ -323,7 +379,7 @@ target roles are adequately covered and which are not.
   opening the roadmap, without asking a clarifying question.
 - **SC-002**: Every day in the programme has a stated artifact and a stated completion gate — 100%
   coverage, zero entries reading "study" or "read about" with no deliverable.
-- **SC-003**: All six in-scope domains are advanced by at least one day, and no domain exceeds 40%
+- **SC-003**: All seven in-scope domains are advanced by at least one day, and no domain exceeds 30%
   of total programme days.
 - **SC-004**: At the end of the programme the repository contains at least one committed, runnable
   artifact per completed day, each reproducible from a clean checkout.
@@ -333,19 +389,26 @@ target roles are adequately covered and which are not.
   produces a re-planned following week with named cuts and no accumulated backlog.
 - **SC-007**: At least three promotion milestones are defined, each naming its prerequisite days and
   supported roles, and none schedules implementation work inside this repository.
-- **SC-008**: Each of the six target role families is traceable to the specific days that support it,
-  with no role left unmapped.
-- **SC-009**: The sum of effort estimates across all core (never-cut) day entries is at most 272
-  hours — 85% of the 320-hour programme budget — leaving at least 15% slack for overruns, re-solves,
+- **SC-008**: Each of the five in-scope target role families is traceable to the specific days that
+  support it, with no in-scope role left unmapped.
+- **SC-009**: The sum of effort estimates across all core (never-cut) day entries is at most 646
+  hours — 85% of the 760-hour programme budget — leaving at least 15% slack for overruns, re-solves,
   and missed days.
 - **SC-010**: An independent reader given only the roadmap and this repository can determine the
   learner's exact progress and the next action without consulting the learner.
-- **SC-011**: Zero days require paid infrastructure or network-dependent resources to reach their
-  completion gate.
+- **SC-011**: Zero days outside the Cloud & Infrastructure domain require paid infrastructure or
+  network-dependent resources to reach their completion gate, and every Cloud & Infrastructure day
+  carries a cost estimate and a teardown record.
 - **SC-012**: Day allocation across role tiers falls within 5 percentage points of the 60 / 25 / 15
   primary / secondary / remaining split, verifiable by counting day entries per tier.
-- **SC-013**: Each of the four minimum-depth roles is supported by at least one completed artifact
-  of the kind named in FR-032, so no target role is left with zero demonstrable evidence.
+- **SC-013**: Each of the three minimum-depth roles is supported by at least one completed artifact
+  of the kind named in FR-032, so no in-scope target role is left with zero demonstrable evidence.
+- **SC-014**: Every topic's `NOTES.md` carries all eleven sections required by FR-038 — verifiable
+  by section-heading count across every topic directory, with zero partial templates.
+- **SC-015**: Zero day entries produce an artifact under a promotion milestone's project scope,
+  verifiable mechanically rather than by inspection.
+- **SC-016**: Every day entry's main-artifact effort plus the daily DSA hour fits within its
+  day-type budget, with zero days over.
 
 ## Assumptions
 
@@ -353,28 +416,46 @@ target roles are adequately covered and which are not.
   or a taught course.
 - **Study rhythm**: The programme assumes near-daily study with occasional missed days treated as the
   norm rather than the exception; recovery rules are therefore mandatory rather than optional.
-- **Duration**: "2–3 months" is fixed at 10 calendar weeks — 70 day entries, Monday 2026-11-16 to
-  Sunday 2027-01-24 — derived from the 32-hour weekly budget.
+- **Duration**: Fixed at 19 calendar weeks — 133 day entries, Monday 2026-11-16 to Sunday
+  2027-03-28 — derived from the 40-hour weekly budget and the learner's master's completion date of
+  end-March 2027. The original "2–3 months" framing was superseded once that date was known.
 - **Holiday period**: The programme spans late December. Weeks 6 and 7 are assumed to be the most
   likely to slip and are therefore the primary home for optional days and re-solve slots rather
   than for new core material.
+- **Availability**: The learner's thesis and internship are complete and one academic credit
+  remains, so the 40-hour weekly budget is treated as sustainable rather than competing with
+  coursework. Job applications run in parallel and are out of scope for this repository.
 - **Language**: Python is the implementation language for all days except where a concept cannot be
   demonstrated in Python, per the constitution.
 - **Interview targeting**: "MANGOS" is interpreted as the large-tech hiring bar generally (Meta,
   Microsoft, Anthropic, Amazon, NVIDIA, Google, OpenAI); DSA weighting follows publicly observable
-  interview-frequency patterns rather than any company-confidential material.
+  interview-frequency patterns rather than any company-confidential material. With Germany and
+  Europe as the primary market, DSA is treated as insurance against the minority of employers who
+  screen algorithmically rather than as the programme's centre of gravity; the stated DSA budget is
+  **not** assumed sufficient for a cold large-tech algorithmic loop.
 - **Portfolio projects**: CV projects are built in separate repositories outside this directory and
   are out of scope for this feature; only their milestone definitions and pointer records live here.
-- **Environment**: The learner works on a single Windows machine with no guaranteed GPU and no paid
-  cloud budget; any GPU or cloud topic degrades to a local sample.
-- **Existing knowledge**: The learner writes Python comfortably but has not practised DSA
-  substantively and knows ML/DL only conceptually. Python syntax instruction is therefore out of
-  scope, while Python engineering depth (typing, packaging, testing, async, profiling) is in scope.
-- **Role weighting**: AI / Agentic AI Engineer is the primary target and FDE the secondary; the
-  remaining four roles are covered to conversational depth with one demonstrable artifact each,
-  not to interview depth.
+- **Environment**: The learner works on a single Windows machine with no local GPU. Free hosted GPU
+  (Colab or Kaggle) is assumed available for the few days that need one. An AWS student account with
+  credits is available for the Cloud & Infrastructure domain, and a live LLM API budget of roughly
+  $30–50 across the programme is assumed for the Applied AI days where fixtures teach materially
+  less.
+- **Existing knowledge**: The learner has roughly two years of applied ML/DL experience, a completed
+  master's thesis building an agent orchestrator with retrieval and MCP, and an MLOps internship
+  including fine-tuning a local model toward a frontier-model baseline. Introductory Python, LLM
+  API, tool-calling and retrieval material is therefore out of scope. The genuine gaps — DSA, system
+  design, inference and serving internals, cloud, and the production-engineering layer — are the
+  subject of the programme.
+- **Thesis IP**: The thesis code is owned by an industry partner and cannot be published or closely
+  reproduced. No milestone or day may be a close analogue of a merge-request code-review triage
+  agent.
+- **Role weighting**: AI / Agentic AI Engineer is the primary target and FDE the secondary;
+  ML/MLOps Engineer, Inference Engineer and AI Test Validation Engineer are covered to
+  conversational depth with one demonstrable artifact each, not to interview depth. Embedded ML
+  Engineer was dropped as a target: it requires C/C++ and hardware work that would dilute the two
+  primary targets, and one artifact would not make the learner competitive for it.
 - **Job outcome**: Securing a job depends on factors outside this repository (applications,
   interviews, market conditions). This feature's scope is interview readiness and portfolio
   readiness, not employment itself.
-- **Governance**: The project constitution v1.0.0 governs this roadmap; its seven principles and
+- **Governance**: The project constitution v1.1.0 governs this roadmap; its eight principles and
   daily quality gates are inputs to every day entry, not restated requirements.

@@ -298,8 +298,12 @@ def test_v21_interview_plan_fail_unknown_topic():
 
 
 def test_v21_interview_plan_pass():
-    day = make_day()
-    r = make_roadmap([day])
+    """A compliant plan: >=6 topics spanning >=3 domains (FR-026 as amended)."""
+    r = make_roadmap([make_day()])
+    for tid, dom in [("t3", "dsa"), ("t4", "dsa"), ("t5", "systems"), ("t6", "systems")]:
+        r.topics[tid] = Topic(id=tid, name=tid.upper(), domain=dom, first_day=1,
+                              resurface_after=[7, 21])
+    r.interview_imminent_plan = {"agentic-ai": ["t1", "t2", "t3", "t4", "t5", "t6"]}
     assert v.v21_interview_plan(r) == []
 
 
@@ -382,3 +386,108 @@ def test_j03_prose_fields_fail_missing_built():
         "**Broke**: x\n\n**Non-obvious**: y\n"
     )
     assert any(f.rule_id == "J-03" for f in v.j03_prose_fields(journal))
+
+
+# ---------------------------------------------------------------------------
+# Constitution v1.1.0 amendment rules (V-22..V-24, strengthened V-21)
+# ---------------------------------------------------------------------------
+
+def test_v22_day_building_milestone_project_fails():
+    """A day whose artifact sits under a milestone's project scope breaches Principle VII."""
+    day = make_day(id=1, topic="t1", artifact="applied-ai/milestone1-triage-agent-scaffold/triage.py")
+    r = make_roadmap([day])
+    findings = v.v22_no_milestone_implementation(r)
+    assert any(f.rule_id == "V-22" and f.severity == "error" for f in findings)
+
+
+def test_v22_day_topic_naming_milestone_fails():
+    """Naming a day's topic after a milestone is the same breach by another route."""
+    r = make_roadmap([make_day(id=1, topic="t1", objective="Scaffold the m1 milestone project core")])
+    r.topics["t1"].id = "milestone1-triage-agent-eval"
+    r.all_days()[0].topic = "milestone1-triage-agent-eval"
+    r.topics["milestone1-triage-agent-eval"] = r.topics.pop("t1")
+    findings = v.v22_no_milestone_implementation(r)
+    assert any(f.rule_id == "V-22" for f in findings)
+
+
+def test_v22_generic_pattern_day_passes():
+    r = make_roadmap([make_day(id=1, artifact="applied-ai/agent-error-handling/retry.py")])
+    assert v.v22_no_milestone_implementation(r) == []
+
+
+def test_v22_prose_reference_to_milestone_is_not_a_breach():
+    """A review day asking 'is milestone m1 ready to start?' is legitimate, not a breach.
+
+    Regression guard: scanning the free-text objective produced false positives on
+    weekly-review days and on pattern days noting which milestone they feed.
+    """
+    review = make_day(id=1, topic="t1", artifact="progress/reviews/week-01.md",
+                      objective="Weekly review. Milestone check: is m1 ready to start?")
+    feeds = make_day(id=2, topic="t2", artifact="ml/quantization/quantize.py",
+                     objective="Quantize a model — this feeds the m1 milestone directly.")
+    r = make_roadmap([review, feeds])
+    assert v.v22_no_milestone_implementation(r) == []
+
+
+def test_v23_cloud_day_without_cost_or_teardown_fails():
+    day = make_day(id=1, domain="cloud", artifact="cloud/iam-budgets/setup.md")
+    r = make_roadmap([day])
+    r.domains["cloud"] = r.domains["python"]
+    findings = v.v23_cloud_cost_discipline(r)
+    assert any(f.rule_id == "V-23" and "estimated_cost" in f.message for f in findings)
+    assert any(f.rule_id == "V-23" and "teardown" in f.message for f in findings)
+
+
+def test_v23_cloud_day_with_both_passes():
+    """Budget-alert day first, then a costed day with teardown: compliant."""
+    budget = make_day(id=1, domain="cloud", artifact="cloud/iam-budgets/setup.md",
+                      estimated_cost="$0", teardown=["none required"], is_budget_setup=True)
+    day = make_day(id=2, domain="cloud", artifact="cloud/s3/ingest.py",
+                   estimated_cost="$0 (free tier, 5 GB)", teardown=["aws s3 rb s3://bucket --force"])
+    r = make_roadmap([budget, day])
+    r.domains["cloud"] = r.domains["python"]
+    assert v.v23_cloud_cost_discipline(r) == []
+
+
+def test_v23_cloud_day_before_budget_day_fails():
+    """A cloud day sequenced before the budget-alert day breaches the cost discipline."""
+    budget = make_day(id=5, domain="cloud", topic="t2", artifact="cloud/iam-budgets/setup.md",
+                      estimated_cost="$0", teardown=["none"], is_budget_setup=True)
+    other = make_day(id=2, domain="cloud", artifact="cloud/s3/x.py",
+                     estimated_cost="$0", teardown=["rb"])
+    r = make_roadmap([other, budget])
+    r.domains["cloud"] = r.domains["python"]
+    findings = v.v23_cloud_cost_discipline(r)
+    assert any(f.rule_id == "V-23" and "budget" in f.message.lower() for f in findings)
+
+
+def test_v24_blocked_dsa_days_fail():
+    """DSA must be a continuous track, not consecutive DSA-only days."""
+    days = [make_day(id=i, domain="dsa", topic="t1", artifact=f"dsa/p{i}/s.py") for i in range(1, 5)]
+    r = make_roadmap(days)
+    r.domains["dsa"] = r.domains["python"]
+    findings = v.v24_dsa_continuous(r)
+    assert any(f.rule_id == "V-24" for f in findings)
+
+
+def test_v24_dsa_hours_pushing_day_over_budget_fails():
+    day = make_day(id=1, day_type="weekday", effort_hours=6, dsa_hours=1)
+    r = make_roadmap([day])
+    r.weekday_hours = 6
+    findings = v.v24_dsa_continuous(r)
+    assert any(f.rule_id == "V-24" and "budget" in f.message.lower() for f in findings)
+
+
+def test_v24_main_plus_dsa_within_budget_passes():
+    day = make_day(id=1, day_type="weekday", effort_hours=5, dsa_hours=1)
+    r = make_roadmap([day])
+    r.weekday_hours = 6
+    assert [f for f in v.v24_dsa_continuous(r) if "budget" in f.message.lower()] == []
+
+
+def test_v21_thin_interview_plan_fails():
+    """FR-026 strengthened: >=6 topics spanning >=3 domains per role."""
+    r = make_roadmap([make_day(id=1)])
+    r.interview_imminent_plan = {"agentic-ai": ["t1", "t2"]}
+    findings = v.v21_interview_plan(r)
+    assert any(f.rule_id == "V-21" and ">=6" in f.message for f in findings)

@@ -301,7 +301,7 @@ must be marked `optional` so that core-day effort lands at or below 272 h (SC-00
 | Artifact | Contents |
 |---|---|
 | [data-model.md](./data-model.md) | 9 entities, their fields, relationships, validation rules, and the day-status state machine |
-| [contracts/roadmap-schema.md](./contracts/roadmap-schema.md) | YAML schema for `roadmap.yaml` + validator rules V-01..V-12 |
+| [contracts/roadmap-schema.md](./contracts/roadmap-schema.md) | YAML schema for `roadmap.yaml` + validator rules V-01..V-24 |
 | [contracts/progress-schema.md](./contracts/progress-schema.md) | YAML schema for `progress.yaml` and the journal entry format |
 | [contracts/cli-contract.md](./contracts/cli-contract.md) | The 7 `roadmap` commands: arguments, output, exit codes |
 | [quickstart.md](./quickstart.md) | Bootstrap, validation scenarios, and the end-to-end "complete a day" walkthrough |

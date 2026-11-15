@@ -477,3 +477,67 @@ Deliberately open:
   `REPO_ROOT` to be parameterizable everywhere `check`/`complete` shell out to git/pytest, which is
   disproportionate to what it proves beyond the existing T023-T026 unit tests plus the manual
   end-to-end verification already performed on day 1. Accepted gap, not attempted.
+
+---
+
+## Amendment tasks — constitution v1.1.0 (2026-11-15)
+
+Appended, not regenerated: T001-T058 above remain the record of the original build. These
+arise from the strict repository audit of 2026-11-15 and the constitution amendment it
+produced.
+
+### Step 2 — amend spec 001
+
+- [X] T059 `spec.md`: rewrite FR-028 to the learner's real baseline (≈2 yrs applied ML/DL, a
+  completed thesis building an agent orchestrator with RAG + MCP, an MLOps internship
+  fine-tuning a local model toward a frontier baseline). Remove introductory Applied AI from
+  scope; name DSA, system design, inference internals, cloud and production engineering as the
+  actual gaps.
+- [X] T060 `spec.md`: extend the programme to 19 weeks / 133 days / 760 h (FR-001, FR-027,
+  SC-009 → 646 h core cap); add the seventh domain to FR-006/FR-008 and SC-003 (domain cap
+  40% → 30%).
+- [X] T061 `spec.md`: re-tier roles (FR-029) — Embedded ML dropped as a target, ML/MLOps leads
+  the remaining tier, FDE stays secondary; add FR-041 (Germany/Europe weighting) and FR-042
+  (NDA constraint on milestone 1, flagship deferred past week 4).
+- [X] T062 `spec.md`: add FR-037 (continuous DSA), FR-038 (eleven-section `NOTES.md`),
+  FR-039 (no day builds a milestone project), FR-040 (cloud cost/teardown), and SC-014..SC-016;
+  strengthen FR-026; record the 2026-11-15 clarification session.
+
+### Step 3 — validator and gate fixes
+
+- [X] T063 [P] `tests/test_validate.py`: failing tests for V-22 (day-level milestone
+  prohibition, including the prose-reference regression guard), V-23 (cloud cost discipline)
+  and V-24 (DSA continuity + combined effort budget), plus the strengthened V-21.
+- [X] T064 `models.py`/`loader.py`: add `dsa_hours`, `estimated_cost`, `teardown`,
+  `is_budget_setup` to `DayEntry`, all optional so no existing day entry breaks.
+- [X] T065 `validate.py`: implement V-22, V-23, V-24; strengthen V-21 to FR-026's thresholds
+  (≥6 topics, ≥3 domains per role). Registered in `ROADMAP_RULES`.
+- [X] T066 `contracts/roadmap-schema.md`, `cli-contract.md`, `plan.md`: document V-18..V-24 —
+  the contract had drifted, listing V-01..V-17 while the validator already ran to V-21.
+- [X] T067 `tests/test_cli.py`: fix `test_today_runs_under_one_second`, which measured
+  first-invoke module-import cost rather than the command's own work (1.02 s cold vs 0.35 s
+  warm). Warm up once, then measure.
+- [X] T068 `tests/test_cli.py`: mark `test_validate_strict_exits_zero_against_the_complete_roadmap`
+  `xfail(strict=True)`. The amendment deliberately made the current roadmap non-compliant;
+  strict mode means an unexpected pass fails loudly and forces the marker's removal in step 5.
+
+### Deliberately open, revised
+
+- **T027** — partially satisfied by `test_complete_a_day_end_to_end`, which reproduces
+  quickstart S-4 far enough to assert the honesty invariants (`complete` refuses a failing
+  gate; a refused day is not written to `progress.yaml`) using monkeypatched progress and
+  journal paths. The full "isolated temp git repo" version remains unbuilt for the original
+  reason: it needs `REPO_ROOT` parameterised everywhere `check`/`complete` shell out to git and
+  pytest. The test also cannot assert the exact exit code, because 1 (gate refusal) and 2
+  (dirty tree) are both legitimate and a test cannot control the repo's git state.
+
+### Known non-compliance, to be fixed in step 5
+
+`roadmap validate` currently reports **21 errors against the live roadmap, by design**:
+
+- **V-22 × 4** — days 60, 61, 66, 67 build portfolio-project code (`triage.py`, `eval_set.py`,
+  `gateway.py`, `health_check.py`). This is the audit's P0 finding, now mechanically caught.
+- **V-21 × 12** — `interview_imminent_plan` is a placeholder: 1-3 early topics per role.
+- **V-24 × 1** — DSA is scheduled as blocked consecutive days, not a continuous track.
+
+Step 5 (`roadmap.yaml` 70 → 133 days) resolves all three and flips T068's xfail.

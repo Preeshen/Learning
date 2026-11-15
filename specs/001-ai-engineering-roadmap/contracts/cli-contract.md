@@ -138,7 +138,7 @@ Exit `0` on write, `1` if the week has no recorded days.
 
 ## `roadmap validate`
 
-Runs rules V-01 to V-21 against `roadmap.yaml`, and P-01 to P-07 plus J-01 to J-03 against the
+Runs rules V-01 to V-24 against `roadmap.yaml`, and P-01 to P-07 plus J-01 to J-03 against the
 progress files.
 
 ```text
