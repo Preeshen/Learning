@@ -26,6 +26,7 @@ from tools.roadmap_cli.models import (
     Week,
 )
 from tools.roadmap_cli import validate as v
+from tools.roadmap_cli.validate import REPO_ROOT
 
 
 def make_day(**overrides) -> DayEntry:
@@ -491,3 +492,59 @@ def test_v21_thin_interview_plan_fails():
     r.interview_imminent_plan = {"agentic-ai": ["t1", "t2"]}
     findings = v.v21_interview_plan(r)
     assert any(f.rule_id == "V-21" and ">=6" in f.message for f in findings)
+
+
+# ---------------------------------------------------------------------------
+# NOTES.md completeness (Principle IV / FR-038)
+# ---------------------------------------------------------------------------
+
+def _notes(**bodies) -> str:
+    """Build a NOTES.md with the given sections filled; others present but empty."""
+    out = ["# Topic\n"]
+    for section in v.REQUIRED_NOTES_SECTIONS:
+        key = section.lower().replace(" ", "_").replace("-", "_")
+        out.append(f"## {section}\n\n{bodies.get(key, '')}\n")
+    return "\n".join(out)
+
+
+def test_notes_shipped_template_is_incomplete():
+    """The unfilled template must fail: all eleven sections present, none with a body."""
+    template = (REPO_ROOT / "tools" / "templates" / "NOTES.template.md").read_text(
+        encoding="utf-8"
+    )
+    missing = v.notes_missing_sections(template)
+    assert len(missing) == len(v.REQUIRED_NOTES_SECTIONS)
+
+
+def test_notes_guidance_comment_does_not_count_as_filled():
+    text = "# T\n\n## Learning objectives\n\n<!-- what can you do now? -->\n"
+    assert "Learning objectives" in v.notes_missing_sections(text)
+
+
+def test_notes_bare_list_skeleton_does_not_count_as_filled():
+    text = "# T\n\n## Interview questions\n\n1.\n2.\n3.\n"
+    assert "Interview questions" in v.notes_missing_sections(text)
+
+
+def test_notes_four_section_stub_reports_seven_missing():
+    """The pre-amendment stub shape: the old four headings, none of them required names."""
+    old_stub = ("# Arrays & hashing\n\n**Problem it solves**:\n\n**Mechanism**:\n\n"
+                "**Failure modes**:\n\n**Trade-offs**:\n")
+    assert len(v.notes_missing_sections(old_stub)) == 11
+
+
+def test_notes_fully_written_passes():
+    bodies = {
+        section.lower().replace(" ", "_").replace("-", "_"): f"Real prose for {section}."
+        for section in v.REQUIRED_NOTES_SECTIONS
+    }
+    assert v.notes_missing_sections(_notes(**bodies)) == []
+
+
+def test_notes_one_empty_section_is_reported():
+    bodies = {
+        section.lower().replace(" ", "_").replace("-", "_"): f"Prose for {section}."
+        for section in v.REQUIRED_NOTES_SECTIONS
+    }
+    del bodies["revision_notes"]
+    assert v.notes_missing_sections(_notes(**bodies)) == ["Revision notes"]

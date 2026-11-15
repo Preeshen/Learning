@@ -589,3 +589,54 @@ def validate_journal(progress: ProgressRecord, journal_text: str) -> list[Findin
     findings.extend(j02_ascending_order(journal_text))
     findings.extend(j03_prose_fields(journal_text))
     return findings
+
+
+# ---------------------------------------------------------------------------
+# NOTES.md completeness (constitution v1.1.0 Principle IV / FR-038)
+# ---------------------------------------------------------------------------
+
+REQUIRED_NOTES_SECTIONS = (
+    "Learning objectives",
+    "Prerequisites",
+    "Conceptual explanation",
+    "Why it matters",
+    "Internal mechanisms",
+    "Real-world applications",
+    "Alternatives and trade-offs",
+    "Failure modes and common mistakes",
+    "Interview questions",
+    "Assessment criteria",
+    "Revision notes",
+)
+
+_HTML_COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
+_SECTION_HEADING = re.compile(r"^##\s+(.+?)\s*$", re.MULTILINE)
+
+
+def notes_missing_sections(notes_text: str) -> list[str]:
+    """Return the required sections that are absent or have no body.
+
+    Guidance comments are stripped first, so a template left unfilled counts as empty.
+    A bare ordered-list skeleton ("1.\n2.\n3.") also counts as empty, since the template
+    ships one under Interview questions.
+    """
+    text = _HTML_COMMENT.sub("", notes_text)
+    bodies: dict[str, str] = {}
+    matches = list(_SECTION_HEADING.finditer(text))
+    for i, m in enumerate(matches):
+        end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
+        bodies[m.group(1).strip().lower()] = text[m.end():end]
+
+    missing = []
+    for section in REQUIRED_NOTES_SECTIONS:
+        body = bodies.get(section.lower())
+        if body is None:
+            missing.append(section)
+            continue
+        stripped = "\n".join(
+            line for line in body.splitlines()
+            if line.strip() and line.strip() not in {"1.", "2.", "3.", "-", "*"}
+        ).strip()
+        if not stripped:
+            missing.append(section)
+    return missing

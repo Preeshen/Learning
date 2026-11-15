@@ -92,10 +92,25 @@ def test_topics_due_empty_when_nothing_due():
     assert topics_due(roadmap, progress) == []
 
 
+@pytest.mark.xfail(
+    strict=True,
+    reason="Constitution v1.1.0 Principle IV raised NOTES.md from four free-form headings "
+           "to eleven required sections. Day 1's notes carry the learner's original prose "
+           "under the four closest-matching headings (4/11); the other seven are theirs to "
+           "write and must not be ghostwritten (Principle VIII). This flips to pass once "
+           "day 1's notes are completed — strict=True so that forces the marker's removal.",
+)
 def test_check_day1_all_pass():
     result = runner.invoke(app, ["check", "1"])
     assert result.exit_code == 0
     assert "day complete" in result.stdout
+
+
+def test_check_reports_notes_section_shortfall():
+    """Until day 1's notes are completed, the gate must say exactly what is missing."""
+    result = runner.invoke(app, ["check", "1"])
+    assert "notes complete" in result.stdout
+    assert "/11 sections" in result.stdout
 
 
 @pytest.mark.xfail(

@@ -23,7 +23,13 @@ from tools.roadmap_cli.loader import (
     topics_due,
 )
 from tools.roadmap_cli.models import DayEntry, ProgressStatus, Roadmap
-from tools.roadmap_cli.validate import validate_journal, validate_progress, validate_roadmap
+from tools.roadmap_cli.validate import (
+    REQUIRED_NOTES_SECTIONS,
+    notes_missing_sections,
+    validate_journal,
+    validate_progress,
+    validate_roadmap,
+)
 
 app = typer.Typer(add_completion=False)
 console = Console()
@@ -175,11 +181,20 @@ def _gate_results(r: Roadmap, day: DayEntry) -> list[tuple[str, bool, str]]:
         # A review day's prose (Constitution audit, Next week) lives in the review file
         # itself; there is no separate topic NOTES.md to check.
         notes_ok = artifact_path.exists() and artifact_path.stat().st_size > 0
-        notes_path = artifact_path
+        notes_msg = str(day.artifact)
     else:
         notes_path = test_dir / "NOTES.md"
-        notes_ok = notes_path.exists() and notes_path.stat().st_size > 0
-    results.append(("notes modified", notes_ok, str(notes_path)))
+        if not notes_path.exists():
+            notes_ok = False
+            notes_msg = f"missing — copy tools/templates/NOTES.template.md to {notes_path.name}"
+        else:
+            # Constitution v1.1.0 Principle IV / FR-038: all eleven sections, each with a body.
+            missing = notes_missing_sections(notes_path.read_text(encoding="utf-8"))
+            notes_ok = not missing
+            filled = len(REQUIRED_NOTES_SECTIONS) - len(missing)
+            notes_msg = (f"{filled}/{len(REQUIRED_NOTES_SECTIONS)} sections"
+                         + (f" — missing: {', '.join(missing)}" if missing else ""))
+    results.append(("notes complete", notes_ok, notes_msg))
 
     measurement_ok = True
     measurement_msg = "no measurement required"

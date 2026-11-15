@@ -17,7 +17,14 @@ ML and Applied AI days need their optional dependency groups the first time you 
 uv sync --extra ml --extra applied-ai   # numpy/torch/scikit-learn, fastapi, mcp, etc.
 ```
 
-Build it, verify it, write `NOTES.md`, commit, then:
+Each topic's `NOTES.md` must carry all eleven sections required by constitution Principle IV.
+Start a new topic by copying the template:
+
+```powershell
+Copy-Item tools/templates/NOTES.template.md <domain>/<topic>/NOTES.md
+```
+
+Build it, verify it, fill in `NOTES.md`, commit, then:
 
 ```powershell
 uv run roadmap check         # mechanised day-completion gate
