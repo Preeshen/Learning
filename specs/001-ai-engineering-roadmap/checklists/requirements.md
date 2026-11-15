@@ -101,3 +101,18 @@ exception.
 - Deliberately deferred to planning, not spec gaps: the roadmap's file format and directory
   layout, the per-topic repository structure, the specific DSA problem list, and the choice of
   progress-tracking mechanism.
+
+
+## Superseded (2026-11-15)
+
+The Iteration 1 and 2 records above are a dated audit trail of the original specification and
+are deliberately left unedited. The figures in them — 10 weeks, 70 days, 32 h/week, a 320 h
+budget with a 272 h core cap, six domains, six target roles — were all correct when written
+and were superseded on 2026-11-15 by the post-audit amendment under constitution v1.1.0.
+
+Current parameters: **19 weeks, 133 days, 40 h/week, 760 h with a 646 h core cap, seven
+domains, five target roles.** See the Clarifications session dated 2026-11-15 in
+[spec.md](../spec.md) for each decision and its reasoning, and the amendment task records in
+[tasks.md](../tasks.md).
+
+The checklist's verdict itself still holds: the specification passes all sixteen quality items.

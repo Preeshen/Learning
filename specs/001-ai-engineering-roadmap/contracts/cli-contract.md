@@ -23,7 +23,7 @@ within SC-001's two-minute budget — target runtime under 1 second.
 ```text
 $ roadmap today
 
-  Day 12 of 70 · Tue 2026-11-27 · weekday · 4.0 h · core · tier: primary
+  Day 12 of 133 · Thu 2026-11-27 · weekday · 5.0 h + 1.0 h DSA · core · tier: primary
   Domain: applied-ai · Topic: tool-calling
 
   OBJECTIVE
@@ -53,7 +53,7 @@ $ roadmap today
 | `--next N` | Show the next N days, for planning a weekend |
 | `--days-until-interview N` | FR-026: print the `interview_imminent_plan` drill subset for the remaining N days instead of the normal day card |
 
-Exit `0` always, unless the roadmap fails to load. When all 70 days are done it prints the
+Exit `0` always, unless the roadmap fails to load. When all 133 days are done it prints the
 programme summary and the promotion milestone status.
 
 ---
@@ -148,9 +148,9 @@ progress files.
 ```text
 $ roadmap validate
 
-  roadmap.yaml ................ 70 days · 10 weeks · 25 topics · 3 milestones
+  roadmap.yaml ................ 133 days · 19 weeks · 114 topics · 3 milestones
   [ERROR] V-02  day 34: `minimum_viable` is empty
-  [WARN]  V-14  core effort 281.0 h exceeds the 272.0 h budget by 9.0 h
+  [WARN]  V-14  core effort 655.0 h exceeds the 646.0 h cap (85% of the 760.0 h budget) by 9.0 h
   [WARN]  V-15  tier split 64 / 23 / 13 — primary exceeds target by 4 points (within ±5)
 
   1 error, 2 warnings
@@ -200,7 +200,7 @@ that writes the generated views.
 
 ```text
 $ roadmap render
-  wrote roadmap/ROADMAP.md (70 days, 10 weeks)
+  wrote roadmap/ROADMAP.md (133 days, 19 weeks)
   wrote roadmap/milestones.md (3 milestones)
 ```
 

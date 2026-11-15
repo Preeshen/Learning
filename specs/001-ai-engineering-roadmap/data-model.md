@@ -35,7 +35,7 @@ The whole programme. One per repository. Lives at `roadmap/roadmap.yaml`.
 |---|---|---|---|
 | `version` | string | yes | Schema version, currently `1` |
 | `start_date` | date | yes | `2026-11-16` |
-| `end_date` | date | yes | `2027-01-24`; must equal `start_date` + `total_days` − 1 |
+| `end_date` | date | yes | `2027-03-28`; must equal `start_date` + `total_days` − 1 |
 | `total_days` | int | yes | `70` |
 | `weekday_hours` | number | yes | `4` |
 | `weekend_hours` | number | yes | `6` |
@@ -97,6 +97,11 @@ The atomic unit of work. 70 of them. This is the entity the learner reads every 
 | `language_exception` | string | no | **Required** when `language != python` |
 | `offline` | bool | no | Defaults to `true`; `false` means the day prefers live API access |
 | `offline_fallback` | string | no | **Required** when `offline` is `false` (FR-034) |
+| `dsa_hours` | number | no | Hours of the continuous DSA track on this day (FR-037). Defaults to 0; set to 1.0 on every day. Accounted separately from `effort_hours`; V-24 checks their sum against the day-type budget |
+| `rebuilds_topic` | topic id | no | This day rebuilds an earlier from-scratch topic with a library or framework. Cross-topic, unlike `from_scratch_of`, which is why Principle III is enforceable at all here. Checked by V-25 |
+| `estimated_cost` | string | cloud days | Expected spend, stated before the exercise runs (FR-040) |
+| `teardown` | list of string | cloud days | The exact steps that remove every resource, plus the verification that they are gone (FR-040) |
+| `is_budget_setup` | bool | no | Marks the budget-alarm day. At least one cloud day must set it, and no cloud day may be sequenced before it (V-23) |
 | `serving` | string | no | **Required**, value `fastapi`, on any day wrapping an LLM call, agent, or model as a reachable service (FR-030a) |
 | `generic_concept` | string | no | **Required** on any day whose vehicle is Claude Code skills, the Claude Agent SDK, or MCP; names the transferable agentic-pattern concept being practiced (tool use, multi-step control flow, multi-agent orchestration) so the day is not graded on Claude-specific trivia (FR-030b) |
 
@@ -205,7 +210,7 @@ One of the six role families, with its derived readiness.
 
 | Field | Type | Required | Notes |
 |---|---|---|---|
-| `id` | enum | yes | `agentic-ai` \| `fde` \| `ml-engineer` \| `inference` \| `embedded-ml` \| `test-validation` |
+| `id` | enum | yes | `agentic-ai` \| `fde` \| `ml-engineer` \| `inference` \| `test-validation`. Embedded ML was dropped as a target role by FR-029 |
 | `name` | string | yes | Display name |
 | `tier` | enum | yes | `primary` \| `secondary` \| `remaining` |
 | `supporting_domains` | list of domain id | yes | Which domains serve this role |
@@ -266,7 +271,7 @@ These are computed, not written, so they cannot drift:
 |---|---|---|
 | Current day | First entry in `progress.yaml` whose status is not `complete` or `skipped` | SC-001, FR-017 re-entry |
 | Days remaining | `total_days` − count(complete) | SC-010 |
-| Core effort total | Sum of `effort_hours` where `priority == core` | SC-009 (≤ 272 h) |
+| Core effort total | Sum of `effort_hours + dsa_hours` where `priority == core` | SC-009 (≤ 646 h, derived as 85% of the budget) |
 | Domain share | count(days per domain) ÷ `total_days` | SC-003 (≤ 40%) |
 | Tier split | count(days per tier) ÷ `total_days` | SC-012 (60/25/15 ±5) |
 | Topics due | Topics whose `first_day` + `resurface_after[n]` ≤ completed-day count | FR-015 |

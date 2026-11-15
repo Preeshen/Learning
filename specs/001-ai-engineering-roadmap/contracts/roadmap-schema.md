@@ -11,10 +11,10 @@ contract fixes the on-disk shape and the validator rules.
 ```yaml
 version: 1
 start_date: 2026-11-16
-end_date: 2027-01-24
-total_days: 70
-weekday_hours: 4
-weekend_hours: 6
+end_date: 2027-03-28
+total_days: 133
+weekday_hours: 6
+weekend_hours: 5
 primary_role: agentic-ai
 secondary_role: fde
 
@@ -39,7 +39,7 @@ roles:
     supporting_domains: [ml, python]
     evidence_required:
       - One artifact measuring inference latency and memory against a baseline
-  # ... fde, ml-engineer, embedded-ml, test-validation
+  # ... fde, ml-engineer, test-validation (Embedded ML dropped by FR-029)
 
 topics:
   sliding-window:
@@ -133,7 +133,7 @@ milestones:
       - "Inference latency and memory measured before/after compression against the baseline"
       - "Model size reduction with the accuracy/latency/memory tradeoff reported, not just claimed"
       - "A systematic test/validation suite covering adversarial and edge-case inputs"
-    supports_roles: [ml-engineer, inference, embedded-ml, test-validation]
+    supports_roles: [ml-engineer, inference, test-validation]
     external: true
     record_path: promoted/README.md
 ```

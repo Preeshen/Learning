@@ -42,12 +42,12 @@ bootstrap is done.
 uv run roadmap validate --strict
 ```
 
-**Expect**: exit code `0`, and a summary line reading `70 days · 10 weeks · 25 topics ·
+**Expect**: exit code `0`, and a summary line reading `133 days · 19 weeks · 114 topics ·
 3 milestones`. Any error names the offending day and the rule id.
 
 This single command is the mechanical form of five of the spec's success criteria. If it passes,
 every day has an artifact and a gate, no domain exceeds 40% of the programme, core effort fits the
-272-hour budget, the role split is within tolerance, and every minimum-depth role has its evidence
+646-hour core cap, the role split is within tolerance, and every minimum-depth role has its evidence
 day.
 
 ### S-2 — Today's work is findable in under two minutes

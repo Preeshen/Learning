@@ -1,6 +1,6 @@
 # AI Engineering Learning Playground
 
-A 10-week, 70-day structured programme toward AI engineering interview and portfolio readiness,
+A 19-week, 133-day structured programme toward AI engineering interview and portfolio readiness,
 governed by [`.specify/memory/constitution.md`](.specify/memory/constitution.md) and specified in
 [`specs/001-ai-engineering-roadmap/`](specs/001-ai-engineering-roadmap/).
 
@@ -38,10 +38,10 @@ for every `roadmap` command.
 
 ## Layout
 
-- `roadmap/roadmap.yaml` — single source of truth for the 70-day programme (never hand-edit
+- `roadmap/roadmap.yaml` — single source of truth for the 133-day programme (never hand-edit
   `roadmap/ROADMAP.md`; it is generated)
 - `progress/` — machine-readable status (`progress.yaml`) and the prose journal (`journal.md`)
-- `python/`, `dsa/`, `git/`, `systems/`, `ml/`, `applied-ai/` — the six in-scope domains; each
-  day's artifact, test, and `NOTES.md` land under a topic subdirectory here
+- `python/`, `dsa/`, `git/`, `systems/`, `ml/`, `applied-ai/`, `cloud/` — the seven in-scope
+  domains; each day's artifact, test, and `NOTES.md` land under a topic subdirectory here
 - `promoted/README.md` — pointer records for CV projects, built in separate repositories
 - `tools/roadmap_cli/` — the `roadmap` CLI and validator

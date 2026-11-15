@@ -6,7 +6,7 @@
 
 ## Summary
 
-Build the scaffolding that makes a 10-week, 70-day AI engineering learning programme executable and
+Build the scaffolding that makes a 19-week, 133-day AI engineering learning programme executable and
 verifiable: a structured roadmap, a progress record, and a small CLI that answers "what do I build
 today?" in seconds and mechanically checks whether a day was actually completed.
 
@@ -53,9 +53,9 @@ seconds across all 70 entries so it can run in a pre-commit hook.
 proprietary datasets, or licensed course material committed (FR-035). Every artifact reproducible
 from a clean checkout. No GPU assumed.
 
-**Scale/Scope**: 70 day entries across 10 weeks and 6 domains, ~27 topics, 10 weekly review
+**Scale/Scope**: 133 day entries across 19 weeks and 7 domains, 114 topics, 19 weekly review
 checkpoints, 3 promotion milestones, 6 role-coverage mappings. The CLI is roughly 7 commands over
-~900 lines. The programme budget is 320 hours.
+~1,400 lines. The programme budget is 760 hours.
 
 ## Constitution Check
 
@@ -131,7 +131,7 @@ D:\Learning\
 ├── README.md                 # Entry point: what this repo is, how to start a day
 │
 ├── roadmap/
-│   ├── roadmap.yaml          # SOURCE OF TRUTH — 70 days, 10 weeks, topics, milestones
+│   ├── roadmap.yaml          # SOURCE OF TRUTH — 133 days, 19 weeks, topics, milestones
 │   ├── ROADMAP.md            # Generated from roadmap.yaml; never hand-edited
 │   └── milestones.md         # Generated; the 3 promotion milestones in detail
 │
@@ -195,107 +195,31 @@ tests centralised under `tests/`, learning tests colocated with their topic, per
 
 ### Day allocation
 
-Planned distribution, to be realised as concrete entries by `/speckit-tasks`:
+Realised distribution after the step-5 restructure (verified by `roadmap coverage`):
 
-| Domain | Days | % of 70 | Cap (SC-003: ≤40%) |
+| Domain | Days | % of 133 | Cap (SC-003: ≤30%) |
 |---|---|---|---|
-| Applied AI Engineering | 22 | 31% | OK |
-| DSA | 20 | 29% | OK |
-| ML & DL | 12 | 17% | OK |
-| Python depth | 8 | 11% | OK |
-| System design | 6 | 9% | OK |
-| Git | 2 | 3% | OK |
-| **Total** | **70** | **100%** | |
+| Applied AI Engineering | 38 | 29% | OK |
+| System Design | 27 | 20% | OK |
+| ML & DL (incl. MLOps and inference) | 24 | 18% | OK |
+| Data Structures & Algorithms | 20 | 15% | OK (plus 1 h/day on all 133 days) |
+| Python & software engineering | 12 | 9% | OK |
+| Cloud & Infrastructure | 9 | 7% | OK |
+| Git & Linux | 3 | 2% | OK |
+| **Total** | **133** | **100%** | |
 
-DSA's first 2 extra days (16 → 18) cover Tries and Bit Manipulation as full dedicated days rather
-than folding them into other days or cutting them to stretch material — both are genuinely tested
-at MANGOS-tier companies, just below the top-tier patterns. Funded by trimming Applied AI
-Engineering (24 → 22), which had the most slack under the 40% domain cap.
+Role-tier split, satisfying FR-025 and SC-012 (target 60 / 25 / 15, tolerance ±5 points). Per
+FR-025 a day serving several tiers counts toward the highest, so system design and Python depth
+count as primary — an agentic-AI engineer needs both:
 
-**Second correction (discovered authoring weeks 1-2)**: weeks 1 and 2's review days (days 7, 14)
-were tagged `domain: dsa` — a day's domain is a required schema field, and the review day's
-`topic` field pointed at a DSA topic being re-solved, so `dsa` seemed the natural tag. But this
-silently consumed 2 of the 18 DSA slots on review days rather than pattern-teaching days, leaving
-only 9 slots for the 11 remaining patterns (Trees II, Heaps, Backtracking, Graphs I/II, DP I/II,
-Intervals+Greedy, Tries, Bit Manipulation, Design). DSA grows 18 → 20 to absorb this, funded by
-trimming ML & DL's remaining-tier slack (14 → 12, keeping its 8 primary-tier days intact). Going
-forward (weeks 3-10), review days are tagged under whichever domain has slack that week instead of
-always `dsa`, so this doesn't recur. Tier split recomputes to primary 40 (57%) / secondary 20
-(29%) / remaining 10 (14%) — all still within SC-012's ±5-point tolerance of 60/25/15 (systems'
-tier split shifts from 4 primary/2 secondary to 4 primary/2 remaining to keep secondary from
-exceeding its tolerance band once DSA absorbs the correction).
-
-#### DSA's 18 days, by pattern (FR-009: ordered by MANGOS interview frequency)
-
-| # | Pattern | Tier | Problems |
+| Tier | Role | Days | % |
 |---|---|---|---|
-| 1 | Arrays & hashing + prefix sums | S | 4 |
-| 2 | Two pointers | S | 4 |
-| 3 | Sliding window | S | 3 |
-| 4 | Binary search (+ search-on-answer, rotated array) | A | 4 |
-| 5 | Stacks / monotonic stack | A | 3 |
-| 6 | Linked lists (reversal, fast-slow, cycle, merge-k) | A | 4 |
-| 7 | Trees I — traversals & BST properties | S | 4 |
-| 8 | Trees II — construct/serialize/LCA | S | 3 |
-| 9 | Heaps / priority queues | A | 3 |
-| 10 | Backtracking | A | 3 |
-| 11 | Graphs I — BFS/DFS, topological sort | S | 3 |
-| 12 | Graphs II — Union-Find + Dijkstra basics | S | 3 |
-| 13 | Dynamic programming I — 1D | S | 3 |
-| 14 | Dynamic programming II — 2D | S | 3 |
-| 15 | Intervals + greedy | A | 3 |
-| 16 | Tries | A | 3 |
-| 17 | Bit manipulation | A | 4 |
-| 18 | Design problems (LRU/LFU cache) | A | 1 deep problem |
+| Primary | AI / Agentic AI Engineer | 80 | 60% |
+| Secondary | Forward Deployed Engineer | 31 | 23% |
+| Remaining | ML/MLOps, Inference, AI Test Validation | 22 | 17% |
 
-Tiers S (near-certain) get double coverage via the two-part split (e.g., Trees I/II, Graphs I/II,
-DP I/II); Tier A (very common) get one dedicated day each. Deliberately deferred to optional/stretch
-material in weeks 6–7 rather than given a core slot: segment/Fenwick trees, string-matching
-algorithms (KMP, Rabin-Karp), and pure number theory — genuinely asked at the Google/NVIDIA tier,
-but lower-frequency than everything above, and the 18-day core budget is spent on higher-certainty
-coverage first (FR-007's core/optional split exists for exactly this trade-off).
-
-#### Applied AI Engineering's 22 days, by subtopic
-
-| # | Day's focus | Requirement served |
-|---|---|---|
-| 1 | LLM API basics & structured output | FR-030 |
-| 2 | Cost/latency instrumentation & token budgeting | FR-030 |
-| 3 | Prompt engineering & eval-harness basics | FR-030 |
-| 4 | Tool-calling loop from scratch | FR-030 |
-| 5 | Tool-calling behind FastAPI | FR-030a |
-| 6 | Retrieval I — chunking & embeddings from scratch | FR-030 |
-| 7 | Retrieval II — vector search + hybrid retrieval | FR-030 |
-| 8 | Retrieval evaluation (recall/faithfulness harness) | FR-030 |
-| 9 | Multi-step agent control flow / planning loop | FR-030 |
-| 10 | Multi-agent orchestration | FR-030 |
-| 11 | Claude Code skills as practice vehicle | FR-030b |
-| 12 | Claude Agent SDK | FR-030b |
-| 13 | MCP server/client | FR-030b |
-| 14 | Malformed/failing tool-call recovery & refusal handling | FR-030 |
-| 15 | Systematic eval of non-deterministic systems (LLM-as-judge pitfalls) | FR-030, test-validation evidence |
-| 16 | Inference optimization/quantization practice | FR-032 (inference evidence); feeds milestone `compression-validation-suite` |
-| 17 | Red-teaming / adversarial prompt testing | test-validation evidence |
-| 18 | Rate limiting / backoff / caching | feeds milestone `inference-gateway` |
-| 19 | Milestone build: `code-review-triage-agent` scaffolding | milestone prerequisite |
-| 20 | Milestone build: `code-review-triage-agent` eval set + precision/recall scoring | milestone prerequisite |
-| 21 | Milestone build: `inference-gateway` scaffolding | milestone prerequisite |
-| 22 | Milestone build: `inference-gateway` fallback/health-check + load test | milestone prerequisite |
-
-Every day maps to a named requirement; unlike DSA, no subtopic here is double-covered, so this
-22-day set has no further slack to trim without dropping a requirement. The 2 days moved to DSA
-came from the original 24-day figure's unallocated buffer, not from any of the above.
-
-Role-tier split, satisfying FR-025 and SC-012 (target 60 / 25 / 15, tolerance ±5 points):
-
-| Tier | Role | Days | % | Composition |
-|---|---|---|---|---|
-| Primary | AI / Agentic AI Engineer | 40 | 57% | Applied AI 22, ML 8, Python 6, Systems 4 |
-| Secondary | FDE | 20 | 29% | DSA 20 |
-| Remaining | ML / Inference / Embedded / Test-validation | 10 | 14% | ML 4, Python 2, Git 2, Systems 2 |
-
-Effort budget: 50 weekday entries at 4 h and 20 weekend entries at 6 h = 320 h. At least 12 entries
-must be marked `optional` so that core-day effort lands at or below 272 h (SC-009).
+DSA is a continuous daily track rather than blocked days (FR-037): `dsa_hours: 1.0` on all 133
+days, plus 20 dedicated pattern days interleaved so no run exceeds 2 consecutive.
 
 ## Phase 1 Design Artifacts
 
@@ -319,7 +243,7 @@ must be marked `optional` so that core-day effort lands at or below 272 h (SC-00
 
 Three things were deliberately **not** built, to keep this proportionate: no database (plain files),
 no web UI (the CLI is enough for one user), and no real spaced-repetition algorithm (R-004 — ~25
-topics over a fixed 10-week horizon does not justify SM-2 or FSRS).
+topics over a fixed 19-week horizon does not justify SM-2 or FSRS).
 
 ## Post-Design Constitution Re-Check
 

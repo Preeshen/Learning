@@ -14,7 +14,7 @@ human-readable `roadmap/ROADMAP.md` is **generated** from it and committed along
 edited by hand except `roadmap.yaml`.
 
 **Rationale**: Five success criteria are counting criteria — SC-002 (100% of days have an artifact
-and a gate), SC-003 (no domain exceeds 40% of days), SC-009 (core-day effort ≤ 272 h), SC-012
+and a gate), SC-003 (no domain exceeds 30% of days), SC-009 (core-day effort ≤ 646 h), SC-012
 (role-tier split within 5 points of 60/25/15), SC-013 (each minimum-depth role has ≥1 artifact).
 Verifying these by hand across 70 entries is guaranteed to drift the moment the roadmap is edited.
 A structured source makes them a single validator run. The generated Markdown preserves SC-001
@@ -91,7 +91,7 @@ completed days keeps the interval proportional to actual practice, which is what
 
 - *A real SRS algorithm (SM-2, FSRS)*. Rejected as disproportionate: it optimises per-item recall
   probability over hundreds of items, where this programme has roughly 25 topics and a fixed
-  10-week horizon. The weekly checkpoint is a coarse enough instrument that the extra precision
+  19-week horizon. The weekly checkpoint is a coarse enough instrument that the extra precision
   would not change which topics get re-solved.
 - *Calendar-day intervals*. Rejected per the rationale above.
 - *Ad-hoc "revisit when it feels shaky"*. Rejected: Principle VI exists precisely because
