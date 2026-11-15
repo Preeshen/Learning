@@ -1,5 +1,9 @@
 """Tests for the FR-035 content policy: secrets, licensed material, NDA analogues.
 
+roadmap-policy: ignore-file -- this file necessarily contains synthetic secret-shaped
+strings, a pasted-looking problem statement, and NDA-adjacent wording, because those are
+exactly what it tests. Every credential here is fabricated.
+
 A scan that cries wolf gets bypassed, so the negative cases below matter as much as the
 positive ones. Every secret-shaped string here is synthetic.
 """

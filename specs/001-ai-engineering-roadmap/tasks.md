@@ -665,10 +665,18 @@ definitions.
 - [X] T087 Documented both commands in `contracts/cli-contract.md` (seven commands -> nine)
   and in the README session flow, including hook installation.
 
-### Still open after round 2
+- [X] T088 **L2 — console mojibake fixed.** Windows stdout was cp1252, so every command's
+  middle dots, em-dashes and box-drawing characters rendered as replacement characters.
+  `_force_utf8_stdio()` sets the console code page to 65001 via kernel32 and reconfigures
+  Python's streams to UTF-8 with `errors="replace"`. Every call is guarded so this can never
+  be the reason a command fails. 3 tests, including a stream whose `reconfigure` attribute
+  exists but is not callable.
+- [X] T089 Added an explicit per-file opt-out to the content scan
+  (`roadmap-policy: ignore-file`), after the scanner correctly flagged its own test
+  fixtures. The marker must appear in the file's own text, not in configuration, so an
+  exemption is reviewable in the diff that relies on it.
 
-- **L2 — console mojibake.** The middle dot renders as a replacement character under the
-  Windows console's cp1252 default. Cosmetic, affects every command's output, not yet fixed.
+### Still open after round 2
 - **T027** remains partially satisfied, as recorded in round 1.
 - **Day 1's notes** remain 4/11; `roadmap audit` now reports it, and
   `test_check_day1_all_pass` stays `xfail(strict=True)` until the learner writes them.

@@ -34,6 +34,33 @@ from tools.roadmap_cli.validate import (
 )
 
 app = typer.Typer(add_completion=False)
+def _force_utf8_stdio() -> None:
+    """Make non-ASCII output readable on Windows.
+
+    The Windows console defaults to a legacy code page (cp1252 here), which mangles the
+    middle dots and box-drawing characters this CLI prints — every command's output was
+    showing replacement characters. Two things are needed: tell the console itself to use
+    UTF-8, and tell Python's streams to encode as UTF-8. `errors="replace"` keeps a stray
+    unencodable character from crashing a command outright.
+
+    Every call is guarded: this must never be the reason a command fails.
+    """
+    if sys.platform == "win32":  # pragma: no cover - platform-specific
+        try:
+            import ctypes
+
+            ctypes.windll.kernel32.SetConsoleOutputCP(65001)
+            ctypes.windll.kernel32.SetConsoleCP(65001)
+        except Exception:
+            pass
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, OSError, TypeError, ValueError):
+            pass
+
+
+_force_utf8_stdio()
 console = Console()
 
 JOURNAL_PATH = REPO_ROOT / "progress" / "journal.md"
@@ -586,6 +613,8 @@ def _scan_paths(paths: list[Path]) -> list[tuple[str, str, str]]:
         try:
             text = path.read_text(encoding="utf-8")
         except (UnicodeDecodeError, OSError):
+            continue
+        if policy.is_ignored(text):
             continue
         for label in policy.find_secrets(text):
             findings.append(("BLOCK", rel, f"possible secret: {label}"))

@@ -247,6 +247,11 @@ that cries wolf gets bypassed, and these two classes are heuristic by nature.
 The detection lists in `tools/roadmap_cli/policy.py` are meant to be edited as the
 programme goes on.
 
+A file may opt out entirely by containing `roadmap-policy: ignore-file` in its first 40
+lines, with a reason. The marker must live in the file itself rather than in configuration,
+so an exemption is reviewable in the same diff that relies on it. The canonical case is a
+scanner's own test fixtures, which necessarily contain secret-shaped strings.
+
 ---
 
 ## `roadmap audit`

@@ -87,6 +87,21 @@ NDA_DISCUSSION_ALLOWLIST = (
 )
 
 
+# A file may opt out, but only by saying so in its own text and therefore in the diff.
+# The canonical case is a scanner's own test fixtures; the learner will have others.
+POLICY_IGNORE_MARKER = "roadmap-policy: ignore-file"
+
+
+def is_ignored(text: str) -> bool:
+    """True when a file explicitly opts out of the content scan.
+
+    Deliberately requires the marker to be visible in the file rather than configured
+    elsewhere: an exemption should be reviewable in the same diff that relies on it.
+    """
+    head = "\n".join(text.splitlines()[:40])
+    return POLICY_IGNORE_MARKER in head
+
+
 def find_secrets(text: str) -> list[str]:
     """Return a label per secret-shaped match. Empty list means nothing matched."""
     hits = [label for label, pattern in SECRET_PATTERNS if pattern.search(text)]

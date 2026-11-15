@@ -254,3 +254,37 @@ def test_render_check_passes_when_in_sync():
     runner.invoke(app, ["render"])
     result = runner.invoke(app, ["render", "--check"])
     assert result.exit_code == 0
+
+
+# ---------------------------------------------------------------------------
+# L2: non-ASCII output on a legacy Windows code page
+# ---------------------------------------------------------------------------
+
+def test_force_utf8_stdio_is_safe_to_call_repeatedly():
+    """It runs at import time on every invocation and must never fail a command."""
+    from tools.roadmap_cli.cli import _force_utf8_stdio
+
+    _force_utf8_stdio()
+    _force_utf8_stdio()
+
+
+def test_force_utf8_stdio_tolerates_streams_without_reconfigure(monkeypatch):
+    """Captured or wrapped streams have no reconfigure(); that must not raise."""
+    import io
+
+    from tools.roadmap_cli.cli import _force_utf8_stdio
+
+    class Bare(io.StringIO):
+        reconfigure = None  # attribute exists but is not callable
+
+    monkeypatch.setattr("sys.stdout", Bare())
+    monkeypatch.setattr("sys.stderr", Bare())
+    _force_utf8_stdio()
+
+
+def test_cli_output_uses_real_separators_not_replacement_chars():
+    """The day card separates fields with a middle dot; it must survive to stdout."""
+    result = runner.invoke(app, ["today"])
+    assert result.exit_code == 0
+    assert "·" in result.stdout
+    assert "�" not in result.stdout
